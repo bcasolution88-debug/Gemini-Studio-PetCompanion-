@@ -1,0 +1,6 @@
+{
+  "name": "Pet Companion Platform",
+  "description": "A comprehensive pet companion and adoption platform with AI-powered care tools, community Q&A, and real-time pet tracking.",
+  "requestFramePermissions": ["geolocation", "camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

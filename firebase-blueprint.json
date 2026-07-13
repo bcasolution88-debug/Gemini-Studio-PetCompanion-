@@ -1,0 +1,152 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "User preferences and settings",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "preferences": { "type": "object" },
+        "interactedPets": { "type": "array" }
+      },
+      "required": ["userId"]
+    },
+    "pet": {
+      "title": "Pet",
+      "description": "Pet information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "breed": { "type": "string" },
+        "age": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "question": {
+      "title": "Question",
+      "description": "QA Question",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "author": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["title", "author", "status"]
+    },
+    "answer": {
+      "title": "Answer",
+      "description": "QA Answer",
+      "type": "object",
+      "properties": {
+        "questionId": { "type": "string" },
+        "author": { "type": "string" },
+        "content": { "type": "string" },
+        "upvotes": { "type": "number" }
+      },
+      "required": ["questionId", "author", "content"]
+    },
+    "healthRecord": {
+      "title": "Health Record",
+      "description": "Vaccination and check-up records",
+      "type": "object",
+      "properties": {
+        "petId": { "type": "string" },
+        "type": { "type": "string" },
+        "date": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["petId", "type", "date"]
+    },
+    "healthJournalEntry": {
+      "title": "Health Journal Entry",
+      "description": "Daily pet health log",
+      "type": "object",
+      "properties": {
+        "petId": { "type": "string" },
+        "date": { "type": "string" },
+        "activity": { "type": "string" },
+        "weight": { "type": "number" },
+        "mood": { "type": "string" }
+      },
+      "required": ["petId", "date", "activity", "weight", "mood"]
+    },
+    "dailyWisdom": {
+      "title": "Daily Pet Wisdom",
+      "description": "A daily encouraging tip about pet care",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "tip": { "type": "string" }
+      },
+      "required": ["date", "tip"]
+    },
+    "petMemory": {
+      "title": "Pet Memory",
+      "description": "A stored moment of a pet",
+      "type": "object",
+      "properties": {
+        "petId": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "caption": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["petId", "imageUrl", "createdAt"]
+    },
+    "urgentRequest": {
+      "title": "Urgent Request",
+      "description": "Urgent pet health help request",
+      "type": "object",
+      "properties": {
+        "petId": { "type": "string" },
+        "petName": { "type": "string" },
+        "symptoms": { "type": "string" },
+        "urgency": { "type": "string" },
+        "userId": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["petId", "symptoms", "userId", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "User profile collection"
+    },
+    "/pets/{petId}": {
+      "schema": "pet",
+      "description": "Pet collection"
+    },
+    "/questions/{questionId}": {
+      "schema": "question",
+      "description": "Question collection"
+    },
+    "/answers/{answerId}": {
+      "schema": "answer",
+      "description": "Answer collection"
+    },
+    "/healthRecords/{recordId}": {
+      "schema": "healthRecord",
+      "description": "Health record collection"
+    },
+    "/healthJournalEntries/{entryId}": {
+      "schema": "healthJournalEntry",
+      "description": "Health journal entry collection"
+    },
+    "/dailyWisdom/{docId}": {
+      "schema": "dailyWisdom",
+      "description": "Collection for daily pet tips"
+    },
+    "/petMemories/{memoryId}": {
+      "schema": "petMemory",
+      "description": "Pet memories gallery"
+    },
+    "/urgentRequests/{requestId}": {
+      "schema": "urgentRequest",
+      "description": "Collection for urgent help requests"
+    }
+  }
+}
+

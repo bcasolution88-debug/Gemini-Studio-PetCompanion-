@@ -160,7 +160,8 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
       const data = await response.json();
       setResults(data);
 
-      // Save quiz completion flag to dispatch global state
+      // Save quiz completion flag and full answers to dispatch global state
+      localStorage.setItem('pet_adoption_quiz_answers', JSON.stringify(answers));
       localStorage.setItem('compatibility_quiz_completed', 'true');
       window.dispatchEvent(new CustomEvent('compatibility-quiz-completed'));
     } catch (err: any) {

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Menu, X, Users, Heart, Bot, MapPin, Search } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Users, Heart, Bot, MapPin, Search, Volume2, VolumeX } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import UserAuth from './UserAuth';
 import { useLanguage } from '../lib/LanguageContext';
@@ -7,6 +7,23 @@ import { useLanguage } from '../lib/LanguageContext';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    try {
+      return localStorage.getItem('sound_enabled') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
+  const toggleSound = () => {
+    const newVal = !soundEnabled;
+    setSoundEnabled(newVal);
+    try {
+      localStorage.setItem('sound_enabled', newVal ? 'true' : 'false');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const navLinks = [
     { name: t('Community', '社区互动'), icon: Users, href: '/community' },
@@ -59,6 +76,13 @@ export default function Navbar() {
             </button>
 
              <ThemeToggle />
+             <button
+               onClick={toggleSound}
+               className="p-1.5 text-stone-500 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400 rounded-full transition-colors cursor-pointer"
+               title={soundEnabled ? t('Mute Interactive Sounds', '静音微交互音效') : t('Unmute Interactive Sounds', '开启微交互音效')}
+             >
+               {soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+             </button>
              <UserAuth />
            </div>
 
@@ -105,6 +129,13 @@ export default function Navbar() {
             </button>
             <div className="flex items-center gap-4">
               <ThemeToggle />
+              <button
+                onClick={toggleSound}
+                className="p-1.5 text-stone-500 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400 rounded-full transition-colors cursor-pointer"
+                title={soundEnabled ? t('Mute Interactive Sounds', '静音微交互音效') : t('Unmute Interactive Sounds', '开启微交互音效')}
+              >
+                {soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+              </button>
               <UserAuth />
             </div>
           </div>

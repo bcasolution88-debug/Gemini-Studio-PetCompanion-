@@ -16,3 +16,11 @@ export function calculateAge(birthDate: string): string {
   
   return `${years} years, ${months} months`;
 }
+
+export function isSoundEnabled(): boolean {
+  try {
+    return localStorage.getItem('sound_enabled') !== 'false';
+  } catch {
+    return true;
+  }
+}

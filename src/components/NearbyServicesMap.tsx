@@ -119,6 +119,10 @@ export default function NearbyServicesMap() {
   const { t } = useLanguage();
   const [coords, setCoords] = useState<[number, number]>([37.7749, -122.4194]); // SF default
   const [locationState, setLocationState] = useState<'requesting' | 'success' | 'fallback' | 'loading'>('requesting');
+  const [geoipCity, setGeoipCity] = useState<string | null>(null);
+  const [manualSearchQuery, setManualSearchQuery] = useState('');
+  const [manualSearchLoading, setManualSearchLoading] = useState(false);
+  const [manualSearchError, setManualSearchError] = useState<string | null>(null);
   const [places, setPlaces] = useState<NearbyPlace[]>([]);
   const [activeTab, setActiveTab] = useState<'all' | 'clinic' | 'store'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -153,12 +157,63 @@ export default function NearbyServicesMap() {
   const mapRef = useRef<L.Map | null>(null);
   const markersGroupRef = useRef<L.LayerGroup | null>(null);
 
-  const fetchGeolocation = () => {
+  const handleManualLocationSearch = async (query: string) => {
+    if (!query.trim()) return;
+    setManualSearchLoading(true);
+    setManualSearchError(null);
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`);
+      const data = await res.json();
+      if (data && data.length > 0) {
+        const first = data[0];
+        const lat = parseFloat(first.lat);
+        const lon = parseFloat(first.lon);
+        setCoords([lat, lon]);
+        setGeoipCity(first.display_name);
+        setLocationState('success');
+        const loaded = generateNearbyPlaces(lat, lon);
+        setPlaces(loaded);
+      } else {
+        setManualSearchError(t('Location not found. Try another city.', '未找到该位置，请尝试其他城市。'));
+      }
+    } catch (err) {
+      console.error('Error querying Nominatim geocoder:', err);
+      setManualSearchError(t('Failed to search location.', '搜索位置失败，请重试。'));
+    } finally {
+      setManualSearchLoading(false);
+    }
+  };
+
+  const fetchGeolocation = async () => {
     setLocationState('loading');
+
+    const handleGeoIPFallback = async () => {
+      try {
+        const res = await fetch('/api/geoip');
+        const data = await res.json();
+        if (data && (data.status === 'success' || data.status === 'fallback')) {
+          setCoords([data.lat, data.lon]);
+          if (data.city) {
+            setGeoipCity(`${data.city}, ${data.region || ''}`);
+          }
+          setLocationState('success');
+          const loaded = generateNearbyPlaces(data.lat, data.lon);
+          setPlaces(loaded);
+          return true;
+        }
+      } catch (err) {
+        console.error('Failed to fetch geoip fallback:', err);
+      }
+      return false;
+    };
+
     if (!navigator.geolocation) {
-      setLocationState('fallback');
-      const loaded = generateNearbyPlaces(37.7749, -122.4194);
-      setPlaces(loaded);
+      const ok = await handleGeoIPFallback();
+      if (!ok) {
+        setLocationState('fallback');
+        const loaded = generateNearbyPlaces(37.7749, -122.4194);
+        setPlaces(loaded);
+      }
       return;
     }
 
@@ -167,17 +222,21 @@ export default function NearbyServicesMap() {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
         setCoords([userLat, userLng]);
+        setGeoipCity(null); // High accuracy GPS
         setLocationState('success');
         const loaded = generateNearbyPlaces(userLat, userLng);
         setPlaces(loaded);
       },
-      (error) => {
-        console.warn('Geolocation error, falling back to default:', error);
-        setLocationState('fallback');
-        const loaded = generateNearbyPlaces(37.7749, -122.4194);
-        setPlaces(loaded);
+      async (error) => {
+        console.warn('Geolocation error, trying GeoIP fallback:', error);
+        const ok = await handleGeoIPFallback();
+        if (!ok) {
+          setLocationState('fallback');
+          const loaded = generateNearbyPlaces(37.7749, -122.4194);
+          setPlaces(loaded);
+        }
       },
-      { timeout: 8000, enableHighAccuracy: true }
+      { timeout: 6000, enableHighAccuracy: true }
     );
   };
 
@@ -205,7 +264,25 @@ export default function NearbyServicesMap() {
     // Fetch geolocation and nearby data on mount
     fetchGeolocation();
 
+    // Setup ResizeObserver for map parent container to prevent rendering gaps
+    const parent = mapContainerRef.current.parentElement;
+    let debounceTimer: NodeJS.Timeout;
+    let observer: ResizeObserver | null = null;
+    if (parent) {
+      observer = new ResizeObserver(() => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          map.invalidateSize({ animate: true });
+        }, 150);
+      });
+      observer.observe(parent);
+    }
+
     return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+      clearTimeout(debounceTimer);
       map.remove();
       mapRef.current = null;
     };
@@ -343,6 +420,54 @@ export default function NearbyServicesMap() {
             />
           </div>
 
+          {/* Location Status & Manual Geocode Form */}
+          <div className="bg-stone-50 dark:bg-stone-900 border border-stone-150 dark:border-stone-800 p-3.5 rounded-2xl space-y-2.5 shadow-inner">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">{t('Map Focus Center', '当前地图中心焦点')}</span>
+              {locationState === 'success' && (
+                <span className="flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  {geoipCity ? t('Resolved', '已自动解析') : t('GPS High Accuracy', '高精度 GPS')}
+                </span>
+              )}
+            </div>
+            {geoipCity && (
+              <p className="text-xs font-black text-rose-500 truncate" title={geoipCity}>{geoipCity}</p>
+            )}
+            {!geoipCity && (
+              <p className="text-xs font-bold text-stone-600 dark:text-stone-300 truncate">
+                Lat: {coords[0].toFixed(4)}, Lng: {coords[1].toFixed(4)}
+              </p>
+            )}
+
+            {/* Manual Location Input Form */}
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleManualLocationSearch(manualSearchQuery);
+              }}
+              className="flex gap-1.5"
+            >
+              <input
+                type="text"
+                placeholder={t('Enter City or Zipcode...', '输入城市、省份或邮编...')}
+                value={manualSearchQuery}
+                onChange={(e) => setManualSearchQuery(e.target.value)}
+                className="flex-1 px-3 py-1.5 text-xs bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-stone-100 animate-fade-in"
+              />
+              <button
+                type="submit"
+                disabled={manualSearchLoading}
+                className="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 disabled:bg-stone-300 dark:disabled:bg-stone-800 text-white text-xs font-black rounded-xl transition-all cursor-pointer flex items-center justify-center min-w-[50px] shadow-sm hover:shadow-rose-500/10 active:scale-95"
+              >
+                {manualSearchLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : t('Set', '定位')}
+              </button>
+            </form>
+            {manualSearchError && (
+              <p className="text-[10px] font-bold text-rose-500 animate-pulse">{manualSearchError}</p>
+            )}
+          </div>
+
           <div className="flex gap-2">
             {(['all', 'clinic', 'store'] as const).map((tab) => (
               <button
@@ -438,9 +563,9 @@ export default function NearbyServicesMap() {
               <div className="flex items-start gap-3">
                 <div className={`p-2.5 rounded-xl text-white ${selectedPlace.type === 'clinic' ? 'bg-rose-500' : 'bg-purple-500'}`}>
                   {selectedPlace.type === 'clinic' ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l1.5-4.5 2 9 1.5-4.5h3.27"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l1.5-4.5 2 9 1.5-4.5h3.27"/></svg>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                   )}
                 </div>
                 <div>

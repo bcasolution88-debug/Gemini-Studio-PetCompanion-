@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { Pet } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
 import { Sparkles, Share2, Video, Loader2, CheckCircle, Facebook, Twitter, Mail, Link, Copy, X } from 'lucide-react';
-import { calculateAge } from '../lib/utils';
+import { calculateAge, isSoundEnabled } from '../lib/utils';
 
 interface PetCardProps {
   pet: Pet;
@@ -21,18 +21,68 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const quizData = localStorage.getItem('adoption_quiz_answers');
-    if (quizData) {
-      const quizProfile = JSON.parse(quizData);
-      fetch('/api/match-score', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pet, quizProfile })
-      })
-      .then(res => res.json())
-      .then(data => setMatchScore(data))
-      .catch(console.error);
-    }
+    const fetchScore = () => {
+      const detailedQuiz = localStorage.getItem('pet_adoption_quiz_answers');
+      const basicQuiz = localStorage.getItem('adoption_quiz_answers');
+
+      if (detailedQuiz) {
+        try {
+          const quizAnswers = JSON.parse(detailedQuiz);
+          fetch('/api/calculate-match', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pet, quizAnswers })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to fetch detailed match');
+            return res.json();
+          })
+          .then(data => {
+            setMatchScore({
+              score: data.score,
+              reason: data.explanation || 'Perfect match for your lifestyle!'
+            });
+          })
+          .catch(console.error);
+        } catch (e) {
+          console.error(e);
+        }
+      } else if (basicQuiz) {
+        try {
+          const quizProfile = JSON.parse(basicQuiz);
+          fetch('/api/match-score', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pet, quizProfile })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to fetch basic match');
+            return res.json();
+          })
+          .then(data => {
+            setMatchScore({
+              score: data.score,
+              reason: data.reason || 'High compatibility match.'
+            });
+          })
+          .catch(console.error);
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        setMatchScore(null);
+      }
+    };
+
+    fetchScore();
+
+    window.addEventListener('compatibility-quiz-completed', fetchScore);
+    window.addEventListener('adoption-quiz-completed', fetchScore);
+    
+    return () => {
+      window.removeEventListener('compatibility-quiz-completed', fetchScore);
+      window.removeEventListener('adoption-quiz-completed', fetchScore);
+    };
   }, [pet]);
 
   const breedText = pet.breed ? ` (${pet.breed})` : '';
@@ -68,7 +118,7 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
 
       // Soft audio feedback for premium interaction
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      if (AudioContextClass) {
+      if (AudioContextClass && isSoundEnabled()) {
         const ctx = new AudioContextClass();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -132,9 +182,23 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
       className="bg-white dark:bg-stone-800 rounded-2xl shadow-sm border border-orange-100 dark:border-stone-700 overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer relative"
     >
       {matchScore && (
-        <div className="absolute top-3 right-3 bg-white/90 dark:bg-stone-900/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 border border-stone-100 dark:border-stone-700 z-10">
-          <Sparkles className="w-3 h-3 text-rose-500" />
-          <span className="text-xs font-bold text-stone-900 dark:text-stone-100">{matchScore.score}%</span>
+        <div 
+          className="absolute top-3 right-3 z-20 group/tooltip"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-white/95 dark:bg-stone-900/95 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 border border-rose-200 dark:border-rose-950 shadow-sm cursor-help hover:scale-105 transition-transform">
+            <Sparkles className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
+            <span className="text-xs font-black text-rose-600 dark:text-rose-400">{matchScore.score}%</span>
+          </div>
+          
+          {/* Tooltip Content */}
+          <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-stone-950/95 dark:bg-stone-900/95 backdrop-blur-md text-white dark:text-stone-100 text-[11px] rounded-2xl shadow-xl border border-stone-800/80 pointer-events-none opacity-0 translate-y-1 group-hover/tooltip:opacity-100 group-hover/tooltip:translate-y-0 transition-all duration-250 z-30 leading-relaxed font-bold">
+            <div className="flex items-center gap-1.5 mb-1.5 text-rose-400 font-extrabold uppercase tracking-wider text-[9px]">
+              <Sparkles className="w-3 h-3 text-rose-400 fill-current" />
+              <span>{t('AI Match Analysis', 'AI 匹配度智能分析')}</span>
+            </div>
+            {matchScore.reason}
+          </div>
         </div>
       )}
       <button 

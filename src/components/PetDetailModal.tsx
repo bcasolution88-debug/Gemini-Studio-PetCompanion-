@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Phone, Heart, Activity, FileText, Mail, User, CheckCircle, MessageSquare, Lightbulb, Calendar, Printer } from 'lucide-react';
+import { X, Phone, Heart, Activity, FileText, Mail, User, CheckCircle, MessageSquare, Lightbulb, Calendar, Printer, Sparkles } from 'lucide-react';
 import { Pet, HealthJournalEntry } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
 import PersonalityRadar from './PersonalityRadar';
@@ -9,6 +9,7 @@ import AvatarGenerator from './AvatarGenerator';
 import GrowthTimeline from './GrowthTimeline';
 import ApplyToAdoptForm from './ApplyToAdoptForm';
 import PetFlyerGenerator from './PetFlyerGenerator';
+import PetMatchingQuiz from './PetMatchingQuiz';
 
 interface PetDetailModalProps {
   pet: Pet;
@@ -29,12 +30,54 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { t } = useLanguage();
 
+  const [matchLoading, setMatchLoading] = useState(false);
+  const [matchResult, setMatchResult] = useState<{ score: number; explanation: string } | null>(null);
+  const [hasAnswers, setHasAnswers] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+
+  const checkQuizStatus = async () => {
+    const saved = localStorage.getItem('pet_adoption_quiz_answers');
+    if (saved) {
+      setHasAnswers(true);
+      setMatchLoading(true);
+      try {
+        const quizAnswers = JSON.parse(saved);
+        const res = await fetch('/api/calculate-match', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pet, quizAnswers })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setMatchResult(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setMatchLoading(false);
+      }
+    } else {
+      setHasAnswers(false);
+      setMatchResult(null);
+    }
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem('pet_health_journal_entries');
     if (saved) {
       const allEntries: HealthJournalEntry[] = JSON.parse(saved);
       setEntries(allEntries.filter(e => e.petId === pet.id));
     }
+    
+    checkQuizStatus();
+
+    const handleQuizCompleted = () => {
+      checkQuizStatus();
+    };
+    window.addEventListener('compatibility-quiz-completed', handleQuizCompleted);
+    return () => {
+      window.removeEventListener('compatibility-quiz-completed', handleQuizCompleted);
+    };
   }, [pet.id]);
 
 
@@ -156,6 +199,63 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                 </div>
                 <PersonalizedRecommendations pet={pet} />
               </div>
+            )}
+
+            {/* AI Compatibility Match Score & Explanation Card */}
+            <div className="p-5 bg-gradient-to-br from-rose-50/40 to-orange-50/40 dark:from-stone-900/40 dark:to-stone-850/40 border border-orange-100/60 dark:border-stone-850 rounded-2xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 bg-rose-500 text-white rounded-lg">
+                    <Sparkles className="w-4 h-4 animate-pulse" />
+                  </div>
+                  <div>
+                    <h4 className="font-extrabold text-sm text-stone-900 dark:text-white">{t('AI Compatibility Matching', 'AI 契合度匹配分值')}</h4>
+                    <p className="text-[9px] text-stone-400 font-bold uppercase tracking-wider">{t('Cognitive Lifestyle Matcher', '生活作息与环境比对顾问')}</p>
+                  </div>
+                </div>
+                {hasAnswers && matchResult && (
+                  <div className="flex items-center gap-1.5 bg-rose-500/10 text-rose-500 dark:bg-rose-500/20 px-3 py-1 rounded-full text-xs font-black">
+                    <span>{t('Match Score', '契合度')}</span>
+                    <span className="text-sm font-black text-rose-600 dark:text-rose-400">{matchResult.score}%</span>
+                  </div>
+                )}
+              </div>
+
+              {matchLoading ? (
+                <div className="flex items-center justify-center py-4 gap-2">
+                  <div className="w-4 h-4 border-2 border-rose-500 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-xs text-stone-400 font-semibold">{t('Calculating compatibility...', '正在为您精密比对生活作息与环境...')}</span>
+                </div>
+              ) : hasAnswers && matchResult ? (
+                <div className="space-y-2">
+                  <div className="p-3.5 bg-white/75 dark:bg-stone-900/60 border border-orange-100/40 dark:border-stone-800 rounded-xl">
+                    <p className="text-xs text-stone-700 dark:text-stone-300 font-bold leading-relaxed whitespace-pre-line">
+                      {matchResult.explanation}
+                    </p>
+                  </div>
+                  <p className="text-[9px] text-stone-400 text-center font-bold">
+                    💡 {t('Compatibility score calculated from your saved lifestyle preferences.', '以上匹配度由 AI 基于您填写的住房环境、独处时长及精力水平多维评估计算得出。')}
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center py-3 space-y-3">
+                  <p className="text-xs text-stone-500 dark:text-stone-400 font-semibold max-w-md mx-auto">
+                    {t('Want to see how compatible you are with this pet? Answer a quick 6-question quiz about your environment and daily schedule to unlock a smart match score and tailored advice!', '想知道您与这只爱宠有多合拍吗？只需填写 6 道生活问答，即可直接在卡片上解锁双子星智能匹配契合度与有温度的匹配解析！')}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowQuiz(true)}
+                    className="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white text-xs font-black px-4 py-2 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-sm shadow-rose-500/10 cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                    {t('Start Match Quiz', '开启智能适配度测评')}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {showQuiz && (
+              <PetMatchingQuiz onClose={() => { setShowQuiz(false); checkQuizStatus(); }} />
             )}
 
             {/* Inquire Action Block */}

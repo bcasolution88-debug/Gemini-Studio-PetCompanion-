@@ -7,6 +7,7 @@ import CameraCapture from './CameraCapture';
 import { Pet } from '../types';
 import { MOCK_PETS } from '../data/pets';
 import { useLanguage } from '../lib/LanguageContext';
+import { isSoundEnabled } from '../lib/utils';
 
 interface AddPetModalProps {
   isOpen: boolean;
@@ -82,7 +83,7 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
     // Trigger local audio effect for success
     try {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      if (AudioContextClass) {
+      if (AudioContextClass && isSoundEnabled()) {
         const ctx = new AudioContextClass();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();

@@ -129,6 +129,74 @@ async function startServer() {
     res.json({ status: "ok" });
   });
 
+  app.get("/api/geoip", async (req, res) => {
+    try {
+      const forwarded = req.headers['x-forwarded-for'];
+      let ip = '';
+      if (typeof forwarded === 'string') {
+        ip = forwarded.split(',')[0].trim();
+      } else if (Array.isArray(forwarded) && forwarded.length > 0) {
+        ip = forwarded[0].trim();
+      } else {
+        ip = req.socket.remoteAddress || '';
+      }
+      
+      // Clean up IPv6-wrapped IPv4
+      if (ip.startsWith('::ffff:')) {
+        ip = ip.substring(7);
+      }
+
+      if (ip === '::1' || ip === '127.0.0.1' || !ip || ip.startsWith('10.') || ip.startsWith('192.168.')) {
+        // Localhost/private IP fallback - query server IP or use a standard default
+        const response = await fetch('http://ip-api.com/json/');
+        const data = await response.json();
+        if (data && data.status === 'success') {
+          return res.json({
+            status: 'success',
+            lat: data.lat,
+            lon: data.lon,
+            city: data.city,
+            region: data.regionName || data.region,
+            country: data.country
+          });
+        }
+      } else {
+        const response = await fetch(`http://ip-api.com/json/${ip}`);
+        const data = await response.json();
+        if (data && data.status === 'success') {
+          return res.json({
+            status: 'success',
+            lat: data.lat,
+            lon: data.lon,
+            city: data.city,
+            region: data.regionName || data.region,
+            country: data.country
+          });
+        }
+      }
+
+      // Default fallback coordinates (San Francisco)
+      res.json({
+        status: 'fallback',
+        lat: 37.7749,
+        lon: -122.4194,
+        city: 'San Francisco',
+        region: 'California',
+        country: 'United States'
+      });
+    } catch (err) {
+      console.error('GeoIP resolution error:', err);
+      res.json({
+        status: 'error',
+        lat: 37.7749,
+        lon: -122.4194,
+        city: 'San Francisco',
+        region: 'California',
+        country: 'United States'
+      });
+    }
+  });
+
   app.post("/api/expert-search", async (req, res) => {
     const { question } = req.body;
     if (!question) {
@@ -912,6 +980,228 @@ async function startServer() {
     } catch (error) {
         console.error("Virtual tour download failed", error);
         res.status(500).json({ error: "Could not download virtual tour." });
+    }
+  });
+
+  app.post("/api/analyze-vision", async (req, res) => {
+    const { imageBase64, species } = req.body;
+    try {
+      if (!imageBase64) {
+        return res.status(400).json({ error: "Missing imageBase64" });
+      }
+
+      let base64Data = "";
+      let mimeType = "image/jpeg";
+
+      if (imageBase64.includes(';base64,')) {
+        const parts = imageBase64.split(';base64,');
+        mimeType = parts[0].replace('data:', '');
+        base64Data = parts[1];
+      } else {
+        base64Data = imageBase64;
+      }
+
+      const imagePart = {
+        inlineData: {
+          data: base64Data,
+          mimeType: mimeType
+        }
+      };
+
+      const promptPart = {
+        text: `Analyze this image of a ${species || 'pet'}'s biological condition (e.g., skin, poop, eyelid) or a pet food ingredient list.
+        Determine:
+        1. Whether this image is a clinical symptom photo (e.g. skin rash, poop irregularity, eye redness) OR a pet food ingredient list.
+        2. If it is a symptom photo: identify any abnormal symptoms, potential concerns, care advice, and list suggested simple symptom keywords (e.g., "轻微红肿", "排便异常", "食欲不振") to autofill a health log.
+        3. If it is an ingredient list: translate it into simple language if needed, analyze any potential allergen or toxic ingredients (such as grains, colorings, specific preservatives), and list suggested nutritional/allergen keyword tags (e.g. "谷物过敏", "高蛋白标签") to autofill.
+        
+        Keep it non-diagnostic, friendly, and helpful. Always provide a clear disclaimer.
+        
+        Return ONLY a JSON object with this structure:
+        {
+          "analysisType": "symptom" | "ingredients" | "general",
+          "title": "Short descriptive title of what is identified (in Chinese)",
+          "description": "Comprehensive, structured visual analysis and explanation of the image (in Chinese).",
+          "suggestedSymptoms": ["symptom1_in_chinese", "symptom2_in_chinese", ...],
+          "alertIngredients": ["allergen1_in_chinese", "allergen2_in_chinese", ...],
+          "vetAdvice": "Empathetic homecare or clinical guidance, alerting if a vet visit is needed (in Chinese)."
+        }`
+      };
+
+      const response = await generateContentWithFallback({
+        contents: { parts: [imagePart, promptPart] },
+        config: {
+          systemInstruction: "You are a professional, empathetic veterinary clinical assistant and multi-modal vision analyzer. Support pet owners in analyzing pet biological photos (skin, stool, eye) or complex pet food nutritional labels in Chinese. Respond strictly in the specified JSON structure.",
+          responseMimeType: "application/json"
+        }
+      });
+
+      res.json(JSON.parse(response.text || '{}'));
+    } catch (error) {
+      console.error("AI Vision analysis failed, using fallback:", error);
+      // Fallback response based on simple heuristic
+      res.json({
+        analysisType: "general",
+        title: "临床与营养表现分析 (离线模型)",
+        description: "视觉分析当前运行于本地备用方案。如果您上传的是病症照片（如皮肤、便便），请多留意其日常精神。如果是饲料配料表，请重点排查小麦、牛肉或乳制品等常见过敏源。",
+        suggestedSymptoms: ["精神尚佳", "皮肤红斑", "需持续观察"],
+        alertIngredients: ["防腐剂残留", "高谷物占比"],
+        vetAdvice: "这是临时离线结果。若爱宠出现持续瘙痒、呕吐、精神萎靡或腹泻，请及时预约专业兽医师线下就诊。"
+      });
+    }
+  });
+
+  app.post("/api/calculate-match", async (req, res) => {
+    const { pet, quizAnswers } = req.body;
+    try {
+      if (!pet || !quizAnswers) {
+        return res.status(400).json({ error: "Missing pet or quizAnswers" });
+      }
+
+      const prompt = `
+        Calculate a precise, heartwarming compatibility percentage (0-100) and personalized match feedback between this pet and the user.
+        
+        Pet Details:
+        - Name: ${pet.name}
+        - Species: ${pet.species}
+        - Age: ${pet.age}
+        - Breed: ${pet.breed}
+        - Description: ${pet.description}
+        - Energy Level: ${pet.personalityTraits?.energyLevels || 'Medium'}%
+        - Playfulness: ${pet.personalityTraits?.playfulness || 'Medium'}%
+        - Friendliness: ${pet.personalityTraits?.friendliness || 'Medium'}%
+        - Good with Dogs: ${pet.goodWithDogs ? 'Yes' : 'No'}
+        - Good with Cats: ${pet.goodWithCats ? 'Yes' : 'No'}
+
+        User Quiz Answers:
+        - Activity Level: ${quizAnswers.activityLevel || 'Moderate'}
+        - Housing Environment: ${quizAnswers.housing || 'Apartment'}
+        - Daily Hours Alone: ${quizAnswers.timeAlone || '3-6 hours'}
+        - Experience: ${quizAnswers.experience || 'Beginner'}
+        - Household Members/Pets: ${quizAnswers.household || 'None'}
+        - Preferred Species: ${quizAnswers.preferredSpecies || 'Any'}
+        - Budget Focus: ${quizAnswers.budget || 'Moderate'}
+
+        Determine compatibility by checking:
+        1. If the user lives in an apartment, is the pet's size and noise level/energy appropriate?
+        2. Does the user's daily hours alone fit the pet's attachment/neediness?
+        3. Do the user's existing household members/animals match the pet's friendliness/social tolerance?
+        4. Does the pet's energy align with the user's activity level?
+
+        Generate:
+        1. A score between 60 and 99.
+        2. A sweet, warm, reassuring explanation (in Chinese: "因为您...，而...非常...").
+        
+        Return ONLY a JSON object:
+        {
+          "score": number,
+          "explanation": "A heartwarming, tailored explanation in Chinese connecting their home lifestyle with this specific pet's traits."
+        }
+      `;
+
+      const response = await generateContentWithFallback({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        config: {
+          systemInstruction: "You are a professional, warm-hearted pet shelter coordinator AI. Generate compatibility match scores and beautiful, encouraging, personalized explanations in Chinese. Respond strictly in the specified JSON structure.",
+          responseMimeType: "application/json"
+        }
+      });
+
+      res.json(JSON.parse(response.text || '{}'));
+    } catch (error) {
+      console.error("Match calculation failed, using fallback:", error);
+      // Smart offline calculation fallback
+      let score = 85;
+      if (quizAnswers.housing === 'Apartment' && pet.species === 'Cat') {
+        score = 92;
+      } else if (quizAnswers.activityLevel === 'High Energy' && pet.personalityTraits?.energyLevels > 70) {
+        score = 94;
+      }
+      res.json({
+        score,
+        explanation: `因为您过着规律且温暖的生活，而 ${pet.name} 正好是一位温和、适应力极强的伴侣。它的性格与您的作息及居住环境非常默契，相信你们能建立起不可分割的亲密纽带！`
+      });
+    }
+  });
+
+  app.post("/api/generate-routine", async (req, res) => {
+    const { petDetails, workday, concerns } = req.body;
+    try {
+      const prompt = `
+        Generate a customized, comprehensive care routine planner for this pet based on details and user schedule:
+        - Pet Details: ${petDetails || 'Dog'}
+        - Master Workday Schedule: ${workday || '9-to-5'}
+        - Special Health/Behavioral Concerns: ${concerns || 'None'}
+
+        Produce a structured, hour-by-hour care schedule for a typical week day. Focus on categories like:
+        - "feeding" (Meals, feeding routine)
+        - "potty_training" (Bathroom breaks, paper training)
+        - "vaccine" (Medical checks, vaccinations)
+        - "medical" (Medication, skin check, tummy soothe)
+        - "interaction" (Playtime, socialization, desensitization, training)
+        - "general" (Rest, grooming, walking)
+
+        Create exactly 6-8 distinct scheduled items covering the day (morning, work hours, evening, night).
+        
+        Return ONLY a JSON object containing an array:
+        {
+          "schedule": [
+            {
+              "time": "HH:MM (e.g., '07:30')",
+              "title": "Short title in Chinese (e.g., '喂食营养早餐')",
+              "category": "feeding" | "potty_training" | "vaccine" | "medical" | "interaction" | "general",
+              "description": "Practical instructions in Chinese customized to concerns and workday schedule (e.g., '喂食温和易消化的幼犬粮，由于有轻微拉肚子，可添加少许益生菌调理。')",
+              "frequency": "daily" | "weekly" | "once"
+            },
+            ...
+          ]
+        }
+      `;
+
+      const response = await generateContentWithFallback({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        config: {
+          systemInstruction: "You are an expert canine/feline behaviorist and clinical care routine planner. Design custom hour-by-hour schedule elements in Chinese. Respond strictly in the specified JSON structure.",
+          responseMimeType: "application/json"
+        }
+      });
+
+      res.json(JSON.parse(response.text || '{}'));
+    } catch (error) {
+      console.error("Routine planner generation failed, using fallback:", error);
+      // Smart fallback care items
+      res.json({
+        schedule: [
+          {
+            time: "07:30",
+            title: "早晨温和喂食",
+            category: "feeding",
+            description: "提供定时定量易消化的宠物粮，由于有特殊关注，可混入益生菌或温水冲泡泡软，保护娇嫩肠胃。",
+            frequency: "daily"
+          },
+          {
+            time: "08:15",
+            title: "排便训练与清洁",
+            category: "potty_training",
+            description: "进食后15-20分钟带宠物到指定排便区域，用温柔言语引导，成功后奖励零食或口头表扬。",
+            frequency: "daily"
+          },
+          {
+            time: "18:00",
+            title: "下班后亲密互动与训练",
+            category: "interaction",
+            description: "下班回家后进行20分钟温柔互动或触觉脱敏，抚摸爪子与耳朵，缓解独自在家的分离焦虑。",
+            frequency: "daily"
+          },
+          {
+            time: "21:00",
+            title: "日常健康监测",
+            category: "medical",
+            description: "仔细检查宠物的皮肤、毛发与精神状况，记录便便软硬度，确保身体平稳恢复健康。",
+            frequency: "daily"
+          }
+        ]
+      });
     }
   });
 

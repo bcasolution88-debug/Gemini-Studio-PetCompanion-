@@ -532,6 +532,48 @@ export default function PetHealthJournal() {
     }
   };
 
+  // AI Vision Analysis States
+  const [isAnalyzingVision, setIsAnalyzingVision] = useState(false);
+  const [visionAnalysisResult, setVisionAnalysisResult] = useState<{
+    analysisType: 'symptom' | 'ingredients' | 'general';
+    title: string;
+    description: string;
+    suggestedSymptoms?: string[];
+    alertIngredients?: string[];
+    vetAdvice?: string;
+  } | null>(null);
+  const [visionAnalysisError, setVisionAnalysisError] = useState<string | null>(null);
+
+  const handleAnalyzeVision = async () => {
+    if (!formPhoto) return;
+    setIsAnalyzingVision(true);
+    setVisionAnalysisError(null);
+    setVisionAnalysisResult(null);
+    try {
+      const pet = getPetInfo('1');
+      const petSpecies = pet ? pet.species : 'Dog';
+      
+      const res = await fetch('/api/analyze-vision', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageBase64: formPhoto,
+          species: petSpecies
+        })
+      });
+      if (!res.ok) {
+        throw new Error('Vision analysis returned a bad status code');
+      }
+      const data = await res.json();
+      setVisionAnalysisResult(data);
+    } catch (err: any) {
+      console.error(err);
+      setVisionAnalysisError(t('Failed to perform AI vision analysis. Try again.', '无法执行AI多模态视觉分析。请重试。'));
+    } finally {
+      setIsAnalyzingVision(false);
+    }
+  };
+
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const streamRef = React.useRef<MediaStream | null>(null);
 
@@ -1751,6 +1793,8 @@ export default function PetHealthJournal() {
                                         setFormPhoto(null);
                                         setBehaviorAnalysisResult(null);
                                         setBehaviorAnalysisError(null);
+                                        setVisionAnalysisResult(null);
+                                        setVisionAnalysisError(null);
                                       }}
                                       className="absolute -top-1 -right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-0.5 shadow-sm transition-all hover:scale-110 active:scale-90"
                                       title={t('Remove Photo', '删除照片')}
@@ -1768,6 +1812,8 @@ export default function PetHealthJournal() {
                                       setFormPhoto(null);
                                       setBehaviorAnalysisResult(null);
                                       setBehaviorAnalysisError(null);
+                                      setVisionAnalysisResult(null);
+                                      setVisionAnalysisError(null);
                                     }}
                                     className="text-[10px] font-bold text-rose-500 hover:underline px-2"
                                   >
@@ -1775,17 +1821,104 @@ export default function PetHealthJournal() {
                                   </button>
                                 </div>
 
-                                <div className="space-y-2">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                   <button
                                     type="button"
                                     onClick={handleAnalyzeBehavior}
-                                    disabled={isAnalyzingBehavior}
-                                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-70 text-white text-xs font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                                    disabled={isAnalyzingBehavior || isAnalyzingVision}
+                                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-70 text-white text-xs font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                                   >
-                                    <Sparkles className="w-4 h-4 animate-pulse" />
-                                    {isAnalyzingBehavior ? t('Analyzing Posture...', '智能分析姿态中...') : t('Analyze Behavior (AI)', 'AI 智能宠物行为分析')}
+                                    <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                                    {isAnalyzingBehavior ? t('Analyzing Posture...', '行为分析中...') : t('Analyze Behavior (AI)', 'AI 行为姿态分析')}
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    onClick={handleAnalyzeVision}
+                                    disabled={isAnalyzingBehavior || isAnalyzingVision}
+                                    className="w-full py-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-70 text-white text-xs font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                                  >
+                                    <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                                    {isAnalyzingVision ? t('Analyzing Vision...', '视觉筛查中...') : t('Vision Health AI', 'AI 视觉病症/饲料筛查')}
                                   </button>
                                 </div>
+
+                                {visionAnalysisError && (
+                                  <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-[10px] text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">
+                                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                                    <span>{visionAnalysisError}</span>
+                                  </div>
+                                )}
+
+                                {visionAnalysisResult && (
+                                  <div className="p-4 bg-stone-100/50 dark:bg-stone-850 border border-teal-100 dark:border-teal-900/30 rounded-xl space-y-3 text-left animate-fade-in">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-[9px] font-black text-teal-600 dark:text-teal-400 uppercase tracking-widest">
+                                        {visionAnalysisResult.analysisType === 'symptom' ? t('AI Clinical Symptom Analyzer', 'AI 临床体征筛查') : 
+                                         visionAnalysisResult.analysisType === 'ingredients' ? t('AI Ingredient Label Analysis', 'AI 配料成分翻译与分析') : 
+                                         t('AI Multimodal Vision Assistant', 'AI 视觉多模态分析')}
+                                      </span>
+                                      <span className="text-[10px] font-black bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full">
+                                        ✨ {visionAnalysisResult.title}
+                                      </span>
+                                    </div>
+
+                                    <div className="space-y-1">
+                                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Detailed Analysis Summary:', '详细分析报告:')}</p>
+                                      <p className="text-xs text-stone-700 dark:text-stone-200 font-semibold leading-relaxed whitespace-pre-line">
+                                        {visionAnalysisResult.description}
+                                      </p>
+                                    </div>
+
+                                    {visionAnalysisResult.alertIngredients && visionAnalysisResult.alertIngredients.length > 0 && (
+                                      <div className="space-y-1">
+                                        <p className="text-[10px] text-rose-400 font-bold uppercase tracking-wider">
+                                          {visionAnalysisResult.analysisType === 'ingredients' ? t('Potential Allergens / Bad Additives:', '可能致敏成分/风险添加剂:') : t('Abnormal Clinical Metrics:', '异常生理指标与体征:')}
+                                        </p>
+                                        <div className="flex flex-wrap gap-1">
+                                          {visionAnalysisResult.alertIngredients.map((item, index) => (
+                                            <span key={index} className="text-[10px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-150 dark:border-rose-900/30">
+                                              ⚠ {item}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+
+                                    {visionAnalysisResult.vetAdvice && (
+                                      <div className="p-3 bg-teal-50/50 dark:bg-teal-950/20 border border-teal-100/50 dark:border-teal-900/20 rounded-lg space-y-1">
+                                        <p className="text-[10px] text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">{t('Vet Care Guidelines:', '兽医居家关怀指南:')}</p>
+                                        <p className="text-xs text-teal-700 dark:text-teal-300 font-medium leading-relaxed">
+                                          {visionAnalysisResult.vetAdvice}
+                                        </p>
+                                      </div>
+                                    )}
+
+                                    {visionAnalysisResult.suggestedSymptoms && visionAnalysisResult.suggestedSymptoms.length > 0 && (
+                                      <div className="space-y-2 pt-2 border-t border-stone-200/50 dark:border-stone-700/50">
+                                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Interactive Autofill Tags (Click to insert):', '可交互智能填充标签 (点击直接录入日志):')}</p>
+                                        <div className="flex flex-wrap gap-1.5">
+                                          {visionAnalysisResult.suggestedSymptoms.map((symptom, index) => (
+                                            <button
+                                              type="button"
+                                              key={index}
+                                              onClick={() => {
+                                                setActivity(prev => {
+                                                  if (!prev) return symptom;
+                                                  if (prev.includes(symptom)) return prev;
+                                                  return `${prev}，${symptom}`;
+                                                });
+                                              }}
+                                              className="text-[10px] font-bold bg-stone-100 hover:bg-teal-50 dark:bg-stone-800 dark:hover:bg-teal-950/40 text-stone-600 hover:text-teal-600 dark:text-stone-300 dark:hover:text-teal-400 px-2.5 py-1 rounded-full border border-stone-200 hover:border-teal-300 dark:border-stone-700 transition-all hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
+                                            >
+                                              <span>+</span> {symptom}
+                                            </button>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
 
                                 {behaviorAnalysisError && (
                                   <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-[10px] text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">

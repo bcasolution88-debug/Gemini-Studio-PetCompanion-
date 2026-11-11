@@ -35,7 +35,7 @@ export default function AvatarGenerator({ pet, onAvatarGenerated }: AvatarGenera
     <button
       onClick={handleGenerate}
       disabled={loading}
-      className="flex items-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-50"
+      className="flex items-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-xl text-caption font-bold transition-all disabled:opacity-50"
     >
       {loading ? (
         <Loader2 className="w-3.5 h-3.5 animate-spin" />

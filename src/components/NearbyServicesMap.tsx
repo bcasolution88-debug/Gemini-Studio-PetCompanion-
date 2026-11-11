@@ -336,7 +336,7 @@ export default function NearbyServicesMap() {
     // Add current user location marker
     if (locationState === 'success') {
       const uMarker = L.marker(coords, { icon: userIcon }).addTo(markersGroup);
-      uMarker.bindPopup(`<div class="p-1 font-semibold text-center text-xs">${t('Your Location', '您的当前位置')}</div>`);
+      uMarker.bindPopup(`<div class="p-1 font-semibold text-center text-caption">${t('Your Location', '您的当前位置')}</div>`);
     }
 
     // Add places markers
@@ -353,14 +353,14 @@ export default function NearbyServicesMap() {
       // Bind elegant popup with standard CSS/HTML elements
       const popupHtml = `
         <div class="p-1 text-stone-900 min-w-[180px]">
-          <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase mb-1 ${
+          <span class="inline-block px-1.5 py-0.5 rounded text-caption font-bold uppercase mb-1 ${
             place.type === 'clinic' ? 'bg-rose-100 text-rose-700' : 'bg-purple-100 text-purple-700'
           }">
             ${place.type === 'clinic' ? t('Clinic', '诊所 🏥') : t('Pet Store', '用品店 🎒')}
           </span>
-          <h5 class="font-bold text-xs mb-1">${place.name}</h5>
-          <p class="text-[11px] text-stone-600 mb-1">${place.address}</p>
-          <div class="flex items-center justify-between text-[11px] font-semibold pt-1 border-t border-stone-100">
+          <h5 class="font-bold text-caption mb-1">${place.name}</h5>
+          <p class="text-caption text-stone-600 mb-1">${place.address}</p>
+          <div class="flex items-center justify-between text-caption font-semibold pt-1 border-t border-stone-100">
             <span class="text-amber-500 flex items-center">⭐ ${place.rating}</span>
             <span class="${place.openNow ? 'text-emerald-600' : 'text-stone-400'}">
               ${place.openNow ? t('Open Now', '营业中') : t('Closed', '已打烊')}
@@ -379,7 +379,7 @@ export default function NearbyServicesMap() {
           <h2 className="text-2xl font-bold text-stone-900 dark:text-white flex items-center">
             <Compass className="w-6 h-6 mr-2 text-rose-500 animate-spin-slow" /> {t('Nearby Veterinary & Pet Services', '周边诊所查找与宠物服务')}
           </h2>
-          <p className="text-sm text-stone-500 mt-1">
+          <p className="text-body text-stone-500 mt-1">
             {locationState === 'success' 
               ? t('Showing verified clinics and supply stores near your precise coordinates.', '为您展示您当前位置周边经认证的宠物诊所与用品商店。') 
               : locationState === 'loading'
@@ -391,14 +391,14 @@ export default function NearbyServicesMap() {
         <div className="flex gap-2">
           <button 
             onClick={() => setShowScanner(true)}
-            className="self-start flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 hover:bg-rose-200 dark:bg-rose-900/50 dark:hover:bg-rose-900 rounded-full text-xs font-semibold text-rose-700 dark:text-rose-300 transition-colors cursor-pointer"
+            className="self-start flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 hover:bg-rose-200 dark:bg-rose-900/50 dark:hover:bg-rose-900 rounded-full text-caption font-semibold text-rose-700 dark:text-rose-300 transition-colors cursor-pointer"
           >
             <QrCode className="w-3.5 h-3.5" />
             {t('Scan Tag', '扫描标签')}
           </button>
           <button 
             onClick={fetchGeolocation}
-            className="self-start flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 rounded-full text-xs font-semibold text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
+            className="self-start flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 rounded-full text-caption font-semibold text-stone-700 dark:text-stone-300 transition-colors cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${locationState === 'loading' ? 'animate-spin' : ''}`} />
             {t('Refresh Location', '刷新位置')}
@@ -416,26 +416,26 @@ export default function NearbyServicesMap() {
               placeholder={t('Search by name or address...', '搜索服务名称或地址...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-100 dark:border-stone-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-stone-100"
+              className="w-full pl-9 pr-4 py-2 text-body bg-stone-50 dark:bg-stone-900 border border-stone-100 dark:border-stone-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-stone-100"
             />
           </div>
 
           {/* Location Status & Manual Geocode Form */}
-          <div className="bg-stone-50 dark:bg-stone-900 border border-stone-150 dark:border-stone-800 p-3.5 rounded-2xl space-y-2.5 shadow-inner">
+          <div className="bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-3.5 rounded-2xl space-y-2.5 shadow-inner">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">{t('Map Focus Center', '当前地图中心焦点')}</span>
+              <span className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Map Focus Center', '当前地图中心焦点')}</span>
               {locationState === 'success' && (
-                <span className="flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                <span className="flex items-center gap-1 text-caption text-emerald-600 dark:text-emerald-400 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   {geoipCity ? t('Resolved', '已自动解析') : t('GPS High Accuracy', '高精度 GPS')}
                 </span>
               )}
             </div>
             {geoipCity && (
-              <p className="text-xs font-black text-rose-500 truncate" title={geoipCity}>{geoipCity}</p>
+              <p className="text-caption font-black text-rose-500 truncate" title={geoipCity}>{geoipCity}</p>
             )}
             {!geoipCity && (
-              <p className="text-xs font-bold text-stone-600 dark:text-stone-300 truncate">
+              <p className="text-caption font-bold text-stone-600 dark:text-stone-300 truncate">
                 Lat: {coords[0].toFixed(4)}, Lng: {coords[1].toFixed(4)}
               </p>
             )}
@@ -453,18 +453,18 @@ export default function NearbyServicesMap() {
                 placeholder={t('Enter City or Zipcode...', '输入城市、省份或邮编...')}
                 value={manualSearchQuery}
                 onChange={(e) => setManualSearchQuery(e.target.value)}
-                className="flex-1 px-3 py-1.5 text-xs bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-stone-100 animate-fade-in"
+                className="flex-1 px-3 py-1.5 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-stone-100 animate-fade-in"
               />
               <button
                 type="submit"
                 disabled={manualSearchLoading}
-                className="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 disabled:bg-stone-300 dark:disabled:bg-stone-800 text-white text-xs font-black rounded-xl transition-all cursor-pointer flex items-center justify-center min-w-[50px] shadow-sm hover:shadow-rose-500/10 active:scale-95"
+                className="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 disabled:bg-stone-300 dark:disabled:bg-stone-800 text-white text-caption font-black rounded-xl transition-all cursor-pointer flex items-center justify-center min-w-[50px] shadow-sm hover:shadow-rose-500/10 active:scale-95"
               >
                 {manualSearchLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : t('Set', '定位')}
               </button>
             </form>
             {manualSearchError && (
-              <p className="text-[10px] font-bold text-rose-500 animate-pulse">{manualSearchError}</p>
+              <p className="text-caption font-bold text-rose-500 animate-pulse">{manualSearchError}</p>
             )}
           </div>
 
@@ -473,7 +473,7 @@ export default function NearbyServicesMap() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-all capitalize cursor-pointer ${
+                className={`flex-1 text-center py-2 text-caption font-semibold rounded-lg transition-all capitalize cursor-pointer ${
                   activeTab === tab
                     ? 'bg-rose-500 text-white'
                     : 'bg-stone-50 dark:bg-stone-900 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800'
@@ -487,7 +487,7 @@ export default function NearbyServicesMap() {
           <div className="space-y-2 max-h-[350px] overflow-y-auto pr-1 flex-1 scrollbar-thin">
             {filteredPlaces.length === 0 ? (
               <div className="text-center py-8 text-stone-400">
-                <p className="text-sm">{t('No services match your search.', '未找到匹配您搜索条件的服务机构。')}</p>
+                <p className="text-body">{t('No services match your search.', '未找到匹配您搜索条件的服务机构。')}</p>
               </div>
             ) : (
               filteredPlaces.map((place) => {
@@ -508,15 +508,15 @@ export default function NearbyServicesMap() {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-1.5 ${
+                        <span className={`inline-block px-2 py-0.5 rounded text-caption font-bold uppercase mb-1.5 ${
                           place.type === 'clinic' 
                             ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400' 
                             : 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
                         }`}>
                           {place.type === 'clinic' ? t('Clinic', '医疗诊所 🏥') : t('Pet Store', '用品店 🎒')}
                         </span>
-                        <h4 className="font-bold text-stone-900 dark:text-white text-sm line-clamp-1">{place.name}</h4>
-                        <p className="text-xs text-stone-500 mt-0.5 flex items-center">
+                        <h4 className="font-bold text-stone-900 dark:text-white text-body line-clamp-1">{place.name}</h4>
+                        <p className="text-caption text-stone-500 mt-0.5 flex items-center">
                           <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
                           {place.address}
                         </p>
@@ -533,7 +533,7 @@ export default function NearbyServicesMap() {
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-stone-100 dark:border-stone-800 text-xs">
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-stone-100 dark:border-stone-800 text-caption">
                       <div className="flex items-center gap-2.5">
                         <span className="flex items-center font-semibold text-amber-500">
                           <Star className="w-3.5 h-3.5 fill-amber-500 stroke-amber-500 mr-0.5" />
@@ -569,9 +569,9 @@ export default function NearbyServicesMap() {
                   )}
                 </div>
                 <div>
-                  <h4 className="font-bold text-stone-900 dark:text-white text-sm">{selectedPlace.name}</h4>
-                  <p className="text-xs text-stone-500">{selectedPlace.address}</p>
-                  <div className="flex items-center gap-3 mt-1 text-xs">
+                  <h4 className="font-bold text-stone-900 dark:text-white text-body">{selectedPlace.name}</h4>
+                  <p className="text-caption text-stone-500">{selectedPlace.address}</p>
+                  <div className="flex items-center gap-3 mt-1 text-caption">
                     <span className="flex items-center text-stone-600 dark:text-stone-300">
                       <Phone className="w-3.5 h-3.5 mr-1" /> {selectedPlace.phone}
                     </span>
@@ -586,14 +586,14 @@ export default function NearbyServicesMap() {
                   href={`https://www.google.com/maps/dir/?api=1&destination=${selectedPlace.lat},${selectedPlace.lng}`}
                   target="_blank"
                   referrerPolicy="no-referrer"
-                  className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-700 dark:hover:bg-stone-600 text-white text-xs font-semibold rounded-xl transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-800 dark:bg-stone-700 dark:hover:bg-stone-600 text-white text-caption font-semibold rounded-xl transition-all cursor-pointer"
                 >
                   <Navigation className="w-3.5 h-3.5" />
                   {t('Get Directions', '获取路线指引')}
                 </a>
                 <button
                   onClick={() => setSelectedPlace(null)}
-                  className="px-3 py-2 text-xs font-semibold text-stone-500 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 dark:text-stone-300 rounded-xl transition-all cursor-pointer"
+                  className="px-3 py-2 text-caption font-semibold text-stone-500 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 dark:text-stone-300 rounded-xl transition-all cursor-pointer"
                 >
                   {t('Close', '关闭')}
                 </button>
@@ -611,8 +611,8 @@ export default function NearbyServicesMap() {
           )}
           {scanResult && (
             <div className="absolute top-4 left-4 z-[500] bg-white dark:bg-stone-800 p-4 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-700">
-              <p className="text-sm font-bold">{t('Scanned Record', '扫描记录')}: {scanResult}</p>
-              <button onClick={() => setScanResult(null)} className="text-xs text-stone-500 underline mt-2">{t('Dismiss', '关闭')}</button>
+              <p className="text-body font-bold">{t('Scanned Record', '扫描记录')}: {scanResult}</p>
+              <button onClick={() => setScanResult(null)} className="text-caption text-stone-500 underline mt-2">{t('Dismiss', '关闭')}</button>
             </div>
           )}
         </div>

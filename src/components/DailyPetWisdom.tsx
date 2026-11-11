@@ -44,9 +44,9 @@ export default function DailyPetWisdom({ species }: { species?: string }) {
     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/40 dark:to-purple-950/40 p-5 rounded-3xl shadow-sm border border-indigo-100 dark:border-indigo-800 flex flex-col space-y-3">
       <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
         <Sparkles className="w-5 h-5" />
-        <h3 className="text-sm font-black uppercase tracking-wider">{t('Daily Pet Wisdom', '每日宠物智慧')}</h3>
+        <h3 className="text-body font-black uppercase tracking-wider">{t('Daily Pet Wisdom', '每日宠物智慧')}</h3>
       </div>
-      <p className="text-sm text-stone-700 dark:text-stone-300 font-medium leading-relaxed">
+      <p className="text-body text-stone-700 dark:text-stone-300 font-medium leading-relaxed">
         {wisdom}
       </p>
     </div>

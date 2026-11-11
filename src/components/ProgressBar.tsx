@@ -8,7 +8,7 @@ interface ProgressBarProps {
 export default function ProgressBar({ progress, label }: ProgressBarProps) {
   return (
     <div className="w-full">
-      {label && <div className="text-xs font-bold text-stone-500 mb-1">{label}</div>}
+      {label && <div className="text-caption font-bold text-stone-500 mb-1">{label}</div>}
       <div className="w-full h-2 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
         <div 
           className="h-full bg-indigo-500 transition-all duration-500" 

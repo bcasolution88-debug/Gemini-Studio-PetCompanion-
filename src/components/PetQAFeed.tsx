@@ -242,11 +242,11 @@ export default function PetQAFeed() {
             <div>
               <h3 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
                 {t('Expert Veterinary AI Search', '权威宠物行为与健康 AI 检索')}
-                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-caption px-2 py-0.5 rounded-full font-bold">
                   {t('Live Search Grounded', '谷歌搜索学术增强')}
                 </span>
               </h3>
-              <p className="text-xs text-indigo-100/80">
+              <p className="text-caption text-indigo-100/80">
                 {t('Queries real-time veterinary science & certified pet behaviorists for accurate, trusted advice.', '实时检索权威兽医学术文章与持证行为分析师意见，获取最可靠的专业建议。')}
               </p>
             </div>
@@ -260,13 +260,13 @@ export default function PetQAFeed() {
                 value={expertSearchQuery}
                 onChange={(e) => setExpertSearchQuery(e.target.value)}
                 placeholder={t("e.g. Why does my cat lick my face, or how to stop separation anxiety?", "例如：为什么猫咪总是舔我？狗狗分离焦虑怎么缓解？")}
-                className="w-full px-4 py-3 bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/20 rounded-2xl text-sm text-white placeholder-indigo-200/60 focus:ring-2 focus:ring-white/20 outline-none font-medium transition-all"
+                className="w-full px-4 py-3 bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/20 rounded-2xl text-body text-white placeholder-indigo-200/60 focus:ring-2 focus:ring-white/20 outline-none font-medium transition-all"
               />
             </div>
             <button
               type="submit"
               disabled={isExpertSearching}
-              className="px-5 py-3 bg-white text-violet-750 hover:bg-indigo-50 disabled:bg-white/50 disabled:text-violet-300 font-extrabold text-xs rounded-2xl shadow-md transition-all active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer animate-fade-in"
+              className="px-5 py-3 bg-white text-violet-700 hover:bg-indigo-50 disabled:bg-white/50 disabled:text-violet-300 font-extrabold text-caption rounded-2xl shadow-md transition-all active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer animate-fade-in"
             >
               {isExpertSearching ? (
                 <>
@@ -286,7 +286,7 @@ export default function PetQAFeed() {
           {expertSearchResult && (
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 space-y-4 animate-fade-in">
               <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                <span className="text-xs font-bold text-violet-200 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-caption font-bold text-violet-200 uppercase tracking-wider flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                   {t('Expert Answer', '专家诊断参考')}
                 </span>
@@ -296,19 +296,19 @@ export default function PetQAFeed() {
                     setExpertSearchResult(null);
                     setExpertSearchQuery('');
                   }}
-                  className="text-white/60 hover:text-white transition-colors text-xs font-bold"
+                  className="text-white/60 hover:text-white transition-colors text-caption font-bold"
                 >
                   {t('Clear', '清除')}
                 </button>
               </div>
 
-              <div className="text-sm leading-relaxed text-indigo-50 font-medium whitespace-pre-wrap">
+              <div className="text-body leading-relaxed text-indigo-50 font-medium whitespace-pre-wrap">
                 {expertSearchResult.answer}
               </div>
 
               {expertSearchResult.sources && expertSearchResult.sources.length > 0 && (
                 <div className="space-y-2 border-t border-white/10 pt-3">
-                  <p className="text-[11px] font-bold text-violet-200 uppercase tracking-wider">
+                  <p className="text-caption font-bold text-violet-200 uppercase tracking-wider">
                     {t('Verified Academic / Web Sources:', '检索到的学术与网络参考源：')}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -319,7 +319,7 @@ export default function PetQAFeed() {
                         target="_blank"
                         referrerPolicy="no-referrer"
                         rel="noopener noreferrer"
-                        className="bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-xl text-xs text-amber-200 hover:text-amber-100 font-bold transition-all flex items-center gap-1.5"
+                        className="bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-xl text-caption text-amber-200 hover:text-amber-100 font-bold transition-all flex items-center gap-1.5"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                         {src.title}
@@ -340,7 +340,7 @@ export default function PetQAFeed() {
             placeholder={t("Search questions or advice...", "搜索问题或建议...")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 pl-10 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+            className="w-full px-4 py-2.5 pl-10 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
           />
           <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-400" />
         </div>
@@ -351,7 +351,7 @@ export default function PetQAFeed() {
             <button
               key={filter}
               onClick={() => setStatusFilter(filter)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all capitalize ${
+              className={`px-3 py-1.5 text-caption font-bold rounded-xl transition-all capitalize ${
                 statusFilter === filter
                   ? 'bg-rose-500 text-white shadow-sm scale-105'
                   : 'bg-stone-50 dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-100 dark:border-stone-800'
@@ -363,7 +363,7 @@ export default function PetQAFeed() {
           
           <button
             onClick={() => setOnlyVerified(!onlyVerified)}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all border ${
+            className={`px-3 py-1.5 text-caption font-bold rounded-xl transition-all border ${
               onlyVerified
                 ? 'bg-emerald-500 text-white border-emerald-500'
                 : 'bg-stone-50 dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-100 dark:border-stone-800'
@@ -377,13 +377,13 @@ export default function PetQAFeed() {
         <div className="flex gap-2 w-full md:w-auto">
             <button
             onClick={() => setIsFormOpen(!isFormOpen)}
-            className={`flex items-center gap-1.5 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-2xl transition-all shadow-sm active:scale-95 flex-1 md:flex-none justify-center ${new Date().getHours() >= 9 && new Date().getHours() < 17 ? 'animate-pulse' : ''}`}
+            className={`flex items-center gap-1.5 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-2xl transition-all shadow-sm active:scale-95 flex-1 md:flex-none justify-center ${new Date().getHours() >= 9 && new Date().getHours() < 17 ? 'animate-pulse' : ''}`}
             >
             <Plus className="w-4 h-4" /> {t('Ask Expert', '专家问答')}
             </button>
             <button
             onClick={() => setIsUrgentFormOpen(!isUrgentFormOpen)}
-            className="flex items-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm rounded-2xl transition-all shadow-sm active:scale-95 flex-1 md:flex-none justify-center"
+            className="flex items-center gap-1.5 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-body rounded-2xl transition-all shadow-sm active:scale-95 flex-1 md:flex-none justify-center"
             >
             <AlertCircle className="w-4 h-4" /> {t('Ping Expert', '紧急求助')}
             </button>
@@ -392,7 +392,7 @@ export default function PetQAFeed() {
 
       {/* Success Notification */}
       {successMsg && (
-        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 px-4 py-3.5 rounded-2xl flex items-center gap-2 text-sm font-bold animate-fade-in">
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 px-4 py-3.5 rounded-2xl flex items-center gap-2 text-body font-bold animate-fade-in">
           <CheckCircle2 className="w-5 h-5 text-emerald-500" /> {t('Question posted to Vet-Academy expert community!', '问题已成功发布到宠物在线专家社区！')}
         </div>
       )}
@@ -412,45 +412,45 @@ export default function PetQAFeed() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Question Title */}
               <div className="space-y-1.5 sm:col-span-2">
-                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Short Question Title', '问题标题 (简明扼要)')}</label>
+                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Short Question Title', '问题标题 (简明扼要)')}</label>
                 <input
                   type="text"
                   required
                   placeholder={t("e.g. My cat is coughing constantly - is this hairballs or asthma?", "例如：猫咪一直咳嗽——是毛球症还是哮喘？")}
                   value={qTitle}
                   onChange={(e) => setQTitle(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-bold"
+                  className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-bold"
                 />
               </div>
 
               {/* Author name */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
+                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
                 <input
                   type="text"
                   placeholder={t("e.g. Liam Smith", "例如：李明")}
                   value={qAuthor}
                   onChange={(e) => setQAuthor(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                  className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                 />
               </div>
             </div>
 
             {/* Description Body */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Detailed Description & Symptoms', '详细描述与症状描述')}</label>
+              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Detailed Description & Symptoms', '详细描述与症状描述')}</label>
               <textarea
                 required
                 rows={3}
                 placeholder={t("List symptom details, duration, pet breed/age, and any home remedies you tried, to help our community vets provide tailored tips.", "请列出症状详情、持续时间、宠物品种/年龄以及您尝试过的任何家庭疗法，以便我们的社区兽医提供针对性的建议。")}
                 value={qBody}
                 onChange={(e) => setQBody(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
+                className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
               />
             </div>
 
             {/* Info Notice */}
-            <div className="p-3.5 bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900 text-[11px] text-amber-700 dark:text-amber-400 rounded-xl leading-relaxed flex gap-2">
+            <div className="p-3.5 bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900 text-caption text-amber-700 dark:text-amber-400 rounded-xl leading-relaxed flex gap-2">
               <AlertCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
               <span>
                 <strong>{t('Disclaimer:', '免责声明：')}</strong> {t('This academy is for general caregiver educational tips. If your pet has a medical emergency, is bleeding, or in severe distress, locate immediate local emergency clinical help rather than waiting for community replies!', '本问答板块仅提供一般性养宠科普与建议。如果您的宠物遇到医疗紧急情况、流血或严重不适，请立即寻求当地急诊兽医机构的帮助，切勿等待社区回复！')}
@@ -462,13 +462,13 @@ export default function PetQAFeed() {
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-xs font-bold rounded-xl transition-all"
+                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-caption font-bold rounded-xl transition-all"
               >
                 {t('Cancel', '取消')}
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95"
+                className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-bold rounded-xl transition-all shadow-sm active:scale-95"
               >
                 {t('Post Question', '发布提问')}
               </button>
@@ -486,14 +486,14 @@ export default function PetQAFeed() {
 
           <form onSubmit={handlePingExperts} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-rose-500 uppercase tracking-wider">{t('Symptoms or Emergency Details', '症状或紧急情况详情')}</label>
+              <label className="text-caption font-bold text-rose-500 uppercase tracking-wider">{t('Symptoms or Emergency Details', '症状或紧急情况详情')}</label>
               <textarea
                 required
                 rows={3}
                 placeholder={t("Briefly describe the emergency to alert nearby foster volunteers and experts.", "简要描述紧急情况，以提醒附近的寄养志愿者和专家。")}
                 value={urgentSymptoms}
                 onChange={(e) => setUrgentSymptoms(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-rose-900 dark:text-white outline-none resize-none"
+                className="w-full px-3.5 py-2.5 text-body bg-white dark:bg-rose-950 border border-rose-200 dark:border-rose-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-rose-900 dark:text-white outline-none resize-none"
               />
             </div>
 
@@ -501,13 +501,13 @@ export default function PetQAFeed() {
               <button
                 type="button"
                 onClick={() => setIsUrgentFormOpen(false)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-xs font-bold rounded-xl transition-all"
+                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-caption font-bold rounded-xl transition-all"
               >
                 {t('Cancel', '取消')}
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95"
+                className="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-caption font-bold rounded-xl transition-all shadow-sm active:scale-95"
               >
                 {t('Send Urgent Ping', '发送紧急求助')}
               </button>
@@ -521,7 +521,7 @@ export default function PetQAFeed() {
         <div className="bg-white dark:bg-stone-800 p-12 text-center rounded-3xl border border-stone-100 dark:border-stone-700/60 shadow-sm">
           <HelpCircle className="w-12 h-12 mx-auto text-stone-300 dark:text-stone-600 mb-2 animate-pulse" />
           <p className="font-extrabold text-stone-800 dark:text-stone-100">{t('No questions found', '暂无相关提问')}</p>
-          <p className="text-xs text-stone-400 max-w-sm mx-auto mt-1">
+          <p className="text-caption text-stone-400 max-w-sm mx-auto mt-1">
             {t("No questions matched your search criteria. Try a different filter or tap 'Ask Expert' to post a new inquiry!", '没有找到符合您筛选条件的提问。请尝试其他筛选条件，或点击“在线提问”发布新咨询！')}
           </p>
         </div>

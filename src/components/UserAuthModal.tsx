@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import { LogIn, LogOut, X } from 'lucide-react';
+import { LogIn, X } from 'lucide-react';
+import Modal from './ui/Modal';
+import { IconButton } from './ui/IconButton';
+import { useLanguage } from '../lib/LanguageContext';
 
 interface UserAuthModalProps {
   isOpen: boolean;
@@ -10,6 +13,7 @@ interface UserAuthModalProps {
 
 export default function UserAuthModal({ isOpen, onClose }: UserAuthModalProps) {
   const [user, setUser] = useState(auth.currentUser);
+  const { t } = useLanguage();
 
   auth.onAuthStateChanged(setUser);
 
@@ -23,22 +27,40 @@ export default function UserAuthModal({ isOpen, onClose }: UserAuthModalProps) {
     }
   };
 
-  if (!isOpen) return null;
+  const titleId = 'user-auth-title';
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-stone-800 rounded-3xl p-8 max-w-sm w-full relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-stone-500 hover:text-stone-700">
-          <X className="w-6 h-6" />
-        </button>
-        <h2 className="text-2xl font-bold mb-6 text-stone-900 dark:text-white">Sign In</h2>
-        <button 
-          onClick={handleSignIn} 
-          className="w-full flex items-center justify-center bg-rose-500 text-white rounded-xl px-4 py-3 font-semibold hover:bg-rose-600 transition-colors"
-        >
-          <LogIn className="w-5 h-5 mr-2" /> Continue with Google
-        </button>
-      </div>
-    </div>
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      labelledBy={titleId}
+      size="sm"
+      panelClassName="p-8"
+    >
+      <IconButton
+        aria-label={t('Close sign-in dialog', '关闭登录对话框')}
+        icon={<X className="w-5 h-5" />}
+        onClick={onClose}
+        className="absolute top-4 right-4"
+      />
+      <h2
+        id={titleId}
+        className="text-h2 font-bold mb-6 text-stone-900 dark:text-white"
+      >
+        {t('Sign In', '登录')}
+      </h2>
+      <button
+        onClick={handleSignIn}
+        className="w-full flex items-center justify-center bg-brand-500 text-white rounded-control px-4 py-3 font-semibold hover:bg-brand-600 transition-colors"
+      >
+        <LogIn className="w-5 h-5 mr-2" aria-hidden="true" />
+        {t('Continue with Google', '使用 Google 继续')}
+      </button>
+      {user && (
+        <p className="mt-4 text-caption text-stone-500 dark:text-stone-400 text-center">
+          {t('Already signed in as', '已登录为')} {user.displayName ?? user.email}
+        </p>
+      )}
+    </Modal>
   );
 }

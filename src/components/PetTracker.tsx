@@ -9,6 +9,8 @@ import {
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useLanguage } from '../lib/LanguageContext';
+import Modal from './ui/Modal';
+import { IconButton } from './ui/IconButton';
 
 interface TrackerPet {
   id: string;
@@ -268,7 +270,7 @@ export default function PetTracker() {
     userMarkerRef.current = L.marker([activePet.homeLat, activePet.homeLng], { icon: homeIcon }).addTo(map);
 
     // Popup binder
-    petMarkerRef.current.bindPopup(`<div class="p-1 font-bold text-xs">${activePet.name} is currently ${activePet.status}</div>`);
+    petMarkerRef.current.bindPopup(`<div class="p-1 font-bold text-caption">${activePet.name} is currently ${activePet.status}</div>`);
 
     return () => {
       map.remove();
@@ -319,7 +321,7 @@ export default function PetTracker() {
       petMarkerRef.current.setIcon(petIcon);
       const statusText = activePet.status === 'Safe' ? t('Safe', '安全中') : activePet.status === 'Roaming' ? t('Roaming', '自由活动') : t('Escaped', '超出围栏');
       const dist = getDistanceInMeters(activePet.lat, activePet.lng, activePet.homeLat, activePet.homeLng);
-      petMarkerRef.current.setPopupContent(`<div class="p-1 font-bold text-xs">${activePet.name} ${t('is', '处于')} ${statusText} (${dist}${t('m from Home', '米外（家庭中心）')})</div>`);
+      petMarkerRef.current.setPopupContent(`<div class="p-1 font-bold text-caption">${activePet.name} ${t('is', '处于')} ${statusText} (${dist}${t('m from Home', '米外（家庭中心）')})</div>`);
     }
 
     if (userMarkerRef.current) {
@@ -544,8 +546,8 @@ export default function PetTracker() {
             <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isSimulating ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
             <span className={`relative inline-flex rounded-full h-3.5 w-3.5 ${isSimulating ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
           </span>
-          <div className="text-xs">
-            <span className="font-bold text-stone-850 dark:text-stone-200">
+          <div className="text-caption">
+            <span className="font-bold text-stone-800 dark:text-stone-200">
               {isSimulating ? t('Active GPS Tracking Simulation', '实时 GPS 追踪模拟中') : t('GPS Tracker Paused', 'GPS 追踪已暂停')}
             </span>
             <p className="text-stone-500 dark:text-stone-400">{t('Pet coordinates are wandering around live collar nodes.', '宠物定位正在追踪器节点周边实时变动。')}</p>
@@ -554,7 +556,7 @@ export default function PetTracker() {
 
         <button
           onClick={() => setIsSimulating(!isSimulating)}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-caption font-black transition-all cursor-pointer ${
             isSimulating 
               ? 'bg-amber-500 hover:bg-amber-600 text-white shadow-sm'
               : 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm'
@@ -577,19 +579,19 @@ export default function PetTracker() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* LEFT COLUMN: Tracked Pets List */}
         <div className="lg:col-span-1 flex flex-col space-y-4">
-          <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col flex-1">
+          <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col flex-1">
             <div className="flex items-center justify-between pb-3 border-b border-stone-50 dark:border-stone-800">
-              <h3 className="font-black text-stone-900 dark:text-white text-xs uppercase tracking-wider">{t('Collars Attached', '已绑定追踪器')} ({trackedPets.length})</h3>
+              <h3 className="font-black text-stone-900 dark:text-white text-caption uppercase tracking-wider">{t('Collars Attached', '已绑定追踪器')} ({trackedPets.length})</h3>
               <div className="flex gap-2">
                 <button
                   onClick={() => setShowScanner(true)}
-                  className="flex items-center gap-1 text-[11px] font-black text-rose-500 hover:text-rose-600 cursor-pointer"
+                  className="flex items-center gap-1 text-caption font-black text-rose-500 hover:text-rose-600 cursor-pointer"
                 >
                   <QrCode className="w-3.5 h-3.5" /> {t('Scan', '扫码')}
                 </button>
                 <button
                   onClick={() => setShowAddForm(!showAddForm)}
-                  className="flex items-center gap-1 text-[11px] font-black text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 cursor-pointer"
+                  className="flex items-center gap-1 text-caption font-black text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" /> {t('Register', '注册绑定')}
                 </button>
@@ -619,9 +621,9 @@ export default function PetTracker() {
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-bold text-stone-900 dark:text-white text-xs truncate">{pet.name}</h4>
+                          <h4 className="font-bold text-stone-900 dark:text-white text-caption truncate">{pet.name}</h4>
                           {/* Status badge */}
-                          <span className={`inline-flex items-center gap-0.5 text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                          <span className={`inline-flex items-center gap-0.5 text-caption font-black uppercase px-2 py-0.5 rounded-full ${
                             pet.status === 'Safe' 
                               ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400'
                               : pet.status === 'Roaming'
@@ -631,12 +633,12 @@ export default function PetTracker() {
                             {pet.status === 'Safe' ? t('Safe', '安全中') : pet.status === 'Roaming' ? t('Roaming', '自由活动') : t('Escaped', '超出范围')}
                           </span>
                         </div>
-                        <p className="text-[10px] text-stone-400 truncate">{pet.breed}</p>
+                        <p className="text-caption text-stone-400 truncate">{pet.breed}</p>
                       </div>
                     </div>
 
                     {/* Meta stats inside card */}
-                    <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-stone-100/55 dark:border-stone-800/80 text-[10px] text-stone-500">
+                    <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-stone-100/55 dark:border-stone-800/80 text-caption text-stone-500">
                       <div className="flex items-center gap-1">
                         <Battery className={`w-3.5 h-3.5 ${pet.battery < 20 ? 'text-red-500 animate-pulse' : 'text-stone-400'}`} />
                         <span>{pet.battery}%</span>
@@ -657,29 +659,29 @@ export default function PetTracker() {
 
           {/* Add device quick guide / pair form */}
           {showAddForm && (
-            <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-md animate-fade-in space-y-3">
-              <h4 className="text-xs font-black text-stone-900 dark:text-white flex items-center gap-1">
+            <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-md animate-fade-in space-y-3">
+              <h4 className="text-caption font-black text-stone-900 dark:text-white flex items-center gap-1">
                 <Settings className="w-4 h-4 text-indigo-500 animate-spin-slow" /> {t('Pair New Collar Tracker', '绑定新宠物追踪器')}
               </h4>
               <form onSubmit={handleRegisterCollar} className="space-y-2.5">
                 <div>
-                  <label className="text-[10px] font-bold text-stone-400 block mb-1">{t('Pet Name', '宠物昵称')}</label>
+                  <label className="text-caption font-bold text-stone-400 block mb-1">{t('Pet Name', '宠物昵称')}</label>
                   <input 
                     type="text" 
                     required
                     placeholder="Buddy"
                     value={newCollar.name}
                     onChange={(e) => setNewCollar(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 text-stone-900 dark:text-white"
+                    className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-caption focus:outline-none focus:ring-1 focus:ring-indigo-500 text-stone-900 dark:text-white"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-[10px] font-bold text-stone-400 block mb-1">{t('Species', '宠物种类')}</label>
+                    <label className="text-caption font-bold text-stone-400 block mb-1">{t('Species', '宠物种类')}</label>
                     <select
                       value={newCollar.species}
                       onChange={(e) => setNewCollar(prev => ({ ...prev, species: e.target.value as any }))}
-                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs text-stone-800 dark:text-stone-200"
+                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-caption text-stone-800 dark:text-stone-200"
                     >
                       <option value="Dog">{t('Dog', '狗狗 🐶')}</option>
                       <option value="Cat">{t('Cat', '猫咪 🐱')}</option>
@@ -688,30 +690,30 @@ export default function PetTracker() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-stone-400 block mb-1">{t('Breed', '宠物品种')}</label>
+                    <label className="text-caption font-bold text-stone-400 block mb-1">{t('Breed', '宠物品种')}</label>
                     <input 
                       type="text"
                       placeholder="Goldendoodle"
                       value={newCollar.breed}
                       onChange={(e) => setNewCollar(prev => ({ ...prev, breed: e.target.value }))}
-                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs text-stone-900 dark:text-white"
+                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-caption text-stone-900 dark:text-white"
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-[10px] font-bold text-stone-400 block mb-1">{t('Tracker Serial ID', '追踪器序列号 ID')}</label>
+                    <label className="text-caption font-bold text-stone-400 block mb-1">{t('Tracker Serial ID', '追踪器序列号 ID')}</label>
                     <input 
                       type="text" 
                       required
                       placeholder="TRK-882-GP"
                       value={newCollar.collarId}
                       onChange={(e) => setNewCollar(prev => ({ ...prev, collarId: e.target.value }))}
-                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs text-stone-900 dark:text-white"
+                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-caption text-stone-900 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-stone-400 block mb-1">{t('Safe Radius (m)', '安全围栏半径 (米)')}</label>
+                    <label className="text-caption font-bold text-stone-400 block mb-1">{t('Safe Radius (m)', '安全围栏半径 (米)')}</label>
                     <input 
                       type="number" 
                       min="30"
@@ -719,7 +721,7 @@ export default function PetTracker() {
                       required
                       value={newCollar.radius}
                       onChange={(e) => setNewCollar(prev => ({ ...prev, radius: Number(e.target.value) }))}
-                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs text-stone-900 dark:text-white"
+                      className="w-full px-2.5 py-1.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-caption text-stone-900 dark:text-white"
                     />
                   </div>
                 </div>
@@ -727,13 +729,13 @@ export default function PetTracker() {
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl text-xs font-semibold cursor-pointer"
+                    className="px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl text-caption font-semibold cursor-pointer"
                   >
                     {t('Cancel', '取消')}
                   </button>
                   <button
                     type="submit"
-                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold cursor-pointer"
+                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-caption font-semibold cursor-pointer"
                   >
                     {t('Bind Device', '确认绑定')}
                   </button>
@@ -744,13 +746,24 @@ export default function PetTracker() {
           
           {/* QR Scanner Modal */}
           {showScanner && (
-            <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="bg-white dark:bg-stone-850 p-6 rounded-3xl shadow-2xl w-full max-w-sm space-y-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-black text-stone-900 dark:text-white">{t('Scan Pet Tag', '扫描宠物标签')}</h3>
-                  <button onClick={() => setShowScanner(false)}><X className="w-5 h-5" /></button>
+            <Modal
+              open
+              onClose={() => setShowScanner(false)}
+              labelledBy="scan-tag-title"
+              size="sm"
+              level="top"
+              overlayClassName="bg-stone-950/80"
+              panelClassName="p-6 space-y-4"
+            >
+                <div className="flex justify-between items-center gap-3">
+                  <h3 id="scan-tag-title" className="font-black text-title text-stone-900 dark:text-white">{t('Scan Pet Tag', '扫描宠物标签')}</h3>
+                  <IconButton
+                    aria-label={t('Close QR scanner', '关闭二维码扫描')}
+                    icon={<X className="w-5 h-5" />}
+                    onClick={() => setShowScanner(false)}
+                  />
                 </div>
-                <div className="rounded-2xl overflow-hidden">
+                <div className="rounded-card overflow-hidden">
                   <QrReader
                     onResult={(result, error) => {
                       if (result) {
@@ -761,16 +774,15 @@ export default function PetTracker() {
                     constraints={{ facingMode: 'environment' }}
                   />
                 </div>
-              </div>
-            </div>
+            </Modal>
           )}
         </div>
 
         {/* MIDDLE COLUMN: Interactive Map & Live Geofence Settings */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col">
+          <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col">
             {/* Map Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-stone-50 dark:border-stone-800 mb-3 text-xs">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-50 dark:border-stone-800 mb-3 text-caption">
               <div className="flex items-center gap-2">
                 <Compass className="w-4 h-4 text-indigo-500 animate-spin-slow" />
                 <span className="font-bold text-stone-900 dark:text-white">{t('Active Node', '当前追踪节点')}: {activePet.name}</span>
@@ -778,14 +790,14 @@ export default function PetTracker() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={handleForcePing}
-                  className="flex items-center gap-1 text-[11px] font-bold text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 cursor-pointer"
+                  className="flex items-center gap-1 text-caption font-bold text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 cursor-pointer"
                   title="Query collar node now"
                 >
                   <RefreshCw className="w-3 h-3" /> {t('Ping GPS', '手动测距')}
                 </button>
                 <button
                   onClick={handleSetHomeBase}
-                  className="flex items-center gap-1 text-[11px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+                  className="flex items-center gap-1 text-caption font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
                   title="Set geofence center to map focus center"
                 >
                   <MapPin className="w-3 h-3" /> {t('Set Home Here', '设为家庭中心')}
@@ -801,7 +813,7 @@ export default function PetTracker() {
               {activePet.status === 'Escaped' && (
                 <div className="absolute top-3 left-3 right-3 bg-red-500/95 text-white p-3 rounded-xl flex items-center gap-3 shadow-lg z-[401] animate-bounce">
                   <AlertTriangle className="w-5 h-5 animate-pulse shrink-0" />
-                  <div className="text-xs">
+                  <div className="text-caption">
                     <strong className="font-black uppercase tracking-wider block">{t('GEOFENCE BREACH ALERT', '宠物超出安全围栏警报！')}</strong>
                     <span>{activePet.name} {t('is out of geofence', '已离开家庭中心安全围栏，当前距离为')} {activeDistance} {t('meters away', '米！')}</span>
                   </div>
@@ -816,8 +828,8 @@ export default function PetTracker() {
                       <Volume2 className="w-6 h-6" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-bold text-sm text-stone-900 dark:text-white">{t('Ringing collar', '正在呼叫宠物：')} {activePet.name}</h4>
-                      <p className="text-[11px] text-stone-500">{t('Collar beep signal', '防丢追踪器正在发出高频蜂鸣声波以协助寻找。')}</p>
+                      <h4 className="font-bold text-body text-stone-900 dark:text-white">{t('Ringing collar', '正在呼叫宠物：')} {activePet.name}</h4>
+                      <p className="text-caption text-stone-500">{t('Collar beep signal', '防丢追踪器正在发出高频蜂鸣声波以协助寻找。')}</p>
                     </div>
                   </div>
                 </div>
@@ -828,8 +840,8 @@ export default function PetTracker() {
           {/* Quick Hardware Controls & Geofencing Parameters */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Geofence Parameters Card */}
-            <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
-              <h4 className="text-xs font-black text-stone-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
+              <h4 className="text-caption font-black text-stone-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
                 {activePet.status === 'Escaped' ? (
                   <ShieldAlert className="w-4 h-4 text-red-500" />
                 ) : (
@@ -839,7 +851,7 @@ export default function PetTracker() {
               </h4>
 
               <div className="space-y-2">
-                <div className="flex justify-between text-xs font-medium">
+                <div className="flex justify-between text-caption font-medium">
                   <span className="text-stone-500">{t('Radius Limit:', '围栏半径限制:')}</span>
                   <span className="font-bold text-stone-800 dark:text-stone-200">{activePet.geofenceRadius} {t('meters', '米')}</span>
                 </div>
@@ -852,14 +864,14 @@ export default function PetTracker() {
                   onChange={(e) => handleAdjustGeofence(Number(e.target.value))}
                   className="w-full h-1.5 bg-stone-100 dark:bg-stone-800 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                 />
-                <div className="flex justify-between text-[10px] text-stone-400">
+                <div className="flex justify-between text-caption text-stone-400">
                   <span>30m</span>
                   <span>150m</span>
                   <span>300m</span>
                 </div>
               </div>
 
-              <div className="p-3 bg-stone-50 dark:bg-stone-900 rounded-2xl border border-stone-100/50 dark:border-stone-800 flex justify-between items-center text-xs">
+              <div className="p-3 bg-stone-50 dark:bg-stone-900 rounded-2xl border border-stone-100/50 dark:border-stone-800 flex justify-between items-center text-caption">
                 <span className="text-stone-500">{t('Current Distance:', '当前距离家庭:')}</span>
                 <span className={`font-black ${
                   activePet.status === 'Safe' ? 'text-emerald-600' : activePet.status === 'Roaming' ? 'text-amber-500' : 'text-red-500'
@@ -870,8 +882,8 @@ export default function PetTracker() {
             </div>
 
             {/* Hardware Commands Card */}
-            <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
-              <h4 className="text-xs font-black text-stone-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
+              <h4 className="text-caption font-black text-stone-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
                 <Sliders className="w-4 h-4 text-indigo-500" />
                 {t('Collar Commands', '追踪器硬件指令')}
               </h4>
@@ -885,8 +897,8 @@ export default function PetTracker() {
                   className="flex flex-col items-center justify-center p-3 rounded-2xl border border-stone-100 dark:border-stone-800/85 bg-stone-50/50 hover:bg-stone-100 dark:bg-stone-900/40 dark:hover:bg-stone-900 text-stone-700 dark:text-stone-300 transition-colors cursor-pointer group"
                 >
                   <Volume2 className="w-5 h-5 text-indigo-500 mb-1.5 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-bold">{t('Ring Beacon', '发出寻宠声波')}</span>
-                  <span className="text-[8px] text-stone-400 font-medium">{t('Audible Sound', '追踪器发出蜂鸣')}</span>
+                  <span className="text-caption font-bold">{t('Ring Beacon', '发出寻宠声波')}</span>
+                  <span className="text-caption text-stone-400 font-medium">{t('Audible Sound', '追踪器发出蜂鸣')}</span>
                 </button>
 
                 {/* Night Light Toggle */}
@@ -900,8 +912,8 @@ export default function PetTracker() {
                   }`}
                 >
                   <Lightbulb className={`w-5 h-5 mb-1.5 group-hover:scale-110 transition-transform ${activePet.collarLight ? 'text-amber-500 fill-amber-300' : 'text-stone-400'}`} />
-                  <span className="text-[10px] font-bold">{t('Collar LED Light', '夜间 LED 寻宠灯')}</span>
-                  <span className="text-[8px] text-stone-400 font-medium">{t('Night Visibility', '提升夜间能见度')}</span>
+                  <span className="text-caption font-bold">{t('Collar LED Light', '夜间 LED 寻宠灯')}</span>
+                  <span className="text-caption text-stone-400 font-medium">{t('Night Visibility', '提升夜间能见度')}</span>
                 </button>
 
                 {/* Broadcast Lost Alert */}
@@ -911,8 +923,8 @@ export default function PetTracker() {
                   className="col-span-2 flex flex-col items-center justify-center p-3 rounded-2xl border border-red-200 bg-red-50 hover:bg-red-100 dark:border-red-900/40 dark:bg-red-950/20 text-red-600 transition-colors cursor-pointer group"
                 >
                   <AlertTriangle className="w-5 h-5 text-red-500 mb-1.5 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-bold">{t('Broadcast Lost Alert', '广播丢失警报')}</span>
-                  <span className="text-[8px] text-red-400 font-medium">{t('Community Alert', '发送定位到社区')}</span>
+                  <span className="text-caption font-bold">{t('Broadcast Lost Alert', '广播丢失警报')}</span>
+                  <span className="text-caption text-red-400 font-medium">{t('Community Alert', '发送定位到社区')}</span>
                 </button>
                 
                 {/* Emergency SOS */}
@@ -922,8 +934,8 @@ export default function PetTracker() {
                   className="col-span-2 flex flex-col items-center justify-center p-3 rounded-2xl border border-black bg-black hover:bg-stone-900 text-white transition-all cursor-pointer group animate-pulse"
                 >
                   <AlertTriangle className="w-6 h-6 text-red-500 mb-1.5 animate-bounce" />
-                  <span className="text-xs font-black uppercase">{t('Emergency SOS', '紧急求救')}</span>
-                  <span className="text-[9px] text-red-300 font-bold">{t('Alert Shelters & Community', '警报动物救助站与周边社区')}</span>
+                  <span className="text-caption font-black uppercase">{t('Emergency SOS', '紧急求救')}</span>
+                  <span className="text-caption text-red-300 font-bold">{t('Alert Shelters & Community', '警报动物救助站与周边社区')}</span>
                 </button>
               </div>
             </div>
@@ -932,9 +944,9 @@ export default function PetTracker() {
 
         {/* RIGHT COLUMN: Live Telemetry & Event Log */}
         <div className="lg:col-span-1 flex flex-col space-y-4">
-          <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col flex-1 h-[320px] lg:h-auto overflow-hidden">
+          <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm flex flex-col flex-1 h-[320px] lg:h-auto overflow-hidden">
             <div className="flex items-center justify-between pb-3 border-b border-stone-50 dark:border-stone-800">
-              <h3 className="font-black text-stone-900 dark:text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <h3 className="font-black text-stone-900 dark:text-white text-caption uppercase tracking-wider flex items-center gap-1.5">
                 <History className="w-3.5 h-3.5 text-rose-500" /> {t('Device Telemetry Logs', '追踪器日志监控')}
               </h3>
               <button
@@ -949,14 +961,14 @@ export default function PetTracker() {
                     }
                   ]);
                 }}
-                className="text-[10px] font-bold text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 cursor-pointer"
+                className="text-caption font-bold text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 cursor-pointer"
               >
                 {t('Clear', '清空')}
               </button>
             </div>
 
             {/* Scrollable logs */}
-            <div className="space-y-3 mt-3 overflow-y-auto flex-1 pr-1 font-mono text-[10px] max-h-[380px] scrollbar-thin">
+            <div className="space-y-3 mt-3 overflow-y-auto flex-1 pr-1 font-mono text-caption max-h-[380px] scrollbar-thin">
               {logs.length === 0 ? (
                 <div className="text-center py-12 text-stone-400">
                   <span>{t('Listening for device nodes...', '正在监听追踪器节点数据...')}</span>
@@ -965,7 +977,7 @@ export default function PetTracker() {
                 logs.map(log => {
                   let badgeColor = 'bg-stone-100 text-stone-700 dark:bg-stone-800';
                   if (log.type === 'danger') badgeColor = 'bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-400 border border-red-500/20';
-                  if (log.type === 'warning') badgeColor = 'bg-amber-100 text-amber-750 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-500/20';
+                  if (log.type === 'warning') badgeColor = 'bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-500/20';
                   if (log.type === 'success') badgeColor = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400';
 
                   return (
@@ -975,13 +987,13 @@ export default function PetTracker() {
                         log.type === 'danger' ? 'bg-red-50/30 dark:bg-red-950/10' : 'bg-stone-50/30 dark:bg-stone-900/10'
                       }`}
                     >
-                      <div className="flex justify-between items-center text-[9px] text-stone-400">
+                      <div className="flex justify-between items-center text-caption text-stone-400">
                         <span className="font-semibold text-stone-500">{log.timestamp}</span>
                         <span className={`px-1.5 py-0.5 rounded-md font-bold uppercase ${badgeColor}`}>
                           {log.petName === 'System' ? t('System', '系统') : log.petName}
                         </span>
                       </div>
-                      <p className="text-stone-600 dark:text-stone-300 leading-normal font-sans text-[11px]">
+                      <p className="text-stone-600 dark:text-stone-300 leading-normal font-sans text-caption">
                         {log.message}
                       </p>
                     </div>
@@ -991,15 +1003,15 @@ export default function PetTracker() {
             </div>
 
             {/* Informational bottom hint */}
-            <div className="mt-3 pt-3 border-t border-stone-50 dark:border-stone-800 text-[10px] text-stone-400 font-sans flex gap-1.5 items-start">
+            <div className="mt-3 pt-3 border-t border-stone-50 dark:border-stone-800 text-caption text-stone-400 font-sans flex gap-1.5 items-start">
               <Info className="w-3.5 h-3.5 text-indigo-500 shrink-0 mt-0.5" />
               <span>{t('Collar logs are updated real-time when the GPS locator completes high-frequency cellular triangulation cycles.', '当 GPS 追踪器完成高频蜂窝网络三角定位解算时，追踪器日志将进行实时同步与更新。')}</span>
             </div>
           </div>
           
-          <div className="bg-white dark:bg-stone-850 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
+          <div className="bg-white dark:bg-stone-800 p-4 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
             <div className="flex justify-between items-center">
-              <h3 className="font-black text-stone-900 dark:text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <h3 className="font-black text-stone-900 dark:text-white text-caption uppercase tracking-wider flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-red-500" /> {t('Emergency Contacts', '紧急联系方式')}
               </h3>
               <button onClick={() => isEditingContacts ? handleSaveContacts() : setIsEditingContacts(true)} className="text-indigo-600 hover:text-indigo-700">
@@ -1011,25 +1023,25 @@ export default function PetTracker() {
               <div className="flex gap-2 items-start">
                 <Stethoscope className="w-4 h-4 text-stone-400 mt-1" />
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-stone-500">{t('Primary Vet', '兽医诊所')}</p>
+                  <p className="text-caption font-bold text-stone-500">{t('Primary Vet', '兽医诊所')}</p>
                   {isEditingContacts ? (
-                    <input className="w-full text-xs p-1 border rounded" value={emergencyContacts.vet.name} onChange={e => setEmergencyContacts(p => ({...p, vet: {...p.vet, name: e.target.value}}))} placeholder={t('Clinic Name', '诊所名称')} />
-                  ) : <p className="text-xs">{emergencyContacts.vet.name || '-'}</p>}
+                    <input className="w-full text-caption p-1 border rounded" value={emergencyContacts.vet.name} onChange={e => setEmergencyContacts(p => ({...p, vet: {...p.vet, name: e.target.value}}))} placeholder={t('Clinic Name', '诊所名称')} />
+                  ) : <p className="text-caption">{emergencyContacts.vet.name || '-'}</p>}
                   {isEditingContacts ? (
-                    <input className="w-full text-xs p-1 border rounded mt-1" value={emergencyContacts.vet.phone} onChange={e => setEmergencyContacts(p => ({...p, vet: {...p.vet, phone: e.target.value}}))} placeholder={t('Phone', '电话')} />
-                  ) : <p className="text-xs text-stone-500">{emergencyContacts.vet.phone || '-'}</p>}
+                    <input className="w-full text-caption p-1 border rounded mt-1" value={emergencyContacts.vet.phone} onChange={e => setEmergencyContacts(p => ({...p, vet: {...p.vet, phone: e.target.value}}))} placeholder={t('Phone', '电话')} />
+                  ) : <p className="text-caption text-stone-500">{emergencyContacts.vet.phone || '-'}</p>}
                 </div>
               </div>
               <div className="flex gap-2 items-start">
                 <Phone className="w-4 h-4 text-stone-400 mt-1" />
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-stone-500">{t('Emergency Clinic', '急诊医院')}</p>
+                  <p className="text-caption font-bold text-stone-500">{t('Emergency Clinic', '急诊医院')}</p>
                   {isEditingContacts ? (
-                    <input className="w-full text-xs p-1 border rounded" value={emergencyContacts.clinic.name} onChange={e => setEmergencyContacts(p => ({...p, clinic: {...p.clinic, name: e.target.value}}))} placeholder={t('Clinic Name', '医院名称')} />
-                  ) : <p className="text-xs">{emergencyContacts.clinic.name || '-'}</p>}
+                    <input className="w-full text-caption p-1 border rounded" value={emergencyContacts.clinic.name} onChange={e => setEmergencyContacts(p => ({...p, clinic: {...p.clinic, name: e.target.value}}))} placeholder={t('Clinic Name', '医院名称')} />
+                  ) : <p className="text-caption">{emergencyContacts.clinic.name || '-'}</p>}
                   {isEditingContacts ? (
-                    <input className="w-full text-xs p-1 border rounded mt-1" value={emergencyContacts.clinic.phone} onChange={e => setEmergencyContacts(p => ({...p, clinic: {...p.clinic, phone: e.target.value}}))} placeholder={t('Phone', '电话')} />
-                  ) : <p className="text-xs text-stone-500">{emergencyContacts.clinic.phone || '-'}</p>}
+                    <input className="w-full text-caption p-1 border rounded mt-1" value={emergencyContacts.clinic.phone} onChange={e => setEmergencyContacts(p => ({...p, clinic: {...p.clinic, phone: e.target.value}}))} placeholder={t('Phone', '电话')} />
+                  ) : <p className="text-caption text-stone-500">{emergencyContacts.clinic.phone || '-'}</p>}
                 </div>
               </div>
             </div>

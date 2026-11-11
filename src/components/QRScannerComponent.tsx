@@ -23,7 +23,7 @@ export default function QRScannerComponent({ onScan, onClose }: QRScannerCompone
           constraints={{ facingMode: 'environment' }}
         />
       </div>
-      <p className="text-white mt-4 text-sm">Scan the QR code on the collar tag</p>
+      <p className="text-white mt-4 text-body">Scan the QR code on the collar tag</p>
     </div>
   );
 }

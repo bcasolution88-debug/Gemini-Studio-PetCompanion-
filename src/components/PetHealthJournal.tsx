@@ -1259,10 +1259,10 @@ export default function PetHealthJournal() {
       {/* 1. Sidebar Compact Component */}
       <div className="bg-white dark:bg-stone-800 p-5 rounded-3xl shadow-sm border border-stone-100 dark:border-stone-700 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-stone-950 dark:text-stone-50 flex items-center gap-1.5">
+          <h3 className="text-body font-bold text-stone-950 dark:text-stone-50 flex items-center gap-1.5">
             <BookOpen className="w-4 h-4 text-rose-500 animate-pulse" /> {t('Wellness Journal', '健康日志')}
           </h3>
-          <span className="text-[10px] font-bold text-rose-500 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2 py-0.5 rounded-full">
+          <span className="text-caption font-bold text-rose-500 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2 py-0.5 rounded-full">
             {t('Academy', '学院')}
           </span>
         </div>
@@ -1273,13 +1273,13 @@ export default function PetHealthJournal() {
             <div className="flex items-center gap-1.5">
               <span className="text-xl">{currentLevel.icon}</span>
               <div>
-                <p className="text-xs font-black text-stone-900 dark:text-white leading-tight">
+                <p className="text-caption font-black text-stone-900 dark:text-white leading-tight">
                   Lv.{currentLevel.level} {currentLevel.title === 'Novice Companion' ? t('Novice Companion', '新手伙伴') : currentLevel.title === 'Caring Guardian' ? t('Caring Guardian', '呵护守护者') : currentLevel.title === 'Wellness Advocate' ? t('Wellness Advocate', '健康倡导者') : currentLevel.title === 'Health Specialist' ? t('Health Specialist', '健康专家') : t('Elite Pet Parent', '精英宠主')}
                 </p>
-                <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider">{t('Current Ranking', '当前等级')}</p>
+                <p className="text-caption text-stone-400 font-semibold uppercase tracking-wider">{t('Current Ranking', '当前等级')}</p>
               </div>
             </div>
-            <span className="text-xs font-bold font-mono text-stone-600 dark:text-stone-300">
+            <span className="text-caption font-bold font-mono text-stone-600 dark:text-stone-300">
               {totalXp} XP
             </span>
           </div>
@@ -1293,20 +1293,20 @@ export default function PetHealthJournal() {
               />
             </div>
             {nextLevel ? (
-              <div className="flex justify-between text-[9px] text-stone-400 font-bold">
+              <div className="flex justify-between text-caption text-stone-400 font-bold">
                 <span>{currentLevel.minXp} XP</span>
                 <span>{nextLevel.minXp - totalXp} {t('XP to Lv.', 'XP 升级至 Lv.')}{nextLevel.level}</span>
                 <span>{nextLevel.minXp} XP</span>
               </div>
             ) : (
-              <p className="text-[9px] text-amber-500 font-bold text-center">🏆 {t('MAX LEVEL ACHIEVED', '🏆 已达最高等级')}</p>
+              <p className="text-caption text-amber-500 font-bold text-center">🏆 {t('MAX LEVEL ACHIEVED', '🏆 已达最高等级')}</p>
             )}
           </div>
         </div>
 
         {/* Badge preview showcase */}
         <div className="space-y-1.5">
-          <p className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">{t('Achievements', '成就')} ({unlockedBadges.length}/{BADGES.length})</p>
+          <p className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Achievements', '成就')} ({unlockedBadges.length}/{BADGES.length})</p>
           <div className="flex items-center gap-2">
             {BADGES.map((badge) => {
               const isUnlocked = badge.check(entries);
@@ -1334,7 +1334,7 @@ export default function PetHealthJournal() {
               setModalTab('log');
               setIsModalOpen(true);
             }}
-            className="flex items-center justify-center gap-1 py-2 px-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-xl transition-all shadow-sm active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 px-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-caption rounded-xl transition-all shadow-sm active:scale-95"
           >
             <Plus className="w-3.5 h-3.5" /> {t('Log Daily', '每日记录')}
           </button>
@@ -1343,7 +1343,7 @@ export default function PetHealthJournal() {
               setModalTab('badges');
               setIsModalOpen(true);
             }}
-            className="flex items-center justify-center gap-1 py-2 px-2.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 font-bold text-xs rounded-xl transition-all active:scale-95"
+            className="flex items-center justify-center gap-1 py-2 px-2.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 font-bold text-caption rounded-xl transition-all active:scale-95"
           >
             <Trophy className="w-3.5 h-3.5 text-amber-500" /> {t('Academy', '学院')}
           </button>
@@ -1354,9 +1354,9 @@ export default function PetHealthJournal() {
           <div className="border-t border-stone-100 dark:border-stone-800 pt-3 flex items-start gap-2 text-left">
             <Calendar className="w-3.5 h-3.5 text-stone-400 flex-shrink-0 mt-0.5" />
             <div className="min-w-0 flex-1">
-              <p className="text-[10px] text-stone-400 font-bold leading-none mb-1">{t('LATEST ENTRY', '最新日志')} • {entries[0].date}</p>
-              <p className="text-xs font-bold text-stone-800 dark:text-stone-100 truncate">{entries[0].activity}</p>
-              <p className="text-[10px] text-stone-500">
+              <p className="text-caption text-stone-400 font-bold leading-none mb-1">{t('LATEST ENTRY', '最新日志')} • {entries[0].date}</p>
+              <p className="text-caption font-bold text-stone-800 dark:text-stone-100 truncate">{entries[0].activity}</p>
+              <p className="text-caption text-stone-500">
                 {entries[0].weight > 0 ? `${entries[0].weight}kg` : t('No weight', '未记录体重')} {entries[0].mood && `• ${t('Mood:', '心情:')} ${entries[0].mood}`}
               </p>
             </div>
@@ -1382,7 +1382,7 @@ export default function PetHealthJournal() {
                     <Trophy className="w-6 h-6 text-yellow-300 animate-bounce" />
                     <h2 className="text-2xl font-black tracking-tight">{t('Pet Wellness Academy', '宠物健康学院')}</h2>
                   </div>
-                  <p className="text-rose-100 text-xs font-medium mt-1">
+                  <p className="text-rose-100 text-caption font-medium mt-1">
                     {t('Log indicators to level up your status, track bio-trends, and unlock high-level guardian medals.', '记录健康指标以提升等级，追踪生物趋势，并解锁高阶守护者勋章。')}
                   </p>
                 </div>
@@ -1416,7 +1416,7 @@ export default function PetHealthJournal() {
                     <button
                       key={tab.id}
                       onClick={() => setModalTab(tab.id as any)}
-                      className={`flex-1 py-4 text-sm font-bold flex items-center justify-center gap-2 border-b-2 transition-all ${
+                      className={`flex-1 py-4 text-body font-bold flex items-center justify-center gap-2 border-b-2 transition-all ${
                         isActive 
                           ? 'border-rose-500 text-rose-600 dark:text-rose-400 bg-white dark:bg-stone-900' 
                           : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
@@ -1438,14 +1438,14 @@ export default function PetHealthJournal() {
                     {/* Log Form Column */}
                     <div className="lg:col-span-5 space-y-4">
                       <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
-                        <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2">
+                        <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2">
                           <Plus className="w-4 h-4 text-rose-500" /> {t('New Log Entry', '新建日志')}
                         </h3>
                         
                         <form onSubmit={addEntry} className="space-y-4">
                           {/* Quick Pre-fill Actions */}
                           <div className="space-y-1.5 p-3 bg-rose-500/5 dark:bg-rose-500/10 rounded-xl border border-rose-500/10 dark:border-rose-500/20">
-                            <label className="text-[10px] font-black text-rose-500 dark:text-rose-400 uppercase tracking-wider flex items-center gap-1">
+                            <label className="text-caption font-black text-rose-500 dark:text-rose-400 uppercase tracking-wider flex items-center gap-1">
                               <Sparkles className="w-3 h-3 text-rose-500 animate-pulse" />
                               {t('⚡ One-Tap Fast Presets', '⚡ 一键快速预设填表')}
                             </label>
@@ -1510,7 +1510,7 @@ export default function PetHealthJournal() {
                                   key={idx}
                                   type="button"
                                   onClick={item.action}
-                                  className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 active:scale-95 hover:scale-[1.02] ${item.color}`}
+                                  className={`text-caption font-bold px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 active:scale-95 hover:scale-[1.02] ${item.color}`}
                                 >
                                   {item.label}
                                 </button>
@@ -1520,14 +1520,14 @@ export default function PetHealthJournal() {
 
                           {/* Activity Field */}
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider">{t('Activity / Care Log', '活动/护理日志')}</label>
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider">{t('Activity / Care Log', '活动/护理日志')}</label>
                             <input
                               type="text"
                               required
                               placeholder={t("e.g. Vaccination, Diet checkup...", "例如：接种疫苗、饮食检查...")}
                               value={activity}
                               onChange={(e) => setActivity(e.target.value)}
-                              className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                              className="w-full px-3.5 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                             />
                             {/* Suggestions */}
                             <div className="flex flex-wrap gap-1 pt-1">
@@ -1536,7 +1536,7 @@ export default function PetHealthJournal() {
                                   key={s.label}
                                   type="button"
                                   onClick={() => setActivity(s.val)}
-                                  className="text-[10px] font-bold px-2 py-1 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 rounded-lg transition-all"
+                                  className="text-caption font-bold px-2 py-1 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 rounded-lg transition-all"
                                 >
                                   {s.label}
                                 </button>
@@ -1546,8 +1546,8 @@ export default function PetHealthJournal() {
 
                           {/* Weight Field */}
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
-                              {t('Weight', '体重')} <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                              {t('Weight', '体重')} <span className="text-caption text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
                             </label>
                             <div className="relative">
                               <input
@@ -1556,23 +1556,23 @@ export default function PetHealthJournal() {
                                 placeholder={t("e.g. 12.5", "例如：12.5")}
                                 value={weight}
                                 onChange={(e) => setWeight(e.target.value)}
-                                className="w-full pl-3.5 pr-12 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                                className="w-full pl-3.5 pr-12 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                               />
-                              <span className="absolute right-3.5 top-3 text-xs font-bold text-stone-400">kg</span>
+                              <span className="absolute right-3.5 top-3 text-caption font-bold text-stone-400">kg</span>
                             </div>
                           </div>
 
                           {/* Mood Field */}
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
-                              {t('Pet Mood', '宠物心情')} <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                              {t('Pet Mood', '宠物心情')} <span className="text-caption text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
                             </label>
                             <input
                               type="text"
                               placeholder={t("Describe mood (or click emojis below)...", "描述心情 (或点击下方表情)...")}
                               value={mood}
                               onChange={(e) => setMood(e.target.value)}
-                              className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                              className="w-full px-3.5 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                             />
                             {/* Mood Shortcuts */}
                             <div className="flex gap-1 pt-1 overflow-x-auto pb-1 scrollbar-none">
@@ -1581,7 +1581,7 @@ export default function PetHealthJournal() {
                                   key={m.label}
                                   type="button"
                                   onClick={() => setMood(m.label)}
-                                  className={`text-xs font-bold px-2 py-1.5 rounded-lg border transition-all flex items-center gap-1 ${
+                                  className={`text-caption font-bold px-2 py-1.5 rounded-lg border transition-all flex items-center gap-1 ${
                                     mood === m.label 
                                       ? 'bg-rose-500 border-rose-500 text-white shadow-sm' 
                                       : 'bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-800'
@@ -1596,8 +1596,8 @@ export default function PetHealthJournal() {
 
                           {/* Mood Tags Field */}
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
-                              {t('Mood Tags', '心情标签')} <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                              {t('Mood Tags', '心情标签')} <span className="text-caption text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
                             </label>
                             
                             {/* Preset Tags Grid */}
@@ -1615,13 +1615,13 @@ export default function PetHealthJournal() {
                                         setSelectedTags([...selectedTags, tag]);
                                       }
                                     }}
-                                    className={`text-[11px] font-bold px-2.5 py-1 rounded-full border transition-all flex items-center gap-1 ${
+                                    className={`text-caption font-bold px-2.5 py-1 rounded-full border transition-all flex items-center gap-1 ${
                                       isSelected
                                         ? 'bg-purple-500 border-purple-500 text-white shadow-sm'
-                                        : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-750 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-700'
+                                        : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-700'
                                     }`}
                                   >
-                                    <span className="text-xs">{getTagEmoji(tag)}</span>
+                                    <span className="text-caption">{getTagEmoji(tag)}</span>
                                     <span>{tag}</span>
                                   </button>
                                 );
@@ -1631,8 +1631,8 @@ export default function PetHealthJournal() {
 
                           {/* Common Symptoms Picker */}
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
-                              {t('Common Symptoms Picker', '异常症状多选')} <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
+                              {t('Common Symptoms Picker', '异常症状多选')} <span className="text-caption text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+10 XP {t('Bonus', '奖励')}</span>
                             </label>
                             
                             {/* Preset Symptom Tags Grid */}
@@ -1659,10 +1659,10 @@ export default function PetHealthJournal() {
                                         setSelectedTags([...selectedTags, item.tag]);
                                       }
                                     }}
-                                    className={`text-[11px] font-bold px-2.5 py-1 rounded-full border transition-all flex items-center gap-1 ${
+                                    className={`text-caption font-bold px-2.5 py-1 rounded-full border transition-all flex items-center gap-1 ${
                                       isSelected
                                         ? 'bg-rose-500 border-rose-500 text-white shadow-sm'
-                                        : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-750 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-700'
+                                        : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-700'
                                     }`}
                                   >
                                     <span>{item.label}</span>
@@ -1691,7 +1691,7 @@ export default function PetHealthJournal() {
                                     }
                                   }
                                 }}
-                                className="flex-1 px-3 py-1.5 text-xs bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                                className="flex-1 px-3 py-1.5 text-caption bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                               />
                               <button
                                 type="button"
@@ -1705,7 +1705,7 @@ export default function PetHealthJournal() {
                                     setCustomTagInput('');
                                   }
                                 }}
-                                className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded-xl text-xs font-bold transition-all"
+                                className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded-xl text-caption font-bold transition-all"
                               >
                                 {t('Add', '添加')}
                               </button>
@@ -1714,11 +1714,11 @@ export default function PetHealthJournal() {
                             {/* Active Custom/Selected Tags List */}
                             {selectedTags.length > 0 && (
                               <div className="flex flex-wrap gap-1 mt-1">
-                                <span className="text-[10px] font-bold text-stone-400 self-center mr-1">{t('Selected:', '已选:')}</span>
+                                <span className="text-caption font-bold text-stone-400 self-center mr-1">{t('Selected:', '已选:')}</span>
                                 {selectedTags.map(tag => (
                                   <span 
                                     key={tag} 
-                                    className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 rounded-full"
+                                    className="inline-flex items-center gap-1 text-caption font-bold px-2 py-0.5 bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 rounded-full"
                                   >
                                     <span>{getTagEmoji(tag)}</span>
                                     <span>{tag}</span>
@@ -1737,9 +1737,9 @@ export default function PetHealthJournal() {
 
                           {/* Photo & Camera Attachment Section */}
                           <div className="space-y-2 p-3 bg-stone-50/50 dark:bg-stone-900/20 rounded-xl border border-stone-200/40 dark:border-stone-800/40">
-                            <label className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <label className="text-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
                               <Camera className="w-3.5 h-3.5 text-rose-500" />
-                              {t('Attach Entry Photo', '附带日志照片')} <span className="text-[10px] text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+15 XP {t('Bonus', '奖励')}</span>
+                              {t('Attach Entry Photo', '附带日志照片')} <span className="text-caption text-emerald-500 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded">+15 XP {t('Bonus', '奖励')}</span>
                             </label>
 
                             {isCameraActive ? (
@@ -1752,14 +1752,14 @@ export default function PetHealthJournal() {
                                     muted 
                                     className="w-full h-full object-cover"
                                   />
-                                  <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-[9px] text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse flex items-center gap-1">
+                                  <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-caption text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                                     {t('Live Feed', '实时画面')}
                                   </div>
                                 </div>
                                 
                                 {cameraError && (
-                                  <p className="text-[11px] text-rose-500 font-bold text-center">
+                                  <p className="text-caption text-rose-500 font-bold text-center">
                                     {cameraError}
                                   </p>
                                 )}
@@ -1768,7 +1768,7 @@ export default function PetHealthJournal() {
                                   <button
                                     type="button"
                                     onClick={capturePhoto}
-                                    className="flex-1 py-1.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1"
+                                    className="flex-1 py-1.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-caption rounded-lg transition-all active:scale-95 flex items-center justify-center gap-1"
                                   >
                                     <Camera className="w-3.5 h-3.5" />
                                     {t('Snap Photo', '拍照')}
@@ -1776,7 +1776,7 @@ export default function PetHealthJournal() {
                                   <button
                                     type="button"
                                     onClick={stopCamera}
-                                    className="px-3 py-1.5 bg-stone-200 hover:bg-stone-300 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs rounded-lg transition-all"
+                                    className="px-3 py-1.5 bg-stone-200 hover:bg-stone-300 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-caption rounded-lg transition-all"
                                   >
                                     {t('Cancel', '取消')}
                                   </button>
@@ -1784,7 +1784,7 @@ export default function PetHealthJournal() {
                               </div>
                             ) : formPhoto ? (
                               <div className="space-y-3">
-                                <div className="flex items-center gap-3 bg-white dark:bg-stone-900 p-2 rounded-lg border border-stone-150 dark:border-stone-800">
+                                <div className="flex items-center gap-3 bg-white dark:bg-stone-900 p-2 rounded-lg border border-stone-200 dark:border-stone-800">
                                   <div className="relative w-14 h-14 rounded-lg overflow-hidden border border-stone-100 dark:border-stone-800 flex-shrink-0">
                                     <img src={formPhoto} alt="Attached" className="w-full h-full object-cover" />
                                     <button
@@ -1803,8 +1803,8 @@ export default function PetHealthJournal() {
                                     </button>
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-black text-stone-700 dark:text-stone-200 truncate">{t('Photo attached successfully!', '照片已成功附带！')}</p>
-                                    <p className="text-[10px] text-stone-400 font-bold">{t('Will be saved with your journal entry', '将与您的日志一同保存')}</p>
+                                    <p className="text-caption font-black text-stone-700 dark:text-stone-200 truncate">{t('Photo attached successfully!', '照片已成功附带！')}</p>
+                                    <p className="text-caption text-stone-400 font-bold">{t('Will be saved with your journal entry', '将与您的日志一同保存')}</p>
                                   </div>
                                   <button
                                     type="button"
@@ -1815,7 +1815,7 @@ export default function PetHealthJournal() {
                                       setVisionAnalysisResult(null);
                                       setVisionAnalysisError(null);
                                     }}
-                                    className="text-[10px] font-bold text-rose-500 hover:underline px-2"
+                                    className="text-caption font-bold text-rose-500 hover:underline px-2"
                                   >
                                     {t('Remove', '移除')}
                                   </button>
@@ -1826,7 +1826,7 @@ export default function PetHealthJournal() {
                                     type="button"
                                     onClick={handleAnalyzeBehavior}
                                     disabled={isAnalyzingBehavior || isAnalyzingVision}
-                                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-70 text-white text-xs font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                                    className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:opacity-70 text-white text-caption font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                                   >
                                     <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                                     {isAnalyzingBehavior ? t('Analyzing Posture...', '行为分析中...') : t('Analyze Behavior (AI)', 'AI 行为姿态分析')}
@@ -1836,7 +1836,7 @@ export default function PetHealthJournal() {
                                     type="button"
                                     onClick={handleAnalyzeVision}
                                     disabled={isAnalyzingBehavior || isAnalyzingVision}
-                                    className="w-full py-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-70 text-white text-xs font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                                    className="w-full py-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-70 text-white text-caption font-black rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                                   >
                                     <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                                     {isAnalyzingVision ? t('Analyzing Vision...', '视觉筛查中...') : t('Vision Health AI', 'AI 视觉病症/饲料筛查')}
@@ -1844,40 +1844,40 @@ export default function PetHealthJournal() {
                                 </div>
 
                                 {visionAnalysisError && (
-                                  <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-[10px] text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">
+                                  <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-caption text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">
                                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                                     <span>{visionAnalysisError}</span>
                                   </div>
                                 )}
 
                                 {visionAnalysisResult && (
-                                  <div className="p-4 bg-stone-100/50 dark:bg-stone-850 border border-teal-100 dark:border-teal-900/30 rounded-xl space-y-3 text-left animate-fade-in">
+                                  <div className="p-4 bg-stone-100/50 dark:bg-stone-800 border border-teal-100 dark:border-teal-900/30 rounded-xl space-y-3 text-left animate-fade-in">
                                     <div className="flex items-center justify-between">
-                                      <span className="text-[9px] font-black text-teal-600 dark:text-teal-400 uppercase tracking-widest">
+                                      <span className="text-caption font-black text-teal-600 dark:text-teal-400 uppercase tracking-widest">
                                         {visionAnalysisResult.analysisType === 'symptom' ? t('AI Clinical Symptom Analyzer', 'AI 临床体征筛查') : 
                                          visionAnalysisResult.analysisType === 'ingredients' ? t('AI Ingredient Label Analysis', 'AI 配料成分翻译与分析') : 
                                          t('AI Multimodal Vision Assistant', 'AI 视觉多模态分析')}
                                       </span>
-                                      <span className="text-[10px] font-black bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full">
+                                      <span className="text-caption font-black bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full">
                                         ✨ {visionAnalysisResult.title}
                                       </span>
                                     </div>
 
                                     <div className="space-y-1">
-                                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Detailed Analysis Summary:', '详细分析报告:')}</p>
-                                      <p className="text-xs text-stone-700 dark:text-stone-200 font-semibold leading-relaxed whitespace-pre-line">
+                                      <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Detailed Analysis Summary:', '详细分析报告:')}</p>
+                                      <p className="text-caption text-stone-700 dark:text-stone-200 font-semibold leading-relaxed whitespace-pre-line">
                                         {visionAnalysisResult.description}
                                       </p>
                                     </div>
 
                                     {visionAnalysisResult.alertIngredients && visionAnalysisResult.alertIngredients.length > 0 && (
                                       <div className="space-y-1">
-                                        <p className="text-[10px] text-rose-400 font-bold uppercase tracking-wider">
+                                        <p className="text-caption text-rose-400 font-bold uppercase tracking-wider">
                                           {visionAnalysisResult.analysisType === 'ingredients' ? t('Potential Allergens / Bad Additives:', '可能致敏成分/风险添加剂:') : t('Abnormal Clinical Metrics:', '异常生理指标与体征:')}
                                         </p>
                                         <div className="flex flex-wrap gap-1">
                                           {visionAnalysisResult.alertIngredients.map((item, index) => (
-                                            <span key={index} className="text-[10px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-150 dark:border-rose-900/30">
+                                            <span key={index} className="text-caption font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md border border-rose-100 dark:border-rose-900/30">
                                               ⚠ {item}
                                             </span>
                                           ))}
@@ -1887,8 +1887,8 @@ export default function PetHealthJournal() {
 
                                     {visionAnalysisResult.vetAdvice && (
                                       <div className="p-3 bg-teal-50/50 dark:bg-teal-950/20 border border-teal-100/50 dark:border-teal-900/20 rounded-lg space-y-1">
-                                        <p className="text-[10px] text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">{t('Vet Care Guidelines:', '兽医居家关怀指南:')}</p>
-                                        <p className="text-xs text-teal-700 dark:text-teal-300 font-medium leading-relaxed">
+                                        <p className="text-caption text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">{t('Vet Care Guidelines:', '兽医居家关怀指南:')}</p>
+                                        <p className="text-caption text-teal-700 dark:text-teal-300 font-medium leading-relaxed">
                                           {visionAnalysisResult.vetAdvice}
                                         </p>
                                       </div>
@@ -1896,7 +1896,7 @@ export default function PetHealthJournal() {
 
                                     {visionAnalysisResult.suggestedSymptoms && visionAnalysisResult.suggestedSymptoms.length > 0 && (
                                       <div className="space-y-2 pt-2 border-t border-stone-200/50 dark:border-stone-700/50">
-                                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Interactive Autofill Tags (Click to insert):', '可交互智能填充标签 (点击直接录入日志):')}</p>
+                                        <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Interactive Autofill Tags (Click to insert):', '可交互智能填充标签 (点击直接录入日志):')}</p>
                                         <div className="flex flex-wrap gap-1.5">
                                           {visionAnalysisResult.suggestedSymptoms.map((symptom, index) => (
                                             <button
@@ -1909,7 +1909,7 @@ export default function PetHealthJournal() {
                                                   return `${prev}，${symptom}`;
                                                 });
                                               }}
-                                              className="text-[10px] font-bold bg-stone-100 hover:bg-teal-50 dark:bg-stone-800 dark:hover:bg-teal-950/40 text-stone-600 hover:text-teal-600 dark:text-stone-300 dark:hover:text-teal-400 px-2.5 py-1 rounded-full border border-stone-200 hover:border-teal-300 dark:border-stone-700 transition-all hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
+                                              className="text-caption font-bold bg-stone-100 hover:bg-teal-50 dark:bg-stone-800 dark:hover:bg-teal-950/40 text-stone-600 hover:text-teal-600 dark:text-stone-300 dark:hover:text-teal-400 px-2.5 py-1 rounded-full border border-stone-200 hover:border-teal-300 dark:border-stone-700 transition-all hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
                                             >
                                               <span>+</span> {symptom}
                                             </button>
@@ -1921,32 +1921,32 @@ export default function PetHealthJournal() {
                                 )}
 
                                 {behaviorAnalysisError && (
-                                  <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-[10px] text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">
+                                  <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-caption text-rose-500 font-extrabold rounded-lg border border-rose-100 dark:border-rose-900/40 flex items-center gap-1.5 animate-fade-in">
                                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                                     <span>{behaviorAnalysisError}</span>
                                   </div>
                                 )}
 
                                 {behaviorAnalysisResult && (
-                                  <div className="p-4 bg-stone-100/50 dark:bg-stone-850 border border-purple-100 dark:border-purple-900/30 rounded-xl space-y-3 text-left animate-fade-in">
+                                  <div className="p-4 bg-stone-100/50 dark:bg-stone-800 border border-purple-100 dark:border-purple-900/30 rounded-xl space-y-3 text-left animate-fade-in">
                                     <div className="flex items-center justify-between">
-                                      <span className="text-[9px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest">{t('AI Behavioral Ethology', 'AI 行为学与情绪分析')}</span>
-                                      <span className="text-[10px] font-black bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-full">
+                                      <span className="text-caption font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest">{t('AI Behavioral Ethology', 'AI 行为学与情绪分析')}</span>
+                                      <span className="text-caption font-black bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-full">
                                         ✨ {behaviorAnalysisResult.emotionalState}
                                       </span>
                                     </div>
                                     
                                     <div className="space-y-1">
-                                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Posture Interpretation:', '姿态与动作释义:')}</p>
-                                      <p className="text-xs text-stone-700 dark:text-stone-200 font-semibold leading-relaxed">
+                                      <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Posture Interpretation:', '姿态与动作释义:')}</p>
+                                      <p className="text-caption text-stone-700 dark:text-stone-200 font-semibold leading-relaxed">
                                         {behaviorAnalysisResult.postureInterpretation}
                                       </p>
                                     </div>
 
                                     {behaviorAnalysisResult.triggers && behaviorAnalysisResult.triggers.length > 0 && (
                                       <div className="space-y-1">
-                                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Common Triggers & Context:', '常见触发场景与环境:')}</p>
-                                        <ul className="list-disc pl-4 space-y-0.5 text-xs text-stone-600 dark:text-stone-300 font-medium">
+                                        <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Common Triggers & Context:', '常见触发场景与环境:')}</p>
+                                        <ul className="list-disc pl-4 space-y-0.5 text-caption text-stone-600 dark:text-stone-300 font-medium">
                                           {behaviorAnalysisResult.triggers.map((trig, index) => (
                                             <li key={index}>{trig}</li>
                                           ))}
@@ -1956,8 +1956,8 @@ export default function PetHealthJournal() {
 
                                     {behaviorAnalysisResult.tips && behaviorAnalysisResult.tips.length > 0 && (
                                       <div className="space-y-1">
-                                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Recommended Bonding Tips:', '推荐互动/训练方案:')}</p>
-                                        <ul className="list-disc pl-4 space-y-0.5 text-xs text-stone-600 dark:text-stone-300 font-medium">
+                                        <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Recommended Bonding Tips:', '推荐互动/训练方案:')}</p>
+                                        <ul className="list-disc pl-4 space-y-0.5 text-caption text-stone-600 dark:text-stone-300 font-medium">
                                           {behaviorAnalysisResult.tips.map((tip, index) => (
                                             <li key={index}>{tip}</li>
                                           ))}
@@ -1986,14 +1986,14 @@ export default function PetHealthJournal() {
                                           }
                                           setSelectedTags(newTags);
                                         }}
-                                        className="w-full py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1 shadow-sm"
+                                        className="w-full py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-caption font-black rounded-lg transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1 shadow-sm"
                                       >
                                         <Check className="w-3.5 h-3.5" />
                                         {t('Apply to Journal Log', '将分析同步填入日志')}
                                       </button>
                                     </div>
 
-                                    <p className="text-[9px] text-stone-400 dark:text-stone-500 font-bold leading-normal pt-1 bg-stone-50 dark:bg-stone-900/50 p-2 rounded border border-stone-250/20 dark:border-stone-800">
+                                    <p className="text-caption text-stone-400 dark:text-stone-500 font-bold leading-normal pt-1 bg-stone-50 dark:bg-stone-900/50 p-2 rounded border border-stone-300/20 dark:border-stone-800">
                                       ⚠️ {behaviorAnalysisResult.disclaimer}
                                     </p>
                                   </div>
@@ -2004,7 +2004,7 @@ export default function PetHealthJournal() {
                                 <button
                                   type="button"
                                   onClick={startCamera}
-                                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 border border-stone-200/40 dark:border-stone-700/40"
+                                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-caption rounded-lg transition-all flex items-center justify-center gap-1.5 border border-stone-200/40 dark:border-stone-700/40"
                                 >
                                   <Camera className="w-3.5 h-3.5 text-rose-500" />
                                   {t('Use Camera', '使用相机拍照')}
@@ -2012,7 +2012,7 @@ export default function PetHealthJournal() {
                                 <button
                                   type="button"
                                   onClick={() => document.getElementById('pet-journal-photo-upload')?.click()}
-                                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 border border-stone-200/40 dark:border-stone-700/40"
+                                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-caption rounded-lg transition-all flex items-center justify-center gap-1.5 border border-stone-200/40 dark:border-stone-700/40"
                                 >
                                   <Image className="w-3.5 h-3.5 text-rose-500" />
                                   {t('Upload File', '选择本地图片')}
@@ -2031,7 +2031,7 @@ export default function PetHealthJournal() {
                           {/* Submit Button */}
                           <button
                             type="submit"
-                            className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
+                            className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
                           >
                             <Plus className="w-4 h-4" /> {t('Add Journal Entry', '添加日志记录')}
                           </button>
@@ -2045,13 +2045,13 @@ export default function PetHealthJournal() {
                       <div className="bg-stone-50 dark:bg-stone-950/50 p-4 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-3">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h4 className="text-xs font-bold text-stone-900 dark:text-stone-50 flex items-center gap-1.5">
+                            <h4 className="text-caption font-bold text-stone-900 dark:text-stone-50 flex items-center gap-1.5">
                               <TrendingUp className="w-4 h-4 text-rose-500 animate-pulse" />
                               {t('7-Day Wellness Trends', '7日健康状况走势')}
                             </h4>
-                            <p className="text-[10px] text-stone-400 font-semibold">{t('Frequency of logged mood states & health symptoms', '每日情绪状态与身体异常指标记录频次')}</p>
+                            <p className="text-caption text-stone-400 font-semibold">{t('Frequency of logged mood states & health symptoms', '每日情绪状态与身体异常指标记录频次')}</p>
                           </div>
-                          <div className="flex items-center gap-2 text-[9px] font-bold">
+                          <div className="flex items-center gap-2 text-caption font-bold">
                             <span className="flex items-center gap-1 text-rose-500">
                               <span className="w-2 h-2 rounded-full bg-rose-500" />
                               {t('Moods', '情绪')}
@@ -2103,11 +2103,11 @@ export default function PetHealthJournal() {
                       <div className="bg-gradient-to-br from-rose-500/5 to-purple-600/5 dark:from-rose-500/10 dark:to-purple-600/10 p-5 rounded-2xl border border-rose-500/10 dark:border-rose-500/20 space-y-4">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                           <div className="space-y-1">
-                            <h4 className="text-xs font-black text-rose-600 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
+                            <h4 className="text-caption font-black text-rose-600 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
                               <Sparkles className="w-4 h-4 text-purple-500 animate-pulse" />
                               {t('AI Health & Wellness Insights', 'AI 健康与护理表现深度洞察')}
                             </h4>
-                            <p className="text-[10px] text-stone-500 dark:text-stone-400 font-semibold">
+                            <p className="text-caption text-stone-500 dark:text-stone-400 font-semibold">
                               {t('Analyze recent 7-day health logs, weight fluctuations, and mood patterns', '多维度对近期7天饮食健康、情绪状态、异常表现等进行深度诊断分析')}
                             </p>
                           </div>
@@ -2116,7 +2116,7 @@ export default function PetHealthJournal() {
                             type="button"
                             onClick={handleGenerateAIInsights}
                             disabled={aiInsightLoading}
-                            className="px-4 py-2 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 disabled:from-stone-300 disabled:to-stone-400 text-white text-xs font-bold rounded-xl shadow-md transition-all active:scale-95 hover:scale-[1.02] flex items-center gap-1.5 outline-none"
+                            className="px-4 py-2 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 disabled:from-stone-300 disabled:to-stone-400 text-white text-caption font-bold rounded-xl shadow-md transition-all active:scale-95 hover:scale-[1.02] flex items-center gap-1.5 outline-none"
                           >
                             {aiInsightLoading ? (
                               <>
@@ -2133,7 +2133,7 @@ export default function PetHealthJournal() {
                         </div>
 
                         {aiInsightError && (
-                          <div className="p-3 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 rounded-xl text-xs text-red-600 dark:text-red-400 font-medium flex items-center gap-2">
+                          <div className="p-3 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 rounded-xl text-caption text-red-600 dark:text-red-400 font-medium flex items-center gap-2">
                             <AlertCircle className="w-4 h-4 flex-shrink-0" />
                             <span>{aiInsightError}</span>
                           </div>
@@ -2146,22 +2146,22 @@ export default function PetHealthJournal() {
                             className="bg-white/80 dark:bg-stone-900/80 backdrop-blur p-4 rounded-xl border border-rose-500/10 dark:border-rose-500/20 space-y-3.5 text-stone-900 dark:text-stone-100"
                           >
                             <div className="space-y-1">
-                              <span className="text-[9px] font-black text-purple-500 dark:text-purple-400 uppercase tracking-wider block">
+                              <span className="text-caption font-black text-purple-500 dark:text-purple-400 uppercase tracking-wider block">
                                 {t('Wellness Summary', '整体状况评估')}
                               </span>
-                              <p className="text-xs font-medium leading-relaxed">
+                              <p className="text-caption font-medium leading-relaxed">
                                 {aiInsightResult.summary}
                               </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 border-t border-stone-100 dark:border-stone-800">
                               <div className="space-y-2">
-                                <span className="text-[9px] font-black text-rose-500 dark:text-rose-400 uppercase tracking-wider block">
+                                <span className="text-caption font-black text-rose-500 dark:text-rose-400 uppercase tracking-wider block">
                                   {t('Identified Trends', '近期核心趋势')}
                                 </span>
                                 <ul className="space-y-1.5">
                                   {aiInsightResult.trends.map((trend, i) => (
-                                    <li key={i} className="text-xs font-semibold text-stone-600 dark:text-stone-300 flex items-start gap-1.5">
+                                    <li key={i} className="text-caption font-semibold text-stone-600 dark:text-stone-300 flex items-start gap-1.5">
                                       <span className="text-rose-500 mt-0.5">•</span>
                                       <span>{trend}</span>
                                     </li>
@@ -2170,12 +2170,12 @@ export default function PetHealthJournal() {
                               </div>
 
                               <div className="space-y-2">
-                                <span className="text-[9px] font-black text-emerald-500 dark:text-emerald-400 uppercase tracking-wider block">
+                                <span className="text-caption font-black text-emerald-500 dark:text-emerald-400 uppercase tracking-wider block">
                                   {t('Recommended Actions', '健康管理与建议')}
                                 </span>
                                 <ul className="space-y-1.5">
                                   {aiInsightResult.recommendations.map((rec, i) => (
-                                    <li key={i} className="text-xs font-semibold text-stone-600 dark:text-stone-300 flex items-start gap-1.5">
+                                    <li key={i} className="text-caption font-semibold text-stone-600 dark:text-stone-300 flex items-start gap-1.5">
                                       <span className="text-emerald-500 mt-0.5">✓</span>
                                       <span>{rec}</span>
                                     </li>
@@ -2185,7 +2185,7 @@ export default function PetHealthJournal() {
                             </div>
 
                             {aiInsightResult.isFallback && (
-                              <div className="text-[9px] text-stone-400 font-bold italic border-t border-stone-100 dark:border-stone-850 pt-2 flex items-center gap-1.5">
+                              <div className="text-caption text-stone-400 font-bold italic border-t border-stone-100 dark:border-stone-800 pt-2 flex items-center gap-1.5">
                                 <Info className="w-3.5 h-3.5" />
                                 {t(
                                   'AI service is currently operating in smart offline mode. Recommendations are generated locally from your entries.',
@@ -2199,20 +2199,20 @@ export default function PetHealthJournal() {
 
                       <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 flex flex-col h-full min-h-[300px]">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 dark:border-stone-800 pb-2 mb-4">
-                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5">
+                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5">
                             <Calendar className="w-4 h-4 text-rose-500" /> {t('Historic Logs', '历史日志')} ({filteredEntries.length})
                           </h3>
 
                           {/* Quick Stats Summary info */}
-                          <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wide">
+                          <span className="text-caption text-stone-400 font-bold uppercase tracking-wide">
                             {entries.length > filteredEntries.length && t(`Showing ${filteredEntries.length} of ${entries.length}`, `已筛选 ${filteredEntries.length} / 共 ${entries.length}`)}
                           </span>
                         </div>
 
                         {/* Search & Date Range Filters Bar */}
                         <div className="bg-white dark:bg-stone-900/60 p-3 rounded-xl border border-stone-100 dark:border-stone-800 space-y-2 mb-4">
-                          <div className="flex items-center justify-between border-b border-stone-100/60 dark:border-stone-850 pb-1.5">
-                            <span className="text-[10px] font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                          <div className="flex items-center justify-between border-b border-stone-100/60 dark:border-stone-800 pb-1.5">
+                            <span className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1">
                               <Search className="w-3 h-3 text-rose-500" />
                               {t('Filter Logs by Keyword & Date', '筛选历史日志')}
                             </span>
@@ -2224,14 +2224,14 @@ export default function PetHealthJournal() {
                                     setStartDateFilter('');
                                     setEndDateFilter('');
                                   }}
-                                  className="text-[10px] text-stone-400 hover:text-stone-600 dark:text-stone-400 dark:hover:text-stone-200 font-bold hover:underline"
+                                  className="text-caption text-stone-400 hover:text-stone-600 dark:text-stone-400 dark:hover:text-stone-200 font-bold hover:underline"
                                 >
                                   {t('Reset Filters', '重置')}
                                 </button>
                               )}
                               <button
                                 onClick={() => generatePDF(filteredEntries, true)}
-                                className="text-[10px] text-rose-500 hover:text-rose-600 font-black flex items-center gap-1 bg-rose-500/10 dark:bg-rose-500/20 px-2.5 py-0.5 rounded-md transition-all hover:scale-105 active:scale-95 outline-none"
+                                className="text-caption text-rose-500 hover:text-rose-600 font-black flex items-center gap-1 bg-rose-500/10 dark:bg-rose-500/20 px-2.5 py-0.5 rounded-md transition-all hover:scale-105 active:scale-95 outline-none"
                                 title={t('Export filtered entries to PDF for vet visit', '导出筛选日志为PDF以便就医诊断')}
                               >
                                 <Download className="w-3 h-3" />
@@ -2248,7 +2248,7 @@ export default function PetHealthJournal() {
                                 value={searchKeyword}
                                 onChange={(e) => setSearchKeyword(e.target.value)}
                                 placeholder={t('Search symptom, activity, tags...', '输入症状/行为/标签筛选...')}
-                                className="w-full pl-7 pr-3 py-1 text-xs bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg focus:ring-1 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                                className="w-full pl-7 pr-3 py-1 text-caption bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg focus:ring-1 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                               />
                               <Search className="absolute left-2 top-2 w-3 h-3 text-stone-400" />
                             </div>
@@ -2259,15 +2259,15 @@ export default function PetHealthJournal() {
                                 type="date"
                                 value={startDateFilter}
                                 onChange={(e) => setStartDateFilter(e.target.value)}
-                                className="flex-1 px-1.5 py-1 text-xs bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg text-stone-900 dark:text-white outline-none font-bold"
+                                className="flex-1 px-1.5 py-1 text-caption bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg text-stone-900 dark:text-white outline-none font-bold"
                                 title={t('Start Date', '开始日期')}
                               />
-                              <span className="text-[10px] text-stone-400 font-bold">~</span>
+                              <span className="text-caption text-stone-400 font-bold">~</span>
                               <input
                                 type="date"
                                 value={endDateFilter}
                                 onChange={(e) => setEndDateFilter(e.target.value)}
-                                className="flex-1 px-1.5 py-1 text-xs bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg text-stone-900 dark:text-white outline-none font-bold"
+                                className="flex-1 px-1.5 py-1 text-caption bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-lg text-stone-900 dark:text-white outline-none font-bold"
                                 title={t('End Date', '结束日期')}
                               />
                             </div>
@@ -2282,7 +2282,7 @@ export default function PetHealthJournal() {
                                 ? t('Journal is completely empty', '日志为空')
                                 : t('No matching logs found', '未找到匹配的日志')}
                             </p>
-                            <p className="text-xs text-stone-400 max-w-xs mt-1 text-center">
+                            <p className="text-caption text-stone-400 max-w-xs mt-1 text-center">
                               {entries.length === 0 
                                 ? t('Start entering care logs like vaccines or daily weight to gain levels and medals!', '开始输入护理日志（如疫苗或每日体重）以获取等级和勋章！')
                                 : t('Try adjusting your search query or loosening date filters.', '请尝试调整搜索关键字或重置日期筛选。')}
@@ -2302,15 +2302,15 @@ export default function PetHealthJournal() {
                                 >
                                   <div className="space-y-1">
                                     <div className="flex items-center gap-2">
-                                      <span className="text-[10px] font-bold px-2 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded">
+                                      <span className="text-caption font-bold px-2 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded">
                                         {entry.date}
                                       </span>
-                                      <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wide">{t('HEALTH RECORD', '健康记录')}</span>
+                                      <span className="text-caption font-bold text-stone-400 uppercase tracking-wide">{t('HEALTH RECORD', '健康记录')}</span>
                                     </div>
-                                    <h4 className="font-extrabold text-stone-900 dark:text-white text-sm">
+                                    <h4 className="font-extrabold text-stone-900 dark:text-white text-body">
                                       {entry.activity}
                                     </h4>
-                                    <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
+                                    <div className="flex flex-wrap items-center gap-3 text-caption text-stone-500">
                                       {entry.weight > 0 && (
                                         <span className="flex items-center gap-1 text-purple-600 dark:text-purple-400 font-semibold">
                                           <Scale className="w-3.5 h-3.5" /> {entry.weight} kg
@@ -2326,7 +2326,7 @@ export default function PetHealthJournal() {
                                           {entry.moodTags && entry.moodTags.length > 0 && (
                                             <div className="flex flex-wrap gap-1">
                                               {entry.moodTags.map(tag => (
-                                                <span key={tag} className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 rounded">
+                                                <span key={tag} className="inline-flex items-center gap-1 text-caption font-bold px-1.5 py-0.5 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 rounded">
                                                   <span>{getTagEmoji(tag)}</span>
                                                   <span>{tag}</span>
                                                 </span>
@@ -2342,7 +2342,7 @@ export default function PetHealthJournal() {
                                     {entry.photo && (
                                       <div 
                                         onClick={() => setSelectedPreviewPhoto(entry.photo!)}
-                                        className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border border-stone-200 dark:border-stone-850 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all group/thumb flex items-center justify-center"
+                                        className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border border-stone-200 dark:border-stone-800 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all group/thumb flex items-center justify-center"
                                         title={t('Click to enlarge', '点击查看大图')}
                                       >
                                         <img src={entry.photo} alt="Care Log" className="w-full h-full object-cover absolute inset-0" />
@@ -2381,12 +2381,12 @@ export default function PetHealthJournal() {
                             <Clock className="w-5 h-5 text-rose-500" />
                             {t("Today's Medication Tracker", '今日用药追踪')}
                           </h3>
-                          <p className="text-xs text-stone-500 mt-0.5">
+                          <p className="text-caption text-stone-500 mt-0.5">
                             {t('Log daily doses of scheduled medications as taken or missed to maintain compliance.', '记录今日预定药物的服用或漏服状态，保障爱宠健康用药。')}
                           </p>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-black text-stone-400 bg-stone-100 dark:bg-stone-800 px-3 py-1 rounded-full">
+                          <span className="text-caption font-black text-stone-400 bg-stone-100 dark:bg-stone-800 px-3 py-1 rounded-full">
                             {new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                           </span>
                         </div>
@@ -2395,23 +2395,23 @@ export default function PetHealthJournal() {
                       {/* Metrics cards row */}
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div className="bg-white dark:bg-stone-900 p-3.5 rounded-xl border border-stone-100 dark:border-stone-800 text-center">
-                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Total Scheduled', '预定总数')}</p>
+                          <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Total Scheduled', '预定总数')}</p>
                           <p className="text-xl font-black text-stone-900 dark:text-white">{medications.length}</p>
                         </div>
                         <div className="bg-white dark:bg-stone-900 p-3.5 rounded-xl border border-stone-100 dark:border-stone-800 text-center">
-                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Taken Today', '今日已服')}</p>
+                          <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Taken Today', '今日已服')}</p>
                           <p className="text-xl font-black text-emerald-500">
                             {medications.filter(m => m.logs[new Date().toLocaleDateString()] === 'taken').length}
                           </p>
                         </div>
                         <div className="bg-white dark:bg-stone-900 p-3.5 rounded-xl border border-stone-100 dark:border-stone-800 text-center">
-                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Missed Today', '今日漏服')}</p>
+                          <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Missed Today', '今日漏服')}</p>
                           <p className="text-xl font-black text-rose-500">
                             {medications.filter(m => m.logs[new Date().toLocaleDateString()] === 'missed').length}
                           </p>
                         </div>
                         <div className="bg-white dark:bg-stone-900 p-3.5 rounded-xl border border-stone-100 dark:border-stone-800 text-center">
-                          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">{t('Compliance Rate', '今日用药率')}</p>
+                          <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Compliance Rate', '今日用药率')}</p>
                           <p className="text-xl font-black text-purple-500">
                             {(() => {
                               const todayStr = new Date().toLocaleDateString();
@@ -2448,40 +2448,40 @@ export default function PetHealthJournal() {
                       {/* Form Column */}
                       <div className="lg:col-span-5 space-y-4">
                         <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
-                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2">
+                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2">
                             <Plus className="w-4 h-4 text-rose-500" /> {t('Schedule New Medication', '添加新预定用药')}
                           </h3>
 
                           <form onSubmit={addMedication} className="space-y-4">
                             {/* Medication Name */}
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold text-stone-500 uppercase tracking-wider">{t('Medication Name', '药物名称')}</label>
+                              <label className="text-caption font-bold text-stone-500 uppercase tracking-wider">{t('Medication Name', '药物名称')}</label>
                               <input
                                 type="text"
                                 required
                                 placeholder={t("e.g. Probiotics, Dewormer, Ear drops...", "例如：益生菌、体内驱虫药、洗耳液...")}
                                 value={newMedName}
                                 onChange={(e) => setNewMedName(e.target.value)}
-                                className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                                className="w-full px-3.5 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                               />
                             </div>
 
                             {/* Dosage */}
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold text-stone-500 uppercase tracking-wider">{t('Dosage Description', '用药剂量')}</label>
+                              <label className="text-caption font-bold text-stone-500 uppercase tracking-wider">{t('Dosage Description', '用药剂量')}</label>
                               <input
                                 type="text"
                                 required
                                 placeholder={t("e.g. 1 pill, 2.5 ml, 2 drops...", "例如：1片、2.5毫升、2滴...")}
                                 value={newMedDosage}
                                 onChange={(e) => setNewMedDosage(e.target.value)}
-                                className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                                className="w-full px-3.5 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                               />
                             </div>
 
                             {/* Time of Day */}
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold text-stone-500 uppercase tracking-wider">{t('Time of Day', '用药时间段')}</label>
+                              <label className="text-caption font-bold text-stone-500 uppercase tracking-wider">{t('Time of Day', '用药时间段')}</label>
                               <div className="grid grid-cols-2 gap-2">
                                 {[
                                   { id: 'Morning', label: t('Morning 🌅', '早上 🌅') },
@@ -2493,7 +2493,7 @@ export default function PetHealthJournal() {
                                     key={time.id}
                                     type="button"
                                     onClick={() => setNewMedTime(time.id)}
-                                    className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all text-center ${
+                                    className={`py-2 px-3 text-caption font-bold rounded-xl border transition-all text-center ${
                                       newMedTime === time.id
                                         ? 'bg-rose-500 border-rose-500 text-white shadow-sm'
                                         : 'bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-800'
@@ -2508,7 +2508,7 @@ export default function PetHealthJournal() {
                             {/* Submit Button */}
                             <button
                               type="submit"
-                              className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
+                              className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
                             >
                               <Plus className="w-4 h-4" /> {t('Add to Schedule', '加入日常用药日程')}
                             </button>
@@ -2519,7 +2519,7 @@ export default function PetHealthJournal() {
                       {/* Schedule & Actions Column */}
                       <div className="lg:col-span-7 flex flex-col">
                         <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 flex flex-col h-full min-h-[300px]">
-                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2 mb-4">
+                          <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5 border-b border-stone-100 dark:border-stone-800 pb-2 mb-4">
                             <Clock className="w-4 h-4 text-rose-500" /> {t('Active Medications', '当前用药日程')} ({medications.length})
                           </h3>
 
@@ -2527,7 +2527,7 @@ export default function PetHealthJournal() {
                             <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-stone-400">
                               <Info className="w-12 h-12 text-stone-300 dark:text-stone-700 mb-2 animate-pulse" />
                               <p className="font-bold text-stone-600 dark:text-stone-300">{t('No scheduled medications', '暂无预定用药')}</p>
-                              <p className="text-xs text-stone-400 max-w-xs mt-1">
+                              <p className="text-caption text-stone-400 max-w-xs mt-1">
                                 {t('Add daily medications above to set up dosage times and easily log daily adherence.', '在左侧添加爱宠每日所需的药剂或保健品，设定剂量和时间段，轻松打卡。')}
                               </p>
                             </div>
@@ -2563,15 +2563,15 @@ export default function PetHealthJournal() {
                                       {/* Info */}
                                       <div className="space-y-1 flex-1">
                                         <div className="flex items-center gap-2">
-                                          <span className="text-[10px] font-black px-2 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded-md">
+                                          <span className="text-caption font-black px-2 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded-md">
                                             {timeEmojis[med.timeOfDay]} {translatedTimes[med.timeOfDay]}
                                           </span>
-                                          <span className="text-xs font-bold text-stone-400">{med.dosage}</span>
+                                          <span className="text-caption font-bold text-stone-400">{med.dosage}</span>
                                         </div>
                                         <h4 className="font-extrabold text-stone-900 dark:text-white text-base">
                                           {med.name}
                                         </h4>
-                                        <div className="flex items-center gap-1 text-[10px] text-stone-400 font-semibold">
+                                        <div className="flex items-center gap-1 text-caption text-stone-400 font-semibold">
                                           <span>{t('Started on', '启用时间')}: {med.startDate}</span>
                                         </div>
                                       </div>
@@ -2581,19 +2581,19 @@ export default function PetHealthJournal() {
                                         {/* Status Badge */}
                                         <div>
                                           {status === 'taken' && (
-                                            <span className="inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-900/30">
+                                            <span className="inline-flex items-center gap-1 text-caption font-black px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-900/30">
                                               <Check className="w-3.5 h-3.5" />
                                               {t('Taken', '已服')}
                                             </span>
                                           )}
                                           {status === 'missed' && (
-                                            <span className="inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-full border border-rose-100 dark:border-rose-900/30">
+                                            <span className="inline-flex items-center gap-1 text-caption font-black px-2.5 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-full border border-rose-100 dark:border-rose-900/30">
                                               <X className="w-3.5 h-3.5" />
                                               {t('Missed', '漏服')}
                                             </span>
                                           )}
                                           {status === 'pending' && (
-                                            <span className="inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 rounded-full border border-stone-200/50 dark:border-stone-700/50">
+                                            <span className="inline-flex items-center gap-1 text-caption font-black px-2.5 py-1 bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 rounded-full border border-stone-200/50 dark:border-stone-700/50">
                                               <Clock className="w-3.5 h-3.5" />
                                               {t('Pending', '待服')}
                                             </span>
@@ -2669,12 +2669,12 @@ export default function PetHealthJournal() {
                             <Sparkles className="w-5 h-5 text-purple-500 animate-pulse" />
                             {t("Gemini AI Pet Symptom Checker", "Gemini AI 宠物症状自查系统")}
                           </h3>
-                          <p className="text-xs text-stone-500 mt-0.5">
+                          <p className="text-caption text-stone-500 mt-0.5">
                             {t("Analyze your pet's visible symptoms to get non-diagnostic triage guidelines, potential matching ailments, and immediate care tips.", "智能分析爱宠表现出的临床症状，获取非诊断性的分诊级别、潜在疾病筛查以及辅助护理建议。")}
                           </p>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-black text-purple-500 bg-purple-50 dark:bg-purple-950/30 px-3 py-1 rounded-full border border-purple-100 dark:border-purple-900/30 flex items-center gap-1">
+                          <span className="text-caption font-black text-purple-500 bg-purple-50 dark:bg-purple-950/30 px-3 py-1 rounded-full border border-purple-100 dark:border-purple-900/30 flex items-center gap-1">
                             <ShieldCheck className="w-3.5 h-3.5" /> {t("Empathetic AI Triage", "医辅级智能分诊")}
                           </span>
                         </div>
@@ -2686,33 +2686,33 @@ export default function PetHealthJournal() {
                       <div className="lg:col-span-5 space-y-4">
                         <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
                           <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-2">
-                            <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5">
+                            <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5">
                               <Stethoscope className="w-4 h-4 text-rose-500" /> {t('Active Patient Profile', '当前自查档案')}
                             </h3>
-                            <span className="text-[10px] font-bold text-stone-400 bg-stone-200 dark:bg-stone-800 px-2 py-0.5 rounded-full">
+                            <span className="text-caption font-bold text-stone-400 bg-stone-200 dark:bg-stone-800 px-2 py-0.5 rounded-full">
                               {getPetInfo('1')?.name || 'Buddy'}
                             </span>
                           </div>
 
                           {/* Pet Info Snapshot */}
-                          <div className="p-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-100 dark:border-stone-800 grid grid-cols-3 gap-2 text-center text-xs">
+                          <div className="p-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-100 dark:border-stone-800 grid grid-cols-3 gap-2 text-center text-caption">
                             <div>
-                              <p className="text-[10px] text-stone-400 font-bold uppercase">{t('Species', '物种')}</p>
+                              <p className="text-caption text-stone-400 font-bold uppercase">{t('Species', '物种')}</p>
                               <p className="font-extrabold text-stone-800 dark:text-stone-200">{getPetInfo('1')?.species === 'Dog' ? t('Dog 🐶', '犬 🐶') : t('Cat 🐱', '猫 🐱')}</p>
                             </div>
                             <div>
-                              <p className="text-[10px] text-stone-400 font-bold uppercase">{t('Breed', '品种')}</p>
+                              <p className="text-caption text-stone-400 font-bold uppercase">{t('Breed', '品种')}</p>
                               <p className="font-extrabold text-stone-800 dark:text-stone-200 truncate">{getPetInfo('1')?.breed || '-'}</p>
                             </div>
                             <div>
-                              <p className="text-[10px] text-stone-400 font-bold uppercase">{t('Age Stage', '生命阶段')}</p>
+                              <p className="text-caption text-stone-400 font-bold uppercase">{t('Age Stage', '生命阶段')}</p>
                               <p className="font-extrabold text-stone-800 dark:text-stone-200">{getPetInfo('1')?.age === 'Puppy' || getPetInfo('1')?.age === 'Kitten' ? t('Young', '幼年') : t('Adult', '成年')}</p>
                             </div>
                           </div>
 
                           <form onSubmit={analyzeSymptoms} className="space-y-4">
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold text-stone-500 uppercase tracking-wider block">
+                              <label className="text-caption font-bold text-stone-500 uppercase tracking-wider block">
                                 {t("What symptoms are you seeing?", "爱宠表现出了什么症状？")}
                               </label>
                               <textarea
@@ -2723,14 +2723,14 @@ export default function PetHealthJournal() {
                                   "e.g. Scratching ears constantly and shaking head. Seems restless and has some slight red patches on inner ear flap.",
                                   "例如：频繁抓挠耳朵、甩头。显得焦躁不安，内耳廓有一些红斑点，有轻微异味。"
                                 )}
-                                className="w-full h-32 px-3.5 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
+                                className="w-full h-32 px-3.5 py-2.5 text-body bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
                               />
                             </div>
 
                             <button
                               type="submit"
                               disabled={isAnalyzingSymptoms || !symptomsInput.trim()}
-                              className="w-full py-3 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:scale-100"
+                              className="w-full py-3 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white font-bold text-body rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:scale-100"
                             >
                               {isAnalyzingSymptoms ? (
                                 <>
@@ -2750,7 +2750,7 @@ export default function PetHealthJournal() {
                         </div>
 
                         {/* Stethoscope Tips Card */}
-                        <div className="bg-purple-50/50 dark:bg-purple-950/10 p-4 rounded-2xl border border-purple-100/40 dark:border-purple-900/20 text-xs space-y-2">
+                        <div className="bg-purple-50/50 dark:bg-purple-950/10 p-4 rounded-2xl border border-purple-100/40 dark:border-purple-900/20 text-caption space-y-2">
                           <p className="font-bold text-purple-950 dark:text-purple-300 flex items-center gap-1">
                             <Info className="w-4 h-4 text-purple-500" /> {t("How it works", "使用说明与原理")}
                           </p>
@@ -2774,7 +2774,7 @@ export default function PetHealthJournal() {
                               </div>
                             </div>
                             <h4 className="font-extrabold text-stone-800 dark:text-stone-200 text-base">{t("Consulting Pet Medical Model...", "正在对接临床宠物大模型...")}</h4>
-                            <p className="text-xs text-stone-400 max-w-xs mt-1">
+                            <p className="text-caption text-stone-400 max-w-xs mt-1">
                               {t("Gemini is triaging the described symptoms against common veterinary databases to compile safety metrics...", "AI 正在针对常见宠物多发症状库进行匹配，评估紧急程度，制定日常舒缓和就医建议...")}
                             </p>
                           </div>
@@ -2784,7 +2784,7 @@ export default function PetHealthJournal() {
                           <div className="bg-stone-50 dark:bg-stone-950/50 p-8 rounded-2xl border border-stone-100 dark:border-stone-800 flex flex-col items-center justify-center text-center h-[350px] text-stone-400">
                             <Stethoscope className="w-12 h-12 text-stone-300 dark:text-stone-700 mb-2 animate-bounce" />
                             <p className="font-bold text-stone-600 dark:text-stone-300">{t("No check-ups run yet", "暂无分析数据")}</p>
-                            <p className="text-xs text-stone-400 max-w-xs mt-1">
+                            <p className="text-caption text-stone-400 max-w-xs mt-1">
                               {t("Describe your pet's current abnormal behaviors or visible symptoms in the input form on the left to start checking.", "在左侧输入您观察到的爱宠异常表现或症状，即可开启医辅级智能分诊自查。")}
                             </p>
                           </div>
@@ -2797,12 +2797,12 @@ export default function PetHealthJournal() {
                             className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4"
                           >
                             <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-2">
-                              <h3 className="font-bold text-stone-950 dark:text-stone-50 text-sm flex items-center gap-1.5">
+                              <h3 className="font-bold text-stone-950 dark:text-stone-50 text-body flex items-center gap-1.5">
                                 <Sparkles className="w-4 h-4 text-purple-500" /> {t("Symptom Analysis Results", "症状评估报告")}
                               </h3>
                               <button
                                 onClick={() => setSymptomsResult(null)}
-                                className="text-xs text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 font-bold"
+                                className="text-caption text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 font-bold"
                               >
                                 {t("Close Report", "关闭当前报告")}
                               </button>
@@ -2818,10 +2818,10 @@ export default function PetHealthJournal() {
                             }`}>
                               <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="font-black text-xs uppercase tracking-wide opacity-85">
+                                <p className="font-black text-caption uppercase tracking-wide opacity-85">
                                   {t("Recommended Action Status", "就诊建议状态")}
                                 </p>
-                                <p className="font-black text-sm mt-0.5">
+                                <p className="font-black text-body mt-0.5">
                                   {symptomsResult.urgency === 'Urgent Care Required' && t("🔴 Urgent Care Required (Seek Veterinarian Immediately)", "🔴 紧急就医 (请立即联系执业兽医师或急诊医院)")}
                                   {symptomsResult.urgency === 'Monitor Closely' && t("🟡 Monitor Closely (Track closely & isolate if necessary)", "🟡 密切观察 (若症状恶化请及时约诊并做好隔离)")}
                                   {symptomsResult.urgency === 'Routine Vet Visit Recommended' && t("🔵 Routine Vet Visit Recommended", "🔵 建议常规约诊 (普通门诊检查即可)")}
@@ -2831,15 +2831,15 @@ export default function PetHealthJournal() {
 
                             {/* Potential Ailments list */}
                             <div className="space-y-3">
-                              <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t("Potential Common Ailments", "筛查出的可能疾病")}</h4>
+                              <h4 className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t("Potential Common Ailments", "筛查出的可能疾病")}</h4>
                               <div className="space-y-2">
                                 {symptomsResult.ailments?.map((ailment, idx) => (
                                   <div key={idx} className="p-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-100 dark:border-stone-800 space-y-2">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                      <span className="font-extrabold text-stone-950 dark:text-white text-sm">{ailment.name}</span>
+                                      <span className="font-extrabold text-stone-950 dark:text-white text-body">{ailment.name}</span>
                                       <div className="flex items-center gap-1.5">
                                         {/* Severity Badge */}
-                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md ${
+                                        <span className={`text-caption font-black uppercase px-2 py-0.5 rounded-md ${
                                           ailment.severity === 'High'
                                             ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-500'
                                             : ailment.severity === 'Medium'
@@ -2849,12 +2849,12 @@ export default function PetHealthJournal() {
                                           {t("Severity: ", "严重程度: ")}{t(ailment.severity, ailment.severity)}
                                         </span>
                                         {/* Likelihood Badge */}
-                                        <span className="text-[9px] font-black uppercase px-2 py-0.5 bg-purple-50 dark:bg-purple-950/30 text-purple-500 rounded-md">
+                                        <span className="text-caption font-black uppercase px-2 py-0.5 bg-purple-50 dark:bg-purple-950/30 text-purple-500 rounded-md">
                                           {t("Match: ", "匹配概率: ")}{t(ailment.likelihood, ailment.likelihood)}
                                         </span>
                                       </div>
                                     </div>
-                                    <p className="text-xs text-stone-500 leading-relaxed">{ailment.description}</p>
+                                    <p className="text-caption text-stone-500 leading-relaxed">{ailment.description}</p>
                                   </div>
                                 ))}
                               </div>
@@ -2862,11 +2862,11 @@ export default function PetHealthJournal() {
 
                             {/* Soothing Relief Tips */}
                             <div className="space-y-2">
-                              <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t("Soothing Care & Relief Tips", "临时舒缓与应急措施")}</h4>
+                              <h4 className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t("Soothing Care & Relief Tips", "临时舒缓与应急措施")}</h4>
                               <div className="bg-purple-50/20 dark:bg-purple-950/5 p-4 rounded-xl border border-purple-100/30 dark:border-purple-900/10">
                                 <ul className="space-y-1.5">
                                   {symptomsResult.reliefTips?.map((tip, idx) => (
-                                    <li key={idx} className="text-xs text-stone-600 dark:text-stone-300 flex items-start gap-1.5 leading-relaxed">
+                                    <li key={idx} className="text-caption text-stone-600 dark:text-stone-300 flex items-start gap-1.5 leading-relaxed">
                                       <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
                                       <span>{tip}</span>
                                     </li>
@@ -2876,7 +2876,7 @@ export default function PetHealthJournal() {
                             </div>
 
                             {/* Disclaimer Panel */}
-                            <div className="p-3 bg-stone-100 dark:bg-stone-900 text-[10px] text-stone-400 rounded-xl leading-relaxed">
+                            <div className="p-3 bg-stone-100 dark:bg-stone-900 text-caption text-stone-400 rounded-xl leading-relaxed">
                               <p className="font-bold text-stone-500 dark:text-stone-300 flex items-center gap-1 mb-1">
                                 <AlertCircle className="w-3.5 h-3.5 text-stone-400" /> {t("Medical Disclaimer", "医学免责声明")}
                               </p>
@@ -2888,7 +2888,7 @@ export default function PetHealthJournal() {
                         {/* Past History Stack */}
                         {!isAnalyzingSymptoms && symptomHistory.length > 0 && (
                           <div className="bg-stone-50 dark:bg-stone-950/50 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
-                            <h3 className="font-bold text-stone-950 dark:text-stone-50 text-xs flex items-center gap-1.5 uppercase tracking-wider border-b border-stone-100 dark:border-stone-800 pb-2">
+                            <h3 className="font-bold text-stone-950 dark:text-stone-50 text-caption flex items-center gap-1.5 uppercase tracking-wider border-b border-stone-100 dark:border-stone-800 pb-2">
                               <Calendar className="w-3.5 h-3.5 text-rose-500" /> {t("Past Symptom Check-Ups", "过往自查记录历史")} ({symptomHistory.length})
                             </h3>
 
@@ -2901,15 +2901,15 @@ export default function PetHealthJournal() {
                                 >
                                   <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-2">
-                                      <span className="text-[10px] font-black px-1.5 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded-md">
+                                      <span className="text-caption font-black px-1.5 py-0.5 bg-rose-50 dark:bg-rose-950/40 text-rose-500 dark:text-rose-400 rounded-md">
                                         {historyItem.petName}
                                       </span>
-                                      <span className="text-[10px] font-bold text-stone-400">{historyItem.date}</span>
+                                      <span className="text-caption font-bold text-stone-400">{historyItem.date}</span>
                                     </div>
-                                    <p className="text-xs font-bold text-stone-700 dark:text-stone-300 mt-1 truncate">
+                                    <p className="text-caption font-bold text-stone-700 dark:text-stone-300 mt-1 truncate">
                                       {t("Symptoms: ", "自查症状: ")}{historyItem.symptoms}
                                     </p>
-                                    <p className="text-[10px] font-semibold text-purple-500 flex items-center gap-0.5 mt-0.5">
+                                    <p className="text-caption font-semibold text-purple-500 flex items-center gap-0.5 mt-0.5">
                                       {historyItem.result?.urgency === 'Urgent Care Required' && `🔴 ${t("Urgent", "急诊就诊")}`}
                                       {historyItem.result?.urgency === 'Monitor Closely' && `🟡 ${t("Monitor Closely", "密切观察")}`}
                                       {historyItem.result?.urgency === 'Routine Vet Visit Recommended' && `🔵 ${t("Routine Visit", "常规门诊")}`}
@@ -2950,14 +2950,14 @@ export default function PetHealthJournal() {
                         </div>
                         <div>
                           <h3 className="font-extrabold text-stone-950 dark:text-white text-base">{t('Achievements Progress', '成就进度')}</h3>
-                          <p className="text-xs text-stone-500 mt-0.5">
+                          <p className="text-caption text-stone-500 mt-0.5">
                             {t('Unlock special caregiver badges by staying consistent with your daily reporting.', '坚持每日记录，解锁专属守护者勋章。')}
                           </p>
                         </div>
                       </div>
                       <div className="bg-white dark:bg-stone-900 px-5 py-3 rounded-xl border border-stone-100 dark:border-stone-800 text-center font-bold">
                         <p className="text-2xl text-amber-500">{unlockedBadges.length} / {BADGES.length}</p>
-                        <p className="text-[10px] text-stone-400 uppercase tracking-widest mt-0.5">{t('Badges Earned', '已获得勋章')}</p>
+                        <p className="text-caption text-stone-400 uppercase tracking-widest mt-0.5">{t('Badges Earned', '已获得勋章')}</p>
                       </div>
                     </div>
 
@@ -3004,19 +3004,19 @@ export default function PetHealthJournal() {
                             <div className="flex-1 space-y-2">
                               <div>
                                 <div className="flex items-center gap-1.5">
-                                  <h4 className={`font-bold text-sm ${isUnlocked ? 'text-stone-900 dark:text-white' : 'text-stone-500'}`}>
+                                  <h4 className={`font-bold text-body ${isUnlocked ? 'text-stone-900 dark:text-white' : 'text-stone-500'}`}>
                                     {badge.name}
                                   </h4>
                                   {isUnlocked && (
                                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
                                   )}
                                 </div>
-                                <p className="text-xs text-stone-500 mt-1 leading-normal">{badge.description}</p>
+                                <p className="text-caption text-stone-500 mt-1 leading-normal">{badge.description}</p>
                               </div>
 
                               {/* Progress bar info */}
                               <div className="space-y-1">
-                                <div className="flex justify-between items-center text-[10px] font-bold text-stone-400">
+                                <div className="flex justify-between items-center text-caption font-bold text-stone-400">
                                   <span>{badge.requirement}</span>
                                   <span>{progressData.current} / {progressData.target}</span>
                                 </div>
@@ -3048,24 +3048,24 @@ export default function PetHealthJournal() {
                         { label: t('Bio-indicators Tracked', '追踪生物指标'), value: `${entries.filter(e => e.weight > 0 || e.mood).length} ${t('stats', '项')}`, detail: t('Details like weight & mood', '如体重和心情等详情'), color: 'text-emerald-500' }
                       ].map((card) => (
                         <div key={card.label} className="bg-stone-50/50 dark:bg-stone-900/30 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-1">
-                          <p className="text-[10px] text-stone-400 font-black uppercase tracking-wider">{card.label}</p>
+                          <p className="text-caption text-stone-400 font-black uppercase tracking-wider">{card.label}</p>
                           <p className={`text-2xl font-black ${card.color}`}>{card.value}</p>
-                          <p className="text-xs text-stone-500 font-semibold">{card.detail}</p>
+                          <p className="text-caption text-stone-500 font-semibold">{card.detail}</p>
                         </div>
                       ))}
                     </div>
 
                     {/* Weight History Charts/Trend Cards */}
                     <div className="bg-stone-50/50 dark:bg-stone-900/30 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
-                      <h3 className="font-extrabold text-stone-950 dark:text-white text-sm flex items-center gap-1.5">
+                      <h3 className="font-extrabold text-stone-950 dark:text-white text-body flex items-center gap-1.5">
                         <TrendingUp className="w-4 h-4 text-purple-500" /> {t('Bio-Weight Log Progression', '生物体重记录进展')}
                       </h3>
 
                       {entries.filter(e => e.weight > 0).length < 1 ? (
-                        <p className="text-xs text-stone-500">{t('No weight records logged yet. Enter your pet’s weight when logging to view biosign trend indicators.', '暂无体重记录。请在记录时输入体重以查看生物指标趋势。')}</p>
+                        <p className="text-caption text-stone-500">{t('No weight records logged yet. Enter your pet’s weight when logging to view biosign trend indicators.', '暂无体重记录。请在记录时输入体重以查看生物指标趋势。')}</p>
                       ) : (
                         <div className="space-y-3">
-                          <p className="text-xs text-stone-500">{t('Weight metrics tracking history (Newest first):', '体重指标追踪历史 (最新优先):')}</p>
+                          <p className="text-caption text-stone-500">{t('Weight metrics tracking history (Newest first):', '体重指标追踪历史 (最新优先):')}</p>
                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {entries.filter(e => e.weight > 0).map((record, index, arr) => {
                               // Calculate difference if there's a previous record in chronical order
@@ -3090,10 +3090,10 @@ export default function PetHealthJournal() {
                               return (
                                 <div key={record.id} className="p-3.5 bg-white dark:bg-stone-900 border border-stone-100 dark:border-stone-800 rounded-xl space-y-1.5">
                                   <div className="flex justify-between items-center">
-                                    <span className="text-[10px] font-bold text-stone-400">{record.date}</span>
-                                    <span className="text-xs font-black text-purple-600 dark:text-purple-400">{record.weight} kg</span>
+                                    <span className="text-caption font-bold text-stone-400">{record.date}</span>
+                                    <span className="text-caption font-black text-purple-600 dark:text-purple-400">{record.weight} kg</span>
                                   </div>
-                                  <p className={`text-[10px] font-bold ${
+                                  <p className={`text-caption font-bold ${
                                     isUp ? 'text-rose-500' : isDown ? 'text-emerald-500' : 'text-stone-400'
                                   }`}>
                                     {diffText}
@@ -3108,31 +3108,31 @@ export default function PetHealthJournal() {
 
                     {/* Mood Patterns & Tag Analytics Section */}
                     <div className="bg-stone-50/50 dark:bg-stone-900/30 p-5 rounded-2xl border border-stone-100 dark:border-stone-800 space-y-4">
-                      <h3 className="font-extrabold text-stone-950 dark:text-white text-sm flex items-center gap-1.5">
+                      <h3 className="font-extrabold text-stone-950 dark:text-white text-body flex items-center gap-1.5">
                         <Smile className="w-4 h-4 text-rose-500" /> {t('Mood Patterns & Tag-Based Analytics', '心情模式与标签统计分析')}
                       </h3>
 
                       {entries.filter(e => e.mood || (e.moodTags && e.moodTags.length > 0)).length < 1 ? (
-                        <p className="text-xs text-stone-500">{t('No mood entries logged yet. Record your pet’s daily mood and tags when logging entries to view emotional patterns.', '暂无心情记录。记录日志时选择宠物心情并添加标签，即可查看心情模式与行为标签统计。')}</p>
+                        <p className="text-caption text-stone-500">{t('No mood entries logged yet. Record your pet’s daily mood and tags when logging entries to view emotional patterns.', '暂无心情记录。记录日志时选择宠物心情并添加标签，即可查看心情模式与行为标签统计。')}</p>
                       ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           {/* Left: Top Mood Tags cloud */}
                           <div className="space-y-2">
-                            <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                            <h4 className="text-caption font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
                               <Tag className="w-3 h-3 text-purple-500" /> {t('Most Common Mood Tags', '常用心情标签')}
                             </h4>
                             {tagFrequencies.length === 0 ? (
-                              <p className="text-xs text-stone-400 italic">{t('No tags recorded yet', '暂未记录标签')}</p>
+                              <p className="text-caption text-stone-400 italic">{t('No tags recorded yet', '暂未记录标签')}</p>
                             ) : (
                               <div className="flex flex-wrap gap-2 pt-1">
                                 {tagFrequencies.map(([tag, count]) => (
                                   <div 
                                     key={tag}
-                                    className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/40 rounded-full"
+                                    className="inline-flex items-center gap-1.5 text-caption font-bold px-3 py-1 bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/40 rounded-full"
                                   >
                                     <span>{getTagEmoji(tag)}</span>
                                     <span>{tag}</span>
-                                    <span className="text-[10px] bg-purple-200 dark:bg-purple-900 text-purple-700 dark:text-purple-300 w-4 h-4 rounded-full flex items-center justify-center font-mono font-black">{count}</span>
+                                    <span className="text-caption bg-purple-200 dark:bg-purple-900 text-purple-700 dark:text-purple-300 w-4 h-4 rounded-full flex items-center justify-center font-mono font-black">{count}</span>
                                   </div>
                                 ))}
                               </div>
@@ -3141,11 +3141,11 @@ export default function PetHealthJournal() {
 
                           {/* Right: Core Mood Distribution */}
                           <div className="space-y-2">
-                            <h4 className="text-xs font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                            <h4 className="text-caption font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
                               <Smile className="w-3 h-3 text-rose-500" /> {t('Primary Mood Distribution', '主要心情分布')}
                             </h4>
                             {moodFrequencies.length === 0 ? (
-                              <p className="text-xs text-stone-400 italic">{t('No primary moods logged', '暂未记录心情')}</p>
+                              <p className="text-caption text-stone-400 italic">{t('No primary moods logged', '暂未记录心情')}</p>
                             ) : (
                               <div className="space-y-2">
                                 {moodFrequencies.map(([mLabel, count]) => {
@@ -3153,7 +3153,7 @@ export default function PetHealthJournal() {
                                   const pct = Math.round((count / totalMoodLogs) * 100);
                                   return (
                                     <div key={mLabel} className="space-y-1">
-                                      <div className="flex justify-between items-center text-xs font-extrabold text-stone-800 dark:text-stone-200">
+                                      <div className="flex justify-between items-center text-caption font-extrabold text-stone-800 dark:text-stone-200">
                                         <span>{mLabel}</span>
                                         <span className="text-stone-400">{count} {t('logs', '次')} ({pct}%)</span>
                                       </div>
@@ -3174,8 +3174,8 @@ export default function PetHealthJournal() {
                           <div className="md:col-span-2 bg-gradient-to-br from-purple-50/50 to-rose-50/20 dark:from-stone-900/40 dark:to-stone-900/90 p-4 rounded-xl border border-purple-100/30 dark:border-stone-800 flex items-start gap-3">
                             <Sparkles className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5 animate-pulse" />
                             <div className="space-y-1 text-left">
-                              <p className="text-xs font-black text-stone-950 dark:text-stone-50 uppercase tracking-wide">{t('Bio-Behavioral Insights', '生物行为洞察报告')}</p>
-                              <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed font-medium">
+                              <p className="text-caption font-black text-stone-950 dark:text-stone-50 uppercase tracking-wide">{t('Bio-Behavioral Insights', '生物行为洞察报告')}</p>
+                              <p className="text-caption text-stone-500 dark:text-stone-400 leading-relaxed font-medium">
                                 {(() => {
                                   const topTag = tagFrequencies[0]?.[0];
                                   if (!topTag) {
@@ -3234,7 +3234,7 @@ export default function PetHealthJournal() {
               <div className="space-y-2">
                 <p className="text-3xl animate-bounce">🎉</p>
                 <h3 className="text-2xl font-black text-stone-950 dark:text-white uppercase tracking-tight">Level Up!</h3>
-                <p className="text-xs text-stone-400 font-bold uppercase tracking-widest">Wellness Academy Achievement</p>
+                <p className="text-caption text-stone-400 font-bold uppercase tracking-widest">Wellness Academy Achievement</p>
               </div>
 
               <div className="py-6 flex flex-col items-center justify-center space-y-3 bg-gradient-to-br from-rose-50 to-amber-50 dark:from-stone-950 dark:to-stone-900 rounded-2xl border border-rose-100/40 dark:border-stone-800">
@@ -3243,17 +3243,17 @@ export default function PetHealthJournal() {
                   <h4 className="text-lg font-black text-stone-900 dark:text-white leading-tight">
                     Level {celebrateLevel.level} REACHED!
                   </h4>
-                  <p className="text-sm text-rose-500 dark:text-rose-400 font-bold">{celebrateLevel.title}</p>
+                  <p className="text-body text-rose-500 dark:text-rose-400 font-bold">{celebrateLevel.title}</p>
                 </div>
               </div>
 
-              <p className="text-xs text-stone-500 leading-relaxed px-4">
+              <p className="text-caption text-stone-500 leading-relaxed px-4">
                 Excellent! You are building fantastic, consistent tracking habits. Keep recording logs to unlock advanced master badges and deeper biometric tracking.
               </p>
 
               <button
                 onClick={() => setCelebrateLevel(null)}
-                className="w-full py-3 bg-stone-900 hover:bg-stone-800 dark:bg-stone-700 dark:hover:bg-stone-600 text-white font-bold text-sm rounded-xl transition-all shadow active:scale-95 outline-none"
+                className="w-full py-3 bg-stone-900 hover:bg-stone-800 dark:bg-stone-700 dark:hover:bg-stone-600 text-white font-bold text-body rounded-xl transition-all shadow active:scale-95 outline-none"
               >
                 Awesome! Continue Tracking
               </button>
@@ -3278,25 +3278,25 @@ export default function PetHealthJournal() {
                   {renderBadgeIcon(celebrateBadge.iconName, 'w-9 h-9 animate-pulse')}
                 </div>
                 <h3 className="text-xl font-black text-stone-950 dark:text-white uppercase tracking-tight mt-2">Medal Unlocked!</h3>
-                <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">New Achievement Earned</p>
+                <p className="text-caption text-stone-400 font-bold uppercase tracking-widest">New Achievement Earned</p>
               </div>
 
               <div className="p-4 bg-gradient-to-br from-stone-50 to-stone-100/50 dark:from-stone-950 dark:to-stone-900 rounded-xl border border-stone-100 dark:border-stone-800 text-center">
                 <h4 className="font-extrabold text-stone-900 dark:text-white text-base leading-tight">
                   {celebrateBadge.name}
                 </h4>
-                <p className="text-xs text-stone-500 mt-1 leading-normal px-2">
+                <p className="text-caption text-stone-500 mt-1 leading-normal px-2">
                   {celebrateBadge.description}
                 </p>
               </div>
 
-              <p className="text-xs text-stone-400 font-medium">
+              <p className="text-caption text-stone-400 font-medium">
                 Requirement completed: <span className="font-bold text-stone-600 dark:text-stone-300">{celebrateBadge.requirement}</span>
               </p>
 
               <button
                 onClick={() => setCelebrateBadge(null)}
-                className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-xl transition-all shadow active:scale-95 outline-none"
+                className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-xl transition-all shadow active:scale-95 outline-none"
               >
                 Proud Caregiver! Collect Medal
               </button>
@@ -3321,11 +3321,11 @@ export default function PetHealthJournal() {
               
               <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-2">
                 <div>
-                  <h3 className="font-extrabold text-stone-950 dark:text-white text-sm flex items-center gap-1.5">
+                  <h3 className="font-extrabold text-stone-950 dark:text-white text-body flex items-center gap-1.5">
                     <Sparkles className="w-4 h-4 text-rose-500 animate-pulse" />
                     {t('Quick Wellness Log', '极速健康登记')}
                   </h3>
-                  <p className="text-[10px] text-stone-400 font-bold uppercase mt-0.5">
+                  <p className="text-caption text-stone-400 font-bold uppercase mt-0.5">
                     {t('Instantly Track Mood & Symptoms', '随时随地记录爱宠状态')}
                   </p>
                 </div>
@@ -3340,7 +3340,7 @@ export default function PetHealthJournal() {
 
               <form onSubmit={handleQuickLog} className="space-y-4">
                 {/* Active Patient snippet */}
-                <div className="flex items-center justify-between bg-stone-50 dark:bg-stone-950/40 p-2.5 rounded-xl border border-stone-100 dark:border-stone-850 text-xs">
+                <div className="flex items-center justify-between bg-stone-50 dark:bg-stone-950/40 p-2.5 rounded-xl border border-stone-100 dark:border-stone-800 text-caption">
                   <span className="text-stone-500 font-bold">{t('Active Pet:', '记录对象:')}</span>
                   <span className="font-black text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-2 py-0.5 rounded-md border border-rose-100/30">
                     {getPetInfo('1')?.name || 'Buddy'}
@@ -3349,10 +3349,10 @@ export default function PetHealthJournal() {
 
                 {/* Mood selector row */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                     {t('Select Current Mood', '选择当前情绪')}
                   </label>
-                  <div className="flex justify-between bg-stone-50 dark:bg-stone-950/40 p-2 rounded-xl border border-stone-100 dark:border-stone-850">
+                  <div className="flex justify-between bg-stone-50 dark:bg-stone-950/40 p-2 rounded-xl border border-stone-100 dark:border-stone-800">
                     {[
                       { emoji: '😊', label: 'Happy', tag: '#happy' },
                       { emoji: '🤪', label: 'Playful', tag: '#playful' },
@@ -3385,7 +3385,7 @@ export default function PetHealthJournal() {
                           title={t(item.label, item.label)}
                         >
                           <span className="text-xl mb-0.5">{item.emoji}</span>
-                          <span className={`text-[9px] font-black uppercase ${isSelected ? 'text-white' : 'text-stone-400'}`}>
+                          <span className={`text-caption font-black uppercase ${isSelected ? 'text-white' : 'text-stone-400'}`}>
                             {t(item.label, item.label)}
                           </span>
                         </button>
@@ -3396,7 +3396,7 @@ export default function PetHealthJournal() {
 
                 {/* Activity or Symptoms input */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                     {t('Activity / Symptoms Description', '行为表现或异常症状')}
                   </label>
                   <textarea
@@ -3405,13 +3405,13 @@ export default function PetHealthJournal() {
                     value={quickActivity}
                     onChange={(e) => setQuickActivity(e.target.value)}
                     placeholder={t('e.g. Coughed twice, scratching left ear, full appetite...', '例如：咳嗽了两次，频繁抓耳朵，食欲正常...')}
-                    className="w-full px-3 py-2 text-xs bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
+                    className="w-full px-3 py-2 text-caption bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
                   />
                 </div>
 
                 {/* 1-Tap Quick Presets */}
                 <div className="space-y-1">
-                  <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">
+                  <span className="text-caption font-black text-stone-400 uppercase tracking-wider">
                     {t('⚡ 1-Tap Presets:', '⚡ 常用一键录入:')}
                   </span>
                   <div className="flex flex-wrap gap-1">
@@ -3438,7 +3438,7 @@ export default function PetHealthJournal() {
                             setQuickSelectedTags([...quickSelectedTags, preset.tag]);
                           }
                         }}
-                        className="text-[9px] font-bold px-2 py-1 bg-stone-50 hover:bg-rose-50 dark:bg-stone-800 dark:hover:bg-rose-950/30 text-stone-500 dark:text-stone-400 hover:text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 border border-stone-200/60 dark:border-stone-700/60 rounded-lg transition-all"
+                        className="text-caption font-bold px-2 py-1 bg-stone-50 hover:bg-rose-50 dark:bg-stone-800 dark:hover:bg-rose-950/30 text-stone-500 dark:text-stone-400 hover:text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 border border-stone-200/60 dark:border-stone-700/60 rounded-lg transition-all"
                       >
                         {preset.label}
                       </button>
@@ -3449,7 +3449,7 @@ export default function PetHealthJournal() {
                 {/* Optional Weight & Tags Column Row */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">
+                    <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                       {t('Weight (kg - Optional)', '体重 (公斤 - 选填)')}
                     </label>
                     <input
@@ -3458,27 +3458,27 @@ export default function PetHealthJournal() {
                       value={quickWeight}
                       onChange={(e) => setQuickWeight(e.target.value)}
                       placeholder="e.g. 10.5"
-                      className="w-full px-3 py-1.5 text-xs bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                      className="w-full px-3 py-1.5 text-caption bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">
+                    <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                       {t('Tags Selected', '已选标签')}
                     </label>
-                    <div className="flex flex-wrap gap-1 max-h-[44px] overflow-y-auto p-1 bg-stone-50 dark:bg-stone-950/40 rounded-xl border border-stone-100 dark:border-stone-850">
+                    <div className="flex flex-wrap gap-1 max-h-[44px] overflow-y-auto p-1 bg-stone-50 dark:bg-stone-950/40 rounded-xl border border-stone-100 dark:border-stone-800">
                       {quickSelectedTags.length === 0 ? (
-                        <span className="text-[9px] text-stone-400 font-medium italic p-1">{t('None', '无')}</span>
+                        <span className="text-caption text-stone-400 font-medium italic p-1">{t('None', '无')}</span>
                       ) : (
                         quickSelectedTags.map(tag => (
                           <span
                             key={tag}
                             onClick={() => setQuickSelectedTags(quickSelectedTags.filter(t => t !== tag))}
-                            className="text-[9px] font-black bg-purple-500 text-white px-1.5 py-0.5 rounded-md flex items-center gap-0.5 cursor-pointer hover:bg-rose-500 transition-all"
+                            className="text-caption font-black bg-purple-500 text-white px-1.5 py-0.5 rounded-md flex items-center gap-0.5 cursor-pointer hover:bg-rose-500 transition-all"
                             title={t('Click to remove', '点击移除')}
                           >
                             <span>{tag}</span>
-                            <span className="text-[8px]">×</span>
+                            <span className="text-caption">×</span>
                           </span>
                         ))
                       )}
@@ -3488,7 +3488,7 @@ export default function PetHealthJournal() {
 
                 {/* Preset tags multi-select */}
                 <div className="space-y-1">
-                  <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">
+                  <span className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                     {t('Toggle Behavior Tags', '切换行为标签')}
                   </span>
                   <div className="flex flex-wrap gap-1 max-h-[50px] overflow-y-auto">
@@ -3505,10 +3505,10 @@ export default function PetHealthJournal() {
                               setQuickSelectedTags([...quickSelectedTags, tag]);
                             }
                           }}
-                          className={`text-[9px] font-bold px-2 py-0.5 rounded-md border transition-all flex items-center gap-0.5 ${
+                          className={`text-caption font-bold px-2 py-0.5 rounded-md border transition-all flex items-center gap-0.5 ${
                             isSelected
                               ? 'bg-purple-500 border-purple-500 text-white shadow-sm'
-                              : 'bg-stone-50 dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-750'
+                              : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-700'
                           }`}
                         >
                           <span>{getTagEmoji(tag)}</span>
@@ -3521,7 +3521,7 @@ export default function PetHealthJournal() {
 
                 {/* Toggle Symptoms tags multi-select */}
                 <div className="space-y-1">
-                  <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">
+                  <span className="text-caption font-black text-stone-400 uppercase tracking-wider block">
                     {t('Toggle Common Symptoms', '切换异常症状')}
                   </span>
                   <div className="flex flex-wrap gap-1 max-h-[50px] overflow-y-auto">
@@ -3547,10 +3547,10 @@ export default function PetHealthJournal() {
                               setQuickSelectedTags([...quickSelectedTags, item.tag]);
                             }
                           }}
-                          className={`text-[9px] font-bold px-2 py-0.5 rounded-md border transition-all flex items-center gap-0.5 ${
+                          className={`text-caption font-bold px-2 py-0.5 rounded-md border transition-all flex items-center gap-0.5 ${
                             isSelected
                               ? 'bg-rose-500 border-rose-500 text-white shadow-sm'
-                              : 'bg-stone-50 dark:bg-stone-850 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-750'
+                              : 'bg-stone-50 dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-700'
                           }`}
                         >
                           <span>{getTagEmoji(item.tag)}</span>
@@ -3565,7 +3565,7 @@ export default function PetHealthJournal() {
                 <button
                   type="submit"
                   disabled={!quickActivity.trim()}
-                  className="w-full py-2.5 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 disabled:from-stone-300 disabled:to-stone-400 dark:disabled:from-stone-800 dark:disabled:to-stone-700 text-white font-bold text-xs rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+                  className="w-full py-2.5 bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 disabled:from-stone-300 disabled:to-stone-400 dark:disabled:from-stone-800 dark:disabled:to-stone-700 text-white font-bold text-caption rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" /> {t('Save Wellness Log', '保存并录入日志')} (+50 XP)
                 </button>
@@ -3598,13 +3598,13 @@ export default function PetHealthJournal() {
             >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                <span className="text-xs font-bold truncate max-w-[160px]">
+                <span className="text-caption font-bold truncate max-w-[160px]">
                   {t('Log deleted', '日志已删除')}
                 </span>
               </div>
               <button
                 onClick={undoDelete}
-                className="text-xs font-black text-emerald-400 dark:text-emerald-600 hover:underline flex items-center gap-1 active:scale-95"
+                className="text-caption font-black text-emerald-400 dark:text-emerald-600 hover:underline flex items-center gap-1 active:scale-95"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 {t('UNDO', '撤销')}
@@ -3636,12 +3636,12 @@ export default function PetHealthJournal() {
                   className="max-w-full max-h-[75vh] object-contain"
                 />
                 <div className="p-3 bg-stone-900/90 flex items-center justify-between border-t border-stone-800 text-white">
-                  <span className="text-xs font-bold text-stone-400">
+                  <span className="text-caption font-bold text-stone-400">
                     {t('Journal Photo Attachment', '健康日志附带照片')}
                   </span>
                   <button
                     onClick={() => setSelectedPreviewPhoto(null)}
-                    className="px-4 py-1.5 bg-stone-800 hover:bg-stone-700 text-white rounded-lg text-xs font-bold transition-all"
+                    className="px-4 py-1.5 bg-stone-800 hover:bg-stone-700 text-white rounded-lg text-caption font-bold transition-all"
                   >
                     {t('Close', '关闭')}
                   </button>

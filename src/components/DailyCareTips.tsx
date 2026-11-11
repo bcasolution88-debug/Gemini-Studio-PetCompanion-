@@ -618,13 +618,13 @@ export default function DailyCareTips() {
             <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 text-amber-500">
               <Lightbulb className="w-4 h-4 animate-bounce" />
             </div>
-            <span className="text-xs font-black text-stone-800 dark:text-stone-200 tracking-tight uppercase">
+            <span className="text-caption font-black text-stone-800 dark:text-stone-200 tracking-tight uppercase">
               {t('Daily Care Tips', '新手养宠宝典')}
             </span>
           </div>
           
           {/* Playful mini indicator */}
-          <span className="text-[9px] font-bold text-stone-400 dark:text-stone-500 bg-stone-50 dark:bg-stone-950/40 px-2 py-0.5 rounded-md">
+          <span className="text-caption font-bold text-stone-400 dark:text-stone-500 bg-stone-50 dark:bg-stone-950/40 px-2 py-0.5 rounded-md">
             {currentIndex + 1} / {TIPS.length}
           </span>
         </div>
@@ -643,18 +643,18 @@ export default function DailyCareTips() {
               {/* Category Tag */}
               <div className="flex items-center gap-1.5">
                 <IconComponent className="w-3.5 h-3.5 text-amber-500" />
-                <span className="text-[10px] font-extrabold uppercase tracking-wide text-amber-600 dark:text-amber-400">
+                <span className="text-caption font-extrabold uppercase tracking-wide text-amber-600 dark:text-amber-400">
                   {t(activeTip.categoryEn, activeTip.categoryZh)}
                 </span>
               </div>
 
               {/* Title */}
-              <h4 className="font-bold text-xs text-stone-900 dark:text-stone-100 leading-snug">
+              <h4 className="font-bold text-caption text-stone-900 dark:text-stone-100 leading-snug">
                 {t(activeTip.titleEn, activeTip.titleZh)}
               </h4>
 
               {/* Description */}
-              <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-relaxed font-medium">
+              <p className="text-caption text-stone-500 dark:text-stone-400 leading-relaxed font-medium">
                 {t(activeTip.descEn, activeTip.descZh)}
               </p>
             </motion.div>
@@ -670,7 +670,7 @@ export default function DailyCareTips() {
               className={`p-1.5 rounded-lg border transition-colors cursor-pointer flex items-center justify-center ${
                 copied
                   ? 'bg-emerald-50 border-emerald-200 text-emerald-500 dark:bg-emerald-950/20 dark:border-emerald-900/30'
-                  : 'bg-stone-50 hover:bg-stone-100 border-stone-200/60 dark:bg-stone-800 dark:hover:bg-stone-750 dark:border-stone-700 text-stone-500 dark:text-stone-400'
+                  : 'bg-stone-50 hover:bg-stone-100 border-stone-200/60 dark:bg-stone-800 dark:hover:bg-stone-700 dark:border-stone-700 text-stone-500 dark:text-stone-400'
               }`}
               title={t('Copy tip to clipboard', '复制此条指南')}
             >
@@ -679,7 +679,7 @@ export default function DailyCareTips() {
 
             <button
               onClick={handleNext}
-              className="p-1.5 rounded-lg bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-750 border border-stone-200/60 dark:border-stone-700 text-stone-500 dark:text-stone-400 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200/60 dark:border-stone-700 text-stone-500 dark:text-stone-400 transition-colors cursor-pointer"
               title={t('Next Tip', '下一条指南')}
             >
               <RotateCw className="w-3.5 h-3.5 hover:rotate-185 transition-transform duration-500" />
@@ -690,13 +690,13 @@ export default function DailyCareTips() {
           <div className="flex items-center gap-1">
             <button
               onClick={handlePrev}
-              className="px-2 py-1 text-[10px] font-bold rounded-md bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-750 text-stone-600 dark:text-stone-300 transition-colors cursor-pointer"
+              className="px-2 py-1 text-caption font-bold rounded-md bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 transition-colors cursor-pointer"
             >
               {t('Prev', '上一条')}
             </button>
             <button
               onClick={handleNext}
-              className="px-2 py-1 text-[10px] font-bold rounded-md bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 transition-colors cursor-pointer"
+              className="px-2 py-1 text-caption font-bold rounded-md bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 transition-colors cursor-pointer"
             >
               {t('Next', '下一条')}
             </button>
@@ -704,10 +704,10 @@ export default function DailyCareTips() {
         </div>
 
         {/* Action Buttons Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-stone-150 dark:border-stone-800/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-stone-200 dark:border-stone-800/80">
           <button
             onClick={() => setIsInfographicModalOpen(true)}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl py-2.5 px-3 text-[11px] font-black shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl py-2.5 px-3 text-caption font-black shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>{t('Care Infographic', '一键生成照料卡')}</span>
@@ -715,7 +715,7 @@ export default function DailyCareTips() {
           
           <button
             onClick={() => setIsRoutineModalOpen(true)}
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl py-2.5 px-3 text-[11px] font-black shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+            className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl py-2.5 px-3 text-caption font-black shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>{t('Care Routine Builder', '定制一周作息表')}</span>
@@ -735,16 +735,16 @@ export default function DailyCareTips() {
               className="bg-white dark:bg-stone-900 rounded-3xl w-full max-w-xl shadow-2xl border border-stone-100 dark:border-stone-800 overflow-hidden relative flex flex-col max-h-[90vh]"
             >
               {/* Header */}
-              <div className="p-6 border-b border-stone-100 dark:border-stone-800 flex items-center justify-between shrink-0 bg-stone-50 dark:bg-stone-850/30">
+              <div className="p-6 border-b border-stone-100 dark:border-stone-800 flex items-center justify-between shrink-0 bg-stone-50 dark:bg-stone-800/30">
                 <div className="flex items-center gap-2.5">
                   <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
                     <FileText className="w-5.5 h-5.5" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-extrabold text-sm text-stone-900 dark:text-stone-100 leading-tight">
+                    <h3 className="font-extrabold text-body text-stone-900 dark:text-stone-100 leading-tight">
                       {t('AI Daily Care Infographic Creator', 'AI 爱宠专属科学照料卡片生成器')}
                     </h3>
-                    <span className="text-[11px] text-stone-400 dark:text-stone-500 font-bold">
+                    <span className="text-caption text-stone-400 dark:text-stone-500 font-bold">
                       {t('Generate and download beautiful poster summaries', '智能一键生成精美、可打印的养宠日程安排卡')}
                     </span>
                   </div>
@@ -769,10 +769,10 @@ export default function DailyCareTips() {
                   <div className="space-y-5">
                     {/* Pet Selector */}
                     <div>
-                      <label className="block text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
+                      <label className="block text-caption font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
                         {t('1. Select Companion Pet', '1. 选择制作指南的宠物宝贝')}
                       </label>
-                      <div className="grid grid-cols-2 gap-2.5 max-h-40 overflow-y-auto p-1.5 bg-stone-50 dark:bg-stone-950/40 rounded-2xl border border-stone-150 dark:border-stone-800/80">
+                      <div className="grid grid-cols-2 gap-2.5 max-h-40 overflow-y-auto p-1.5 bg-stone-50 dark:bg-stone-950/40 rounded-2xl border border-stone-200 dark:border-stone-800/80">
                         {petsList.map((pet) => {
                           const isSelected = selectedPetId === pet.id;
                           return (
@@ -793,10 +793,10 @@ export default function DailyCareTips() {
                                 className="w-9 h-9 rounded-lg object-cover border border-stone-200/40"
                               />
                               <div className="truncate">
-                                <span className="block text-xs font-black text-stone-900 dark:text-stone-100 truncate">
+                                <span className="block text-caption font-black text-stone-900 dark:text-stone-100 truncate">
                                   {pet.name}
                                 </span>
-                                <span className="block text-[10px] text-stone-400 dark:text-stone-500 font-bold truncate">
+                                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold truncate">
                                   {pet.breed || pet.species}
                                 </span>
                               </div>
@@ -808,7 +808,7 @@ export default function DailyCareTips() {
 
                     {/* Vibe Theme Selector */}
                     <div>
-                      <label className="block text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
+                      <label className="block text-caption font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
                         {t('2. Select Design Style Theme', '2. 选择卡片视觉设计风格')}
                       </label>
                       <div className="grid grid-cols-3 gap-3">
@@ -829,10 +829,10 @@ export default function DailyCareTips() {
                                   : 'bg-white dark:bg-stone-900 border-stone-200/60 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-800'
                               }`}
                             >
-                              <span className="block text-xs font-extrabold text-stone-800 dark:text-stone-200">
+                              <span className="block text-caption font-extrabold text-stone-800 dark:text-stone-200">
                                 {theme.title}
                               </span>
-                              <span className="block text-[10px] text-stone-400 dark:text-stone-500 font-bold mt-1">
+                              <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold mt-1">
                                 {theme.desc}
                               </span>
                             </button>
@@ -844,7 +844,7 @@ export default function DailyCareTips() {
                     {/* Bottom action */}
                     <button
                       onClick={handleGenerateInfographic}
-                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl py-3 px-4 text-xs font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-4"
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl py-3 px-4 text-caption font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-4"
                     >
                       <Sparkles className="w-4 h-4 animate-bounce" />
                       <span>{t('Generate Infographic Card with AI', '开始智能生成专属科学照料卡')}</span>
@@ -859,10 +859,10 @@ export default function DailyCareTips() {
                     </div>
                     
                     <div className="text-center space-y-2 max-w-sm">
-                      <h4 className="text-xs font-extrabold text-stone-800 dark:text-stone-200">
+                      <h4 className="text-caption font-extrabold text-stone-800 dark:text-stone-200">
                         {t('AI Creative Engine Active', 'AI 创意引擎正在深度渲染绘制中')}
                       </h4>
-                      <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-relaxed font-bold animate-pulse">
+                      <p className="text-caption text-stone-500 dark:text-stone-400 leading-relaxed font-bold animate-pulse">
                         {generationSteps[currentStepIndex]}
                       </p>
                     </div>
@@ -875,7 +875,7 @@ export default function DailyCareTips() {
                           className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                             idx <= currentStepIndex
                               ? 'bg-amber-500 scale-110 shadow-sm'
-                              : 'bg-stone-200 dark:bg-stone-850'
+                              : 'bg-stone-200 dark:bg-stone-800'
                           }`}
                         />
                       ))}
@@ -884,7 +884,7 @@ export default function DailyCareTips() {
                 ) : (
                   /* Success/Preview State */
                   <div className="space-y-5 text-center flex flex-col items-center">
-                    <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 text-xs font-extrabold px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-inner border border-emerald-100/40">
+                    <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 text-caption font-extrabold px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-inner border border-emerald-100/40">
                       <Check className="w-4 h-4 stroke-[3]" />
                       <span>{t('AI Infographic Created Successfully!', '照料日历指南海报生成成功！')}</span>
                     </div>
@@ -903,7 +903,7 @@ export default function DailyCareTips() {
                     <div className="flex gap-3 w-full max-w-sm pt-2">
                       <button
                         onClick={handleDownload}
-                        className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl py-3 px-4 text-xs font-extrabold shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl py-3 px-4 text-caption font-extrabold shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
                       >
                         <Download className="w-4 h-4" />
                         <span>{t('Download Infographic', '保存/下载高清原图')}</span>
@@ -913,7 +913,7 @@ export default function DailyCareTips() {
                           setGeneratedImage(null);
                           setGenerationError('');
                         }}
-                        className="px-4 py-3 bg-stone-100 hover:bg-stone-200 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-2xl text-xs font-black transition-colors cursor-pointer"
+                        className="px-4 py-3 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-2xl text-caption font-black transition-colors cursor-pointer"
                       >
                         {t('Re-generate', '重新生成')}
                       </button>
@@ -938,16 +938,16 @@ export default function DailyCareTips() {
               className="bg-white dark:bg-stone-900 rounded-3xl w-full max-w-xl shadow-2xl border border-stone-100 dark:border-stone-800 overflow-hidden relative flex flex-col max-h-[90vh]"
             >
               {/* Header */}
-              <div className="p-6 border-b border-stone-100 dark:border-stone-800 flex items-center justify-between shrink-0 bg-stone-50 dark:bg-stone-850/30">
+              <div className="p-6 border-b border-stone-100 dark:border-stone-800 flex items-center justify-between shrink-0 bg-stone-50 dark:bg-stone-800/30">
                 <div className="flex items-center gap-2.5">
                   <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
                     <Calendar className="w-5.5 h-5.5" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-extrabold text-sm text-stone-900 dark:text-stone-100 leading-tight">
+                    <h3 className="font-extrabold text-body text-stone-900 dark:text-stone-100 leading-tight">
                       {t('AI Weekly Care Routine Planner', 'AI 萌宠专属一周作息规划生成器')}
                     </h3>
-                    <span className="text-[11px] text-stone-400 dark:text-stone-500 font-bold">
+                    <span className="text-caption text-stone-400 dark:text-stone-500 font-bold">
                       {t('Generate interactive routine schedule for calendar export', '智能规划专属排班日程，并一键导入到个人系统日历')}
                     </span>
                   </div>
@@ -972,10 +972,10 @@ export default function DailyCareTips() {
                   <div className="space-y-5">
                     {/* Pet Selector */}
                     <div>
-                      <label className="block text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
+                      <label className="block text-caption font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
                         {t('1. Select Companion Pet', '1. 选择目标宠物宝贝')}
                       </label>
-                      <div className="grid grid-cols-2 gap-2.5 max-h-40 overflow-y-auto p-1.5 bg-stone-50 dark:bg-stone-950/40 rounded-2xl border border-stone-150 dark:border-stone-800/80">
+                      <div className="grid grid-cols-2 gap-2.5 max-h-40 overflow-y-auto p-1.5 bg-stone-50 dark:bg-stone-950/40 rounded-2xl border border-stone-200 dark:border-stone-800/80">
                         {petsList.map((pet) => {
                           const isSelected = selectedPetId === pet.id;
                           return (
@@ -996,10 +996,10 @@ export default function DailyCareTips() {
                                 className="w-9 h-9 rounded-lg object-cover border border-stone-200/40"
                               />
                               <div className="truncate">
-                                <span className="block text-xs font-black text-stone-900 dark:text-stone-100 truncate">
+                                <span className="block text-caption font-black text-stone-900 dark:text-stone-100 truncate">
                                   {pet.name}
                                 </span>
-                                <span className="block text-[10px] text-stone-400 dark:text-stone-500 font-bold truncate">
+                                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold truncate">
                                   {pet.breed || pet.species}
                                 </span>
                               </div>
@@ -1011,11 +1011,11 @@ export default function DailyCareTips() {
 
                     {/* Workday Schedule Selector */}
                     <div>
-                      <label className="block text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
+                      <label className="block text-caption font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
                         {t('2. Your Workday Schedule', '2. 主人的日常作息安排')}
                       </label>
                       <select
-                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-150 dark:border-stone-800 rounded-2xl text-xs text-stone-850 dark:text-stone-150 font-bold focus:outline-none"
+                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold focus:outline-none"
                         value={workday}
                         onChange={(e) => setWorkday(e.target.value)}
                       >
@@ -1028,12 +1028,12 @@ export default function DailyCareTips() {
 
                     {/* Special Health/Behavioral Concerns */}
                     <div>
-                      <label className="block text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
+                      <label className="block text-caption font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider mb-2">
                         {t('3. Health / Behavioral Concerns (Optional)', '3. 特殊健康与行为关注点 (选填)')}
                       </label>
                       <input
                         type="text"
-                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-150 dark:border-stone-800 rounded-2xl text-xs text-stone-850 dark:text-stone-150 font-bold placeholder-stone-400 focus:outline-none"
+                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold placeholder-stone-400 focus:outline-none"
                         placeholder={t('e.g., puppy potty training, recovering itchy skin, sensitive tummy...', '例：幼年随地排便训练、皮肤轻微过敏瘙痒、容易软便拉稀...')}
                         value={customConcerns}
                         onChange={(e) => setCustomConcerns(e.target.value)}
@@ -1043,7 +1043,7 @@ export default function DailyCareTips() {
                     {/* Bottom action */}
                     <button
                       onClick={handleGenerateRoutine}
-                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-2xl py-3 px-4 text-xs font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-4"
+                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-2xl py-3 px-4 text-caption font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-4"
                     >
                       <Sparkles className="w-4 h-4 animate-pulse" />
                       <span>{t('Generate Personalized Care Routine', '开始智能定制专属一周科学作息')}</span>
@@ -1058,10 +1058,10 @@ export default function DailyCareTips() {
                     </div>
                     
                     <div className="text-center space-y-2 max-w-sm">
-                      <h4 className="text-xs font-extrabold text-stone-800 dark:text-stone-200">
+                      <h4 className="text-caption font-extrabold text-stone-800 dark:text-stone-200">
                         {t('AI Behavioral Planner Consulting...', 'AI 行为规划专家正在进行深度定制')}
                       </h4>
-                      <p className="text-[11px] text-indigo-500 font-bold leading-relaxed animate-pulse">
+                      <p className="text-caption text-indigo-500 font-bold leading-relaxed animate-pulse">
                         {t('Creating custom week-long care routine, aligning hour-by-hour feeding, training, play, and grooming sessions to your workload...', '正在为您匹配爱宠的日常作息需求，精细规划晨起、上班期、下班后和夜间的温和护理，建立科学行为习惯...')}
                       </p>
                     </div>
@@ -1070,27 +1070,27 @@ export default function DailyCareTips() {
                   /* Success/Preview State */
                   <div className="space-y-5 text-left">
                     <div className="text-center">
-                      <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 text-xs font-extrabold px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-inner border border-emerald-100/40">
+                      <div className="bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 text-caption font-extrabold px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-inner border border-emerald-100/40">
                         <Check className="w-4 h-4 stroke-[3]" />
                         <span>{t('AI Week-long Routine Designed!', 'AI 专属作息表设计完成！')}</span>
                       </div>
                     </div>
 
                     {/* Display timeline */}
-                    <div className="space-y-3.5 max-h-[350px] overflow-y-auto p-1 border border-stone-100 dark:border-stone-850 rounded-2xl bg-stone-50/50 dark:bg-stone-950/20">
+                    <div className="space-y-3.5 max-h-[350px] overflow-y-auto p-1 border border-stone-100 dark:border-stone-800 rounded-2xl bg-stone-50/50 dark:bg-stone-950/20">
                       {generatedRoutine?.map((item, idx) => (
-                        <div key={idx} className="flex gap-3 p-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-150/50 dark:border-stone-800/80 shadow-sm">
-                          <div className="text-xs font-black text-indigo-600 dark:text-indigo-400 shrink-0 select-none bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 rounded-lg h-fit">
+                        <div key={idx} className="flex gap-3 p-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-200/50 dark:border-stone-800/80 shadow-sm">
+                          <div className="text-caption font-black text-indigo-600 dark:text-indigo-400 shrink-0 select-none bg-indigo-50 dark:bg-indigo-950/30 px-2 py-0.5 rounded-lg h-fit">
                             {item.time}
                           </div>
                           <div className="space-y-1 flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-xs font-black text-stone-900 dark:text-white truncate">{item.title}</span>
-                              <span className={`text-[8px] font-black border px-1.5 rounded-md h-4 flex items-center bg-stone-50 text-stone-500`}>
+                              <span className="text-caption font-black text-stone-900 dark:text-white truncate">{item.title}</span>
+                              <span className={`text-caption font-black border px-1.5 rounded-md h-4 flex items-center bg-stone-50 text-stone-500`}>
                                 {item.category}
                               </span>
                             </div>
-                            <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-normal font-bold">
+                            <p className="text-caption text-stone-500 dark:text-stone-400 leading-normal font-bold">
                               {item.description}
                             </p>
                           </div>
@@ -1102,7 +1102,7 @@ export default function DailyCareTips() {
                     <div className="flex flex-col sm:flex-row gap-3 pt-3 border-t border-stone-100 dark:border-stone-800">
                       <button
                         onClick={handleExportICS}
-                        className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-2xl py-3 px-4 text-xs font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-2xl py-3 px-4 text-caption font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
                       >
                         <Download className="w-4 h-4" />
                         <span>{exportSuccess ? t('Exported Successfully!', '已成功导出！') : t('Export to Personal Calendar (.ics)', '导出到系统个人日历')}</span>
@@ -1110,7 +1110,7 @@ export default function DailyCareTips() {
                       
                       <button
                         onClick={handleImportToAppChecklist}
-                        className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl py-3 px-4 text-xs font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl py-3 px-4 text-caption font-black shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer"
                       >
                         <Plus className="w-4 h-4" />
                         <span>{routineImportSuccess ? t('Imported successfully!', '成功导入到日常清单！') : t('One-click Import to Daily Checklist', '一键导入日常任务清单')}</span>
@@ -1121,7 +1121,7 @@ export default function DailyCareTips() {
                           setGeneratedRoutine(null);
                           setRoutineError('');
                         }}
-                        className="px-4 py-3 bg-stone-100 hover:bg-stone-200 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-2xl text-xs font-black transition-colors cursor-pointer text-center"
+                        className="px-4 py-3 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-2xl text-caption font-black transition-colors cursor-pointer text-center"
                       >
                         {t('Re-generate', '重新生成')}
                       </button>

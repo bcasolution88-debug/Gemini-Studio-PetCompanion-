@@ -93,7 +93,7 @@ export default function RecommendationWidget() {
     return (
       <div className="mt-12 bg-white dark:bg-stone-900 p-8 rounded-3xl border border-orange-100 dark:border-stone-800 shadow-sm text-center">
         <div className="w-10 h-10 rounded-full border-4 border-rose-500 border-t-transparent animate-spin mx-auto mb-3" />
-        <p className="text-sm font-semibold text-stone-600 dark:text-stone-400">{t('Finding your perfect pet matches...', '正在努力为您搜寻最佳宠物伴侣推荐...')}</p>
+        <p className="text-body font-semibold text-stone-600 dark:text-stone-400">{t('Finding your perfect pet matches...', '正在努力为您搜寻最佳宠物伴侣推荐...')}</p>
       </div>
     );
   }
@@ -149,7 +149,7 @@ export default function RecommendationWidget() {
                 }} />
               </div>
               <div className="p-3 bg-rose-50/40 dark:bg-rose-950/20 border border-rose-100/30 dark:border-rose-950/40 rounded-xl">
-                <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-medium">
+                <p className="text-caption text-stone-600 dark:text-stone-300 leading-relaxed font-medium">
                   {matchingReason}
                 </p>
               </div>

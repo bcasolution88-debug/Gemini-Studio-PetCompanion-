@@ -48,7 +48,7 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-gray-600 dark:text-stone-300 hover:text-rose-500 dark:hover:text-rose-400 flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200"
+                  className="text-gray-600 dark:text-stone-300 hover:text-rose-500 dark:hover:text-rose-400 flex items-center px-1 pt-1 text-body font-medium transition-colors duration-200"
                 >
                   <link.icon className="mr-2 h-4 w-4" />
                   {link.name}
@@ -59,7 +59,7 @@ export default function Navbar() {
               <input
                 type="text"
                 placeholder={t('Search...', '搜索...')}
-                className="border border-gray-200 dark:border-stone-800 bg-white dark:bg-stone-950 rounded-full px-4 py-1.5 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-950 dark:text-white"
+                className="border border-gray-200 dark:border-stone-800 bg-white dark:bg-stone-950 rounded-full px-4 py-1.5 pl-10 text-body focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-950 dark:text-white"
               />
               <Search className="absolute left-3 top-2 h-4 w-4 text-gray-400" />
             </div>
@@ -67,7 +67,7 @@ export default function Navbar() {
             {/* Bilingual Switcher */}
             <button
               onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-850 transition-all cursor-pointer shadow-sm active:scale-95"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-stone-200 dark:border-stone-800 text-caption font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-all cursor-pointer shadow-sm active:scale-95"
               title={t('Switch Language', '切换语言')}
             >
               <span className={language === 'zh' ? 'text-rose-500 font-extrabold' : ''}>中</span>
@@ -121,7 +121,7 @@ export default function Navbar() {
                 setLanguage(language === 'zh' ? 'en' : 'zh');
                 setIsOpen(false);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-all cursor-pointer shadow-sm active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-stone-200 dark:border-stone-800 text-caption font-bold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-all cursor-pointer shadow-sm active:scale-95"
             >
               <span>{t('语言: 中文', 'Language: Chinese')}</span>
               <span>/</span>

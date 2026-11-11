@@ -26,7 +26,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setIsDarkMode(!isDarkMode)}
-      className="p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 dark:bg-stone-850 dark:text-stone-300 dark:hover:bg-stone-800 transition-colors cursor-pointer"
+      className="p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-800 transition-colors cursor-pointer"
       aria-label="Toggle theme"
     >
       {isDarkMode ? <Sun className="w-5 h-5 text-amber-500" /> : <Moon className="w-5 h-5" />}

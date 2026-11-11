@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Camera, Sparkles, Plus, Trash2, Image as ImageIcon, Calendar, Search, Expand, X, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
+import Modal from './ui/Modal';
+import { IconButton } from './ui/IconButton';
 
 interface Memory {
   id: string;
@@ -106,11 +108,11 @@ export default function PetMemoriesGallery() {
           <button
             onClick={handleGeneratePortrait}
             disabled={loadingAI}
-            className="flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-sm rounded-2xl transition-all shadow-sm active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-body rounded-2xl transition-all shadow-sm active:scale-95 disabled:opacity-50"
           >
             {loadingAI ? t('Generating...', '正在生成...') : <><Sparkles className="w-4 h-4" /> {t('AI Portrait', 'AI 肖像')}</>}
           </button>
-          <button className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-2xl transition-all shadow-sm active:scale-95">
+          <button className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-2xl transition-all shadow-sm active:scale-95">
             <Plus className="w-4 h-4" /> {t('Capture', '记录')}
           </button>
         </div>
@@ -123,7 +125,7 @@ export default function PetMemoriesGallery() {
           placeholder={t('Search memories by date or tag...', '按日期或标签搜索记忆...')}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 outline-none transition-all"
+          className="w-full pl-10 pr-4 py-2.5 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl text-body focus:ring-2 focus:ring-rose-500/20 outline-none transition-all"
         />
       </div>
 
@@ -136,14 +138,14 @@ export default function PetMemoriesGallery() {
               : t('No results found', '未找到匹配结果')}
           </p>
           {memories.length === 0 && (
-            <p className="text-sm text-stone-400">{t('Capture a moment or generate an AI portrait!', '捕捉一个瞬间或生成一张 AI 肖像吧！')}</p>
+            <p className="text-body text-stone-400">{t('Capture a moment or generate an AI portrait!', '捕捉一个瞬间或生成一张 AI 肖像吧！')}</p>
           )}
         </div>
       ) : (
         <div className="space-y-6">
           {Object.entries(groupedMemories).map(([date, groupMemories]) => (
             <div key={date} className="space-y-3">
-              <div className="flex items-center gap-2 text-stone-500 text-xs font-bold uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-stone-500 text-caption font-bold uppercase tracking-widest">
                 <Calendar className="w-4 h-4" />
                 {date}
               </div>
@@ -152,7 +154,7 @@ export default function PetMemoriesGallery() {
                   <div key={memory.id} className="relative group rounded-2xl overflow-hidden aspect-square">
                     <img src={memory.imageUrl} alt={memory.caption} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                      <p className="text-white text-xs font-bold truncate">{memory.caption}</p>
+                      <p className="text-white text-caption font-bold truncate">{memory.caption}</p>
                     </div>
                     <button 
                       onClick={() => deleteMemory(memory.id)}
@@ -182,42 +184,66 @@ export default function PetMemoriesGallery() {
 
       {/* Slideshow Overlay */}
       {activeSlideshowIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
-          <button onClick={() => setActiveSlideshowIndex(null)} className="absolute top-4 right-4 text-white p-2 hover:bg-white/20 rounded-full"><X /></button>
-          
-          <button 
-            disabled={activeSlideshowIndex === 0}
+        <Modal
+          open
+          onClose={() => setActiveSlideshowIndex(null)}
+          ariaLabel={sortedMemories[activeSlideshowIndex].caption}
+          size="4xl"
+          scrollable={false}
+          overlayClassName="bg-stone-950/90"
+          panelClassName="bg-transparent border-0 shadow-none"
+        >
+          <IconButton
+            aria-label={t('Close slideshow', '关闭幻灯片')}
+            icon={<X className="w-6 h-6" />}
+            onClick={() => setActiveSlideshowIndex(null)}
+            className="absolute top-4 right-4 z-10 !text-white hover:bg-white/20"
+          />
+
+          <IconButton
+            aria-label={t('Previous memory', '上一张')}
+            icon={<ChevronLeft size={36} />}
             onClick={() => setActiveSlideshowIndex(activeSlideshowIndex - 1)}
-            className="absolute left-4 text-white p-4 disabled:opacity-30"
-          >
-            <ChevronLeft size={48} />
-          </button>
-          
-          <div className="max-w-4xl w-full">
+            disabled={activeSlideshowIndex === 0}
+            size="lg"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 !text-white hover:bg-white/20"
+          />
+
+          <div className="w-full px-14">
             <img 
               src={sortedMemories[activeSlideshowIndex].imageUrl} 
               alt={sortedMemories[activeSlideshowIndex].caption} 
-              className="w-full h-auto max-h-[80vh] object-contain rounded-lg" 
+              className="w-full h-auto max-h-[80vh] object-contain rounded-control" 
             />
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-4 gap-4">
               <p className="text-white font-bold">{sortedMemories[activeSlideshowIndex].caption}</p>
-              <button 
+              <IconButton
+                aria-label={
+                  sortedMemories[activeSlideshowIndex].isFavorite
+                    ? t('Remove from favorites', '取消收藏')
+                    : t('Add to favorites', '加入收藏')
+                }
+                aria-pressed={!!sortedMemories[activeSlideshowIndex].isFavorite}
+                icon={<Heart className="w-6 h-6" fill={sortedMemories[activeSlideshowIndex].isFavorite ? 'currentColor' : 'none'} />}
                 onClick={() => toggleFavorite(sortedMemories[activeSlideshowIndex].id)}
-                className={`p-2 rounded-full ${sortedMemories[activeSlideshowIndex].isFavorite ? 'text-rose-500' : 'text-white'}`}
-              >
-                <Heart className="w-6 h-6" fill={sortedMemories[activeSlideshowIndex].isFavorite ? 'currentColor' : 'none'} />
-              </button>
+                className={
+                  sortedMemories[activeSlideshowIndex].isFavorite
+                    ? '!text-brand-500 hover:bg-white/20'
+                    : '!text-white hover:bg-white/20'
+                }
+              />
             </div>
           </div>
 
-          <button 
-            disabled={activeSlideshowIndex === sortedMemories.length - 1}
+          <IconButton
+            aria-label={t('Next memory', '下一张')}
+            icon={<ChevronRight size={36} />}
             onClick={() => setActiveSlideshowIndex(activeSlideshowIndex + 1)}
-            className="absolute right-4 text-white p-4 disabled:opacity-30"
-          >
-            <ChevronRight size={48} />
-          </button>
-        </div>
+            disabled={activeSlideshowIndex === sortedMemories.length - 1}
+            size="lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 !text-white hover:bg-white/20"
+          />
+        </Modal>
       )}
     </div>
   );

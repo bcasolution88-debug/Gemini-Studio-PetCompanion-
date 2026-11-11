@@ -58,7 +58,7 @@ export default function PlaydatePlanner({ pet, onClose }: PlaydatePlannerProps) 
         <button onClick={onClose} className="flex-1 bg-stone-100 p-2 rounded">Cancel</button>
       </div>
       {error && (
-        <p className="text-xs font-semibold text-rose-600 dark:text-rose-400">{error}</p>
+        <p className="text-caption font-semibold text-rose-600 dark:text-rose-400">{error}</p>
       )}
     </div>
   );

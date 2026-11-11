@@ -166,26 +166,26 @@ export default function AdoptionFilterSidebar() {
 
       <div className="space-y-5">
         <div>
-          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Keyword Search', '关键词检索')}</label>
+          <label className="block text-body font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Keyword Search', '关键词检索')}</label>
           <div className="relative">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('e.g. Golden Retriever, calm...', '例如：金毛犬, 温柔温顺...')}
-              className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white"
+              className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl pl-10 pr-4 py-2.5 text-body focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white"
             />
             <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Species', '宠物类别')}</label>
+          <label className="block text-body font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Species', '宠物类别')}</label>
           <div className="relative">
             <select
               value={species}
               onChange={(e) => setSpecies(e.target.value)}
-              className="w-full appearance-none bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white font-bold"
+              className="w-full appearance-none bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-4 py-2.5 text-body focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white font-bold"
             >
               <option value="">{t('Select Species', '选择宠物物种')}</option>
               {filterOptions.species.map((opt) => (
@@ -202,7 +202,7 @@ export default function AdoptionFilterSidebar() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Age Category', '年龄阶段')}</label>
+          <label className="block text-body font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Age Category', '年龄阶段')}</label>
           <div className="grid grid-cols-2 gap-2">
             {[
               { label: t('All Ages', '不限年龄'), value: '' },
@@ -214,10 +214,10 @@ export default function AdoptionFilterSidebar() {
                 type="button"
                 key={opt.value}
                 onClick={() => setAge(opt.value)}
-                className={`px-3 py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
+                className={`px-3 py-2 text-caption font-bold rounded-xl border transition-all cursor-pointer text-center ${
                   age === opt.value
                     ? 'bg-rose-500 text-white border-rose-500 shadow-sm'
-                    : 'bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 border-stone-200 dark:border-stone-750'
+                    : 'bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 border-stone-200 dark:border-stone-700'
                 }`}
               >
                 {opt.label}
@@ -227,12 +227,12 @@ export default function AdoptionFilterSidebar() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Location', '所在地区')}</label>
+          <label className="block text-body font-medium text-stone-700 dark:text-stone-300 mb-2">{t('Location', '所在地区')}</label>
           <div className="relative">
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full appearance-none bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white font-bold"
+              className="w-full appearance-none bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-4 py-2.5 text-body focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white font-bold"
             >
               <option value="">{t('Select Location', '选择地区位置')}</option>
               {filterOptions.location.map((opt) => (
@@ -249,15 +249,15 @@ export default function AdoptionFilterSidebar() {
         </div>
 
         {/* Premium Geolocation Sort Card */}
-        <div className="bg-stone-50 dark:bg-stone-850/40 p-4 rounded-2xl border border-stone-150 dark:border-stone-800 shadow-inner space-y-3">
+        <div className="bg-stone-50 dark:bg-stone-800/40 p-4 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-inner space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <MapPin className={`w-4 h-4 ${sortByDistance ? 'text-rose-500 animate-bounce' : 'text-stone-400 dark:text-stone-500'}`} />
               <div className="text-left">
-                <span className="block text-xs font-extrabold text-stone-800 dark:text-stone-200">
+                <span className="block text-caption font-extrabold text-stone-800 dark:text-stone-200">
                   {t('Sort by Proximity', '按距离近到远排序')}
                 </span>
-                <span className="block text-[10px] text-stone-400 dark:text-stone-500 font-bold">
+                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold">
                   {t('Use GPS Geolocation', '使用 GPS 浏览器定位')}
                 </span>
               </div>
@@ -269,7 +269,7 @@ export default function AdoptionFilterSidebar() {
               onClick={handleToggleDistance}
               disabled={isLocating}
               className={`relative inline-flex h-5.5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                sortByDistance ? 'bg-rose-500' : 'bg-stone-250 dark:bg-stone-700'
+                sortByDistance ? 'bg-rose-500' : 'bg-stone-300 dark:bg-stone-700'
               }`}
             >
               <span
@@ -281,22 +281,22 @@ export default function AdoptionFilterSidebar() {
           </div>
 
           {isLocating && (
-            <div className="flex items-center gap-1.5 text-[10px] text-rose-500 font-extrabold animate-pulse">
+            <div className="flex items-center gap-1.5 text-caption text-rose-500 font-extrabold animate-pulse">
               <Loader2 className="w-3 h-3 animate-spin" />
               <span>{t('Retrieving exact GPS coordinates...', '正在获取精确 GPS 卫星坐标...')}</span>
             </div>
           )}
 
           {errorMsg && (
-            <div className="text-[10px] text-amber-500 font-bold bg-amber-50 dark:bg-amber-950/20 p-2 rounded-lg border border-amber-100/40">
+            <div className="text-caption text-amber-500 font-bold bg-amber-50 dark:bg-amber-950/20 p-2 rounded-lg border border-amber-100/40">
               ⚠️ {errorMsg}
             </div>
           )}
 
           {sortByDistance && userCoords && (
-            <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/25 px-2.5 py-1.5 rounded-lg border border-emerald-100/40 dark:border-emerald-900/30 flex items-center justify-between">
+            <div className="text-caption text-emerald-600 dark:text-emerald-400 font-black bg-emerald-50 dark:bg-emerald-950/25 px-2.5 py-1.5 rounded-lg border border-emerald-100/40 dark:border-emerald-900/30 flex items-center justify-between">
               <span>📍 {t('Connected to GPS', '卫星定位成功')}</span>
-              <span className="font-mono text-[9px] opacity-80">
+              <span className="font-mono text-caption opacity-80">
                 {userCoords.lat.toFixed(4)}°, {userCoords.lng.toFixed(4)}°
               </span>
             </div>
@@ -306,32 +306,32 @@ export default function AdoptionFilterSidebar() {
         <div className="space-y-2 pt-2">
           <button 
             onClick={() => setShowMatcher(true)}
-            className="w-full bg-indigo-500 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-indigo-600 transition-colors cursor-pointer flex items-center justify-center gap-2 mb-2"
+            className="w-full bg-indigo-500 text-white rounded-xl py-2.5 text-body font-semibold hover:bg-indigo-600 transition-colors cursor-pointer flex items-center justify-center gap-2 mb-2"
           >
             <Sparkles className="w-4 h-4" />
             {t('AI Breed Matcher', '智能品种匹配')}
           </button>
           <button 
             onClick={() => setShowQuiz(true)}
-            className="w-full bg-orange-500 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-orange-600 transition-colors cursor-pointer flex items-center justify-center gap-2 mb-2"
+            className="w-full bg-orange-500 text-white rounded-xl py-2.5 text-body font-semibold hover:bg-orange-600 transition-colors cursor-pointer flex items-center justify-center gap-2 mb-2"
           >
             <HelpCircle className="w-4 h-4" />
             {t('Compatibility Quiz', '领养匹配问卷')}
           </button>
           <button 
             onClick={handleApplyFilters}
-            className="w-full bg-rose-500 text-white rounded-xl py-2.5 text-sm font-semibold hover:bg-rose-600 transition-colors cursor-pointer"
+            className="w-full bg-rose-500 text-white rounded-xl py-2.5 text-body font-semibold hover:bg-rose-600 transition-colors cursor-pointer"
           >
             {t('Apply Filters', '应用筛选')}
           </button>
           <button 
             onClick={handleClearFilters}
-            className="w-full bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 rounded-xl py-2.5 text-sm font-semibold transition-colors cursor-pointer"
+            className="w-full bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-600 dark:text-stone-300 rounded-xl py-2.5 text-body font-semibold transition-colors cursor-pointer"
           >
             {t('Clear Filters', '重置清空')}
           </button>
           <button 
-            className="w-full bg-rose-50 hover:bg-rose-100 dark:bg-rose-900/20 dark:hover:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-xl py-2.5 text-sm font-semibold transition-colors cursor-pointer flex items-center justify-center gap-2"
+            className="w-full bg-rose-50 hover:bg-rose-100 dark:bg-rose-900/20 dark:hover:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-xl py-2.5 text-body font-semibold transition-colors cursor-pointer flex items-center justify-center gap-2"
           >
             <Heart className="w-4 h-4" />
             {t('Donate to Shelter', '捐助救助站')}
@@ -340,7 +340,7 @@ export default function AdoptionFilterSidebar() {
       </div>
       {recentSearches.length > 0 && (
         <div className="mt-6 pt-6 border-t border-stone-100 dark:border-stone-800">
-          <h4 className="text-xs font-bold text-stone-500 mb-3 flex items-center gap-1.5 uppercase tracking-wider">
+          <h4 className="text-caption font-bold text-stone-500 mb-3 flex items-center gap-1.5 uppercase tracking-wider">
             <History className="w-3.5 h-3.5" />
             {t('Recent Searches', '最近搜索')}
           </h4>
@@ -354,7 +354,7 @@ export default function AdoptionFilterSidebar() {
                   setLocation(s.location || '');
                   setSearch(s.search || '');
                 }}
-                className="w-full text-left text-xs text-stone-600 dark:text-stone-400 hover:text-rose-500 dark:hover:text-rose-400 p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors truncate"
+                className="w-full text-left text-caption text-stone-600 dark:text-stone-400 hover:text-rose-500 dark:hover:text-rose-400 p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors truncate"
               >
                 {s.search || s.species || s.location || '...'}
               </button>

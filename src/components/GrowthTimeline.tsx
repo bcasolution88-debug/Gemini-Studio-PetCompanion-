@@ -22,7 +22,7 @@ export default function GrowthTimeline({ entries }: GrowthTimelineProps) {
 
   if (chartData.length < 2) {
     return (
-      <div className="p-4 text-center text-sm text-stone-500 bg-stone-50 dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800">
+      <div className="p-4 text-center text-body text-stone-500 bg-stone-50 dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800">
         Need at least 2 weight records to show growth timeline.
       </div>
     );

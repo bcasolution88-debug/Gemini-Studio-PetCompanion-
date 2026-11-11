@@ -56,18 +56,18 @@ export default function AIChatWidget() {
           </div>
           <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-3">
             {messages.map((m, i) => (
-              <div key={i} className={`p-3 rounded-2xl text-sm ${m.role === 'user' ? 'bg-stone-100 dark:bg-stone-700 ml-auto' : 'bg-rose-50 dark:bg-stone-900'} max-w-[80%]`}>
+              <div key={i} className={`p-3 rounded-2xl text-body ${m.role === 'user' ? 'bg-stone-100 dark:bg-stone-700 ml-auto' : 'bg-rose-50 dark:bg-stone-900'} max-w-[80%]`}>
                 {m.content}
               </div>
             ))}
-            {isLoading && <div className="text-sm text-stone-500 italic">Thinking...</div>}
+            {isLoading && <div className="text-body text-stone-500 italic">Thinking...</div>}
           </div>
           <form onSubmit={handleSubmit} className="p-3 border-t dark:border-stone-700 flex">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask a question..."
-              className="flex-1 p-2 rounded-xl border dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-sm focus:outline-none"
+              className="flex-1 p-2 rounded-xl border dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-body focus:outline-none"
             />
             <button type="submit" className="ml-2 p-2 bg-rose-500 text-white rounded-xl"><Send className="w-4 h-4" /></button>
           </form>

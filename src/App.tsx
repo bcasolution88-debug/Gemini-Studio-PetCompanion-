@@ -115,7 +115,7 @@ export default function App() {
                 <h1 className="text-3xl font-black text-stone-900 dark:text-white tracking-tight flex items-center gap-2">
                   <Heart className="w-8 h-8 text-rose-500 fill-current" /> {t('Find Your New Companion', '寻找您的全新伴侣伙伴')}
                 </h1>
-                <p className="text-sm text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Browse adorable pets looking for loving homes, and get smart recommendations.', '浏览正在寻找有爱家庭的萌宠宝贝，并获取专属您的 AI 智能推荐。')}</p>
+                <p className="text-body text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Browse adorable pets looking for loving homes, and get smart recommendations.', '浏览正在寻找有爱家庭的萌宠宝贝，并获取专属您的 AI 智能推荐。')}</p>
               </div>
               <DailyPetWisdom />
               <MyAdoptionJourney />
@@ -134,11 +134,11 @@ export default function App() {
               <div className="bg-gradient-to-r from-rose-500 to-orange-500 p-8 rounded-3xl text-white shadow-md relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mr-6 -mt-6 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
                 <div className="relative z-10">
-                  <span className="bg-white/20 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">{t('Companion Network', '伴侣守护社交网络')}</span>
+                  <span className="bg-white/20 text-caption font-black px-3 py-1 rounded-full uppercase tracking-wider">{t('Companion Network', '伴侣守护社交网络')}</span>
                   <h1 className="text-3xl font-black tracking-tight mt-2 flex items-center gap-2">
                     <Users className="w-8 h-8" /> {t('Community Hub', '社区互助分享中心')}
                   </h1>
-                  <p className="text-sm text-rose-100 mt-1 max-w-xl font-medium">
+                  <p className="text-body text-rose-100 mt-1 max-w-xl font-medium">
                     {t('Exchange heartwarming adoption stories, daily care advice, and consult vet professionals.', '分享温馨趣味的领养日记、日常养护攻略，并与宠物医生和专家在线交流。')}
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export default function App() {
               <div className="bg-stone-100 dark:bg-stone-900 p-1.5 rounded-2xl flex gap-1 border border-stone-200/50 dark:border-stone-800">
                 <button
                   onClick={() => setCommunityTab('feed')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-black rounded-xl transition-all ${
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-body font-black rounded-xl transition-all ${
                     communityTab === 'feed'
                       ? 'bg-white dark:bg-stone-800 text-rose-500 shadow-sm scale-[1.01]'
                       : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
@@ -158,7 +158,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setCommunityTab('qa')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-black rounded-xl transition-all ${
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-body font-black rounded-xl transition-all ${
                     communityTab === 'qa'
                       ? 'bg-white dark:bg-stone-800 text-rose-500 shadow-sm scale-[1.01]'
                       : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
@@ -187,7 +187,7 @@ export default function App() {
                 <h1 className="text-3xl font-black text-stone-900 dark:text-white tracking-tight flex items-center gap-2">
                   <MapPin className="w-8 h-8 text-rose-500" /> {t('Clinic Finder & Tracker', '诊所查找与宠物定位')}
                 </h1>
-                <p className="text-sm text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Locate emergency care, vet hospitals, or shelter events on the real-time map, and track pets.', '在实时地图上快速查找急诊中心、宠物医院或救助站，并追踪您的爱宠位置。')}</p>
+                <p className="text-body text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Locate emergency care, vet hospitals, or shelter events on the real-time map, and track pets.', '在实时地图上快速查找急诊中心、宠物医院或救助站，并追踪您的爱宠位置。')}</p>
               </div>
               <NearbyServicesMap />
               <div className="border-t dark:border-stone-800 pt-8">

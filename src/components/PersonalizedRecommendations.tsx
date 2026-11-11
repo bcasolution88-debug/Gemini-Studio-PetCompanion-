@@ -48,10 +48,10 @@ export default function PersonalizedRecommendations({ pet }: PersonalizedRecomme
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {Object.entries(recommendations as Record<string, string[]>).map(([key, list]) => (
           <div key={key}>
-            <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2">{key}</h4>
+            <h4 className="text-caption font-bold text-stone-500 uppercase tracking-wider mb-2">{key}</h4>
             <ul className="space-y-1">
               {list.map((item, i) => (
-                <li key={i} className="text-sm text-stone-700 dark:text-stone-300">• {item}</li>
+                <li key={i} className="text-body text-stone-700 dark:text-stone-300">• {item}</li>
               ))}
             </ul>
           </div>

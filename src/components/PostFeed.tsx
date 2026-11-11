@@ -138,7 +138,7 @@ export default function PostFeed() {
             placeholder={t("Search discussions...", "搜索社区讨论...")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 pl-10 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+            className="w-full px-4 py-2.5 pl-10 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
           />
           <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-400" />
         </div>
@@ -149,7 +149,7 @@ export default function PostFeed() {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3 py-1.5 text-caption font-bold rounded-xl transition-all ${
                 selectedTag === tag
                   ? 'bg-rose-500 text-white shadow-sm scale-105'
                   : 'bg-stone-50 dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-100 dark:border-stone-800'
@@ -163,7 +163,7 @@ export default function PostFeed() {
         {/* Create Post Button */}
         <button
           onClick={() => setIsFormOpen(!isFormOpen)}
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm rounded-2xl transition-all shadow-sm active:scale-95 w-full md:w-auto justify-center"
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-body rounded-2xl transition-all shadow-sm active:scale-95 w-full md:w-auto justify-center"
         >
           <Plus className="w-4 h-4" /> {t('Tell a Story', '发布动态')}
         </button>
@@ -171,7 +171,7 @@ export default function PostFeed() {
 
       {/* Success Notification */}
       {successMsg && (
-        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 px-4 py-3.5 rounded-2xl flex items-center gap-2 text-sm font-bold animate-fade-in">
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 px-4 py-3.5 rounded-2xl flex items-center gap-2 text-body font-bold animate-fade-in">
           <CheckCircle2 className="w-5 h-5 text-emerald-500" /> {t('Community post shared successfully! Check the feed below.', '社区动态分享成功！已展示在下方动态中。')}
         </div>
       )}
@@ -187,23 +187,23 @@ export default function PostFeed() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Author name */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
+                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
                 <input
                   type="text"
                   placeholder={t("e.g. Jessica Thompson", "例如：张伟")}
                   value={authorName}
                   onChange={(e) => setAuthorName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
+                  className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                 />
               </div>
 
               {/* Tag choice */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Topic Tag', '话题标签')}</label>
+                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Topic Tag', '话题标签')}</label>
                 <select
                   value={customTag}
                   onChange={(e) => setCustomTag(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-bold"
+                  className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-bold"
                 >
                   <option value="#Tips">{t('#Tips (Training & Care)', '# 养宠贴士 (训练与护理)')}</option>
                   <option value="#AdoptionSuccess">{t('#AdoptionSuccess (Pet story)', '# 领养成功 (宠物故事)')}</option>
@@ -215,20 +215,20 @@ export default function PostFeed() {
 
             {/* Post content */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t('Story / Thoughts', '故事 / 想法')}</label>
+              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Story / Thoughts', '故事 / 想法')}</label>
               <textarea
                 required
                 rows={3}
                 placeholder={t("What is on your mind? Share tips, adoption updates, or milestones!", "分享一下您和宠物的故事、心得或近期动态吧！")}
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
+                className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none resize-none"
               />
             </div>
 
             {/* Photo preset picker */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
                 <Image className="w-3.5 h-3.5" /> {t('Select Preset Image (Optional)', '选择预设配图 (可选)')}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -244,7 +244,7 @@ export default function PostFeed() {
                     }`}
                   >
                     <img src={img.url} alt={img.label} className="w-full h-16 object-cover rounded-lg" />
-                    <span className="text-[10px] font-bold text-stone-500 mt-1 block truncate px-1">
+                    <span className="text-caption font-bold text-stone-500 mt-1 block truncate px-1">
                       {img.label === 'Happy Golden' ? t('Happy Golden', '开心的金毛') : img.label === 'Playful Kitten' ? t('Playful Kitten', '调皮的猫咪') : img.label === 'Cuddly Bunny' ? t('Cuddly Bunny', '软萌的小兔') : img.label === 'Colorful Parrot' ? t('Colorful Parrot', '斑斓的鹦鹉') : img.label}
                     </span>
                   </button>
@@ -257,13 +257,13 @@ export default function PostFeed() {
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-xs font-bold rounded-xl transition-all"
+                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-700 dark:hover:bg-stone-600 text-stone-700 dark:text-stone-200 text-caption font-bold rounded-xl transition-all"
               >
                 {t('Cancel', '取消')}
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95"
+                className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-bold rounded-xl transition-all shadow-sm active:scale-95"
               >
                 {t('Share Post', '发布动态')}
               </button>
@@ -277,7 +277,7 @@ export default function PostFeed() {
         <div className="bg-white dark:bg-stone-800 p-12 text-center rounded-3xl border border-orange-100 dark:border-stone-700/60 shadow-sm">
           <MessageSquare className="w-12 h-12 mx-auto text-stone-300 dark:text-stone-600 mb-2 animate-pulse" />
           <p className="font-extrabold text-stone-800 dark:text-stone-100">{t('No posts found', '暂无相关动态')}</p>
-          <p className="text-xs text-stone-400 max-w-sm mx-auto mt-1">
+          <p className="text-caption text-stone-400 max-w-sm mx-auto mt-1">
             {t("We couldn't find any posts matching your filters. Create the first one yourself by clicking 'Tell a Story'!", '未找到匹配您筛选条件的动态。点击“发布动态”分享您的第一个精彩瞬间吧！')}
           </p>
         </div>

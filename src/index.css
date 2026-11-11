@@ -1,4 +1,118 @@
 @import "tailwindcss";
 @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
 
+/* Tailwind 4 class-based dark mode */
 @variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Single source of truth for the design system. Everything below is a
+   *token*: change a value here and the whole app follows.
+
+   Typography is capped at 5 tiers. Anything below 12px is unreadable on
+   real devices, so `text-caption` (12px) is the hard floor - screen code
+   must never use `text-[7px]`..`text-[11px]` again.
+   ========================================================================== */
+@theme {
+  /* ---- Typography: exactly 5 tiers --------------------------------- */
+  --text-caption: 0.75rem;              /* 12px - hard floor          */
+  --text-caption--line-height: 1.45;
+  --text-body: 0.875rem;                /* 14px - default UI copy     */
+  --text-body--line-height: 1.6;
+  --text-title: 1.25rem;                /* 20px - card / section head */
+  --text-title--line-height: 1.35;
+  --text-h2: 1.5rem;                    /* 24px - page section        */
+  --text-h2--line-height: 1.25;
+  --text-h1: 2rem;                      /* 32px - page title          */
+  --text-h1--line-height: 1.15;
+
+  /* ---- Radius: 3 tiers --------------------------------------------- */
+  --radius-control: 0.75rem;            /* 12px - inputs, buttons     */
+  --radius-card: 1.5rem;                /* 24px - cards, panels       */
+
+  /* ---- Shadow: 2 tiers --------------------------------------------- */
+  --shadow-rest: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-lift: 0 4px 12px -2px rgb(0 0 0 / 0.10);
+
+  /* ---- Semantic colour --------------------------------------------
+     Aliased onto the existing palette so today's markup keeps rendering
+     identically while new code speaks in intent, not hue.
+     `rose` is the brand hue; danger is a genuinely different red so a
+     destructive action can never be mistaken for the primary CTA.       */
+  --color-brand-50: var(--color-rose-50);
+  --color-brand-100: var(--color-rose-100);
+  --color-brand-200: var(--color-rose-200);
+  --color-brand-300: var(--color-rose-300);
+  --color-brand-400: var(--color-rose-400);
+  --color-brand-500: var(--color-rose-500);
+  --color-brand-600: var(--color-rose-600);
+  --color-brand-700: var(--color-rose-700);
+
+  --color-danger-50: var(--color-red-50);
+  --color-danger-500: var(--color-red-500);
+  --color-danger-600: var(--color-red-600);
+  --color-danger-700: var(--color-red-700);
+
+  --color-warn-50: var(--color-amber-50);
+  --color-warn-500: var(--color-amber-500);
+  --color-warn-600: var(--color-amber-600);
+
+  --color-success-50: var(--color-emerald-50);
+  --color-success-500: var(--color-emerald-500);
+  --color-success-600: var(--color-emerald-600);
+
+  --color-info-50: var(--color-sky-50);
+  --color-info-500: var(--color-sky-500);
+  --color-info-600: var(--color-sky-600);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Minimum readable body copy. Below `text-caption` nothing is rendered. */
+  body {
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+
+  /* Keyboard focus is always visible; mouse clicks stay clean.
+     Replaces the 121 `focus:ring` usages that also fired on mouse-down. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respect the OS "reduce motion" setting - 166 animate-* utilities
+     previously ignored it entirely. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Horizontal scroll rails keep working without a visible scrollbar. */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Wrapper used by the <Modal> base component: locks the page behind it. */
+@utility modal-scroll-lock {
+  overflow: hidden;
+}

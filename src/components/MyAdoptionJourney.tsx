@@ -263,11 +263,11 @@ export default function MyAdoptionJourney() {
           <h2 className="text-xl font-black text-stone-900 dark:text-white tracking-tight flex items-center gap-2">
             <ClipboardCheck className="w-6 h-6 text-indigo-500" />
             {t('My Adoption Journey', '我的领养成长日志')}
-            <span className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[10px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">
+            <span className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-caption px-2.5 py-0.5 rounded-full font-bold animate-pulse">
               {t('Interactive Tracker', '阶段进度追踪')}
             </span>
           </h2>
-          <p className="text-xs text-stone-500 dark:text-stone-400 mt-1 font-medium">
+          <p className="text-caption text-stone-500 dark:text-stone-400 mt-1 font-medium">
             {t('Monitor and progress through your pending adoption applications step-by-step.', '实时查阅您递交的各项爱心领养意向书进度，参与全透明的评估成长体验。')}
           </p>
         </div>
@@ -276,7 +276,7 @@ export default function MyAdoptionJourney() {
         <div className="flex items-center gap-2">
           <button
             onClick={handleResetSimulator}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-caption rounded-xl transition-all active:scale-95 cursor-pointer"
             title={t('Reset Simulated Applications', '重置并演示')}
           >
             <RefreshCw className="w-3.5 h-3.5" />
@@ -290,10 +290,10 @@ export default function MyAdoptionJourney() {
           <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-950/30 text-indigo-500 flex items-center justify-center mx-auto mb-3">
             <Heart className="w-6 h-6 animate-pulse" />
           </div>
-          <h4 className="font-extrabold text-sm text-stone-800 dark:text-stone-200 mb-1">
+          <h4 className="font-extrabold text-body text-stone-800 dark:text-stone-200 mb-1">
             {t('Ready to begin your journey?', '开启您的首个领养成长故事？')}
           </h4>
-          <p className="text-xs text-stone-400 dark:text-stone-500 max-w-md mx-auto mb-5">
+          <p className="text-caption text-stone-400 dark:text-stone-500 max-w-md mx-auto mb-5">
             {t('You do not have any pending applications. Go to the pet listings below, pick a companion and tap "Apply to Adopt" to automatically log your journey here!', '您目前还没有提交任何领养意向。在下方宝贝列表中，点击申请即可瞬间点亮您的进度图谱！')}
           </p>
           <button
@@ -301,7 +301,7 @@ export default function MyAdoptionJourney() {
               const el = document.getElementById('pets-grid');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-5 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-black rounded-xl shadow-sm transition-all active:scale-95"
+            className="px-5 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-caption font-black rounded-xl shadow-sm transition-all active:scale-95"
           >
             {t('Find a Pet to Adopt', '立即去挑选宝贝')}
           </button>
@@ -311,7 +311,7 @@ export default function MyAdoptionJourney() {
           
           {/* Left Column: Applications List */}
           <div className="lg:col-span-4 space-y-3">
-            <p className="text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
+            <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
               {t('Submitted Applications', '意向申请列表')} ({journeys.length})
             </p>
             <div className="space-y-2..5 max-h-[420px] overflow-y-auto pr-1">
@@ -326,7 +326,7 @@ export default function MyAdoptionJourney() {
                     className={`p-3.5 rounded-2xl border transition-all cursor-pointer relative overflow-hidden flex items-center gap-3 ${
                       isActive
                         ? 'bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 dark:from-indigo-950/40 dark:to-stone-900 border-indigo-400/80 dark:border-indigo-800/80 ring-2 ring-indigo-500/15'
-                        : 'bg-stone-50/50 dark:bg-stone-900/40 hover:bg-stone-100/60 dark:hover:bg-stone-850/50 border-stone-200 dark:border-stone-800'
+                        : 'bg-stone-50/50 dark:bg-stone-900/40 hover:bg-stone-100/60 dark:hover:bg-stone-800/50 border-stone-200 dark:border-stone-800'
                     }`}
                   >
                     {j.petImageUrl ? (
@@ -343,10 +343,10 @@ export default function MyAdoptionJourney() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-extrabold text-sm text-stone-900 dark:text-white truncate">
+                        <span className="font-extrabold text-body text-stone-900 dark:text-white truncate">
                           {j.petName}
                         </span>
-                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                        <span className={`text-caption font-bold px-2 py-0.5 rounded-full ${
                           j.currentStep === 4 
                             ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30'
                             : 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/30'
@@ -355,7 +355,7 @@ export default function MyAdoptionJourney() {
                         </span>
                       </div>
 
-                      <p className="text-[10px] text-stone-400 dark:text-stone-500 font-bold mt-1 line-clamp-1">
+                      <p className="text-caption text-stone-400 dark:text-stone-500 font-bold mt-1 line-clamp-1">
                         {t('Adopter:', '领养人：')} {j.inquirerName}
                       </p>
 
@@ -385,7 +385,7 @@ export default function MyAdoptionJourney() {
 
           {/* Right Column: Step Visual & interactive details */}
           {activeApp ? (
-            <div className="lg:col-span-8 bg-stone-50/50 dark:bg-stone-950/30 p-5 rounded-2xl border border-stone-150 dark:border-stone-800/80 space-y-6">
+            <div className="lg:col-span-8 bg-stone-50/50 dark:bg-stone-950/30 p-5 rounded-2xl border border-stone-200 dark:border-stone-800/80 space-y-6">
               
               {/* Pet Quick Panel & Simulator Button */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200/60 dark:border-stone-800 pb-4">
@@ -394,10 +394,10 @@ export default function MyAdoptionJourney() {
                     <Award className="w-5 h-5 text-indigo-500" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-sm text-stone-900 dark:text-white">
+                    <h4 className="font-extrabold text-body text-stone-900 dark:text-white">
                       {t('Interactive Road for', '领养培育路线：')} {activeApp.petName}
                     </h4>
-                    <p className="text-[11px] text-stone-400 dark:text-stone-500">
+                    <p className="text-caption text-stone-400 dark:text-stone-500">
                       {t('Watch real caretakers actions or advance simulator manually to test.', '查看救助负责人留言或手动模拟下一步以观察效果。')}
                     </p>
                   </div>
@@ -419,7 +419,7 @@ export default function MyAdoptionJourney() {
                       medicalStatus: 'Healthy & fully vaccinated',
                       history: 'Rescued from local suburban area.'
                     })}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs rounded-xl shadow-sm transition-all active:scale-95 cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-caption rounded-xl shadow-sm transition-all active:scale-95 cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     {t('Generate Flyer', '生成社区传单')}
@@ -428,7 +428,7 @@ export default function MyAdoptionJourney() {
                   <button
                     disabled={activeApp.currentStep === 4}
                     onClick={() => handleAdvanceStep(activeApp.id)}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-stone-200 dark:disabled:bg-stone-800 disabled:text-stone-400 hover:text-white text-white font-black text-xs rounded-xl shadow-md transition-all active:scale-95 cursor-pointer"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-stone-200 dark:disabled:bg-stone-800 disabled:text-stone-400 hover:text-white text-white font-black text-caption rounded-xl shadow-md transition-all active:scale-95 cursor-pointer"
                   >
                     <Play className="w-3.5 h-3.5" />
                     {activeApp.currentStep === 4 ? t('Fully Approved! 🎉', '终审通过！🎉') : t('Simulate Next Step', '模拟下一步')}
@@ -438,7 +438,7 @@ export default function MyAdoptionJourney() {
 
               {/* Step-by-Step Progress Visual */}
               <div className="space-y-4">
-                <p className="text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
+                <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                   {t('Process Timeline Progress', '阶段进度追踪流')}
                 </p>
 
@@ -473,17 +473,17 @@ export default function MyAdoptionJourney() {
 
                         {/* Step Details */}
                         <div className="flex-1 min-w-0">
-                          <h5 className={`text-xs font-black flex items-center gap-2 ${
+                          <h5 className={`text-caption font-black flex items-center gap-2 ${
                             isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-stone-800 dark:text-stone-200'
                           }`}>
                             {language === 'en' ? step.title : step.zhTitle}
                             {isActive && (
-                              <span className="bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">
+                              <span className="bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-caption font-bold px-1.5 py-0.5 rounded uppercase">
                                 {t('Active Checkpoint', '当前环')}
                               </span>
                             )}
                           </h5>
-                          <p className="text-[10px] text-stone-400 dark:text-stone-500 mt-0.5">
+                          <p className="text-caption text-stone-400 dark:text-stone-500 mt-0.5">
                             {language === 'en' ? step.desc : step.zhDesc}
                           </p>
                         </div>
@@ -495,7 +495,7 @@ export default function MyAdoptionJourney() {
 
               {/* Caretaker / System Logs Section */}
               <div className="bg-white dark:bg-stone-900 rounded-2xl p-4 border border-stone-200 dark:border-stone-800 space-y-3">
-                <p className="text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+                <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
                   <MessageSquare className="w-3.5 h-3.5 text-stone-400" />
                   {t('Verification Log & Caretaker Comments', '交互核查日志与负责人评语')}
                 </p>
@@ -504,13 +504,13 @@ export default function MyAdoptionJourney() {
                   {activeApp.logs.map((log, lIdx) => (
                     <div 
                       key={lIdx} 
-                      className={`p-2.5 rounded-xl border text-xs flex flex-col gap-1 ${
+                      className={`p-2.5 rounded-xl border text-caption flex flex-col gap-1 ${
                         log.author === 'Shelter Caretaker'
                           ? 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-100 dark:border-indigo-900/30'
-                          : 'bg-stone-50 dark:bg-stone-950/30 border-stone-150 dark:border-stone-850'
+                          : 'bg-stone-50 dark:bg-stone-950/30 border-stone-200 dark:border-stone-800'
                       }`}
                     >
-                      <div className="flex items-center justify-between text-[10px] font-bold">
+                      <div className="flex items-center justify-between text-caption font-bold">
                         <span className={log.author === 'Shelter Caretaker' ? 'text-indigo-600 dark:text-indigo-400' : 'text-stone-400'}>
                           👤 {log.author === 'Shelter Caretaker' ? t('Shelter Caretaker Officer', '收容救助中心审批人') : t('System Automatic Log', '系统日志')}
                         </span>

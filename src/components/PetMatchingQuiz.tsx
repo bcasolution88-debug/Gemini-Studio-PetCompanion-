@@ -205,7 +205,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
               <h3 className="font-extrabold text-stone-900 dark:text-white text-base">
                 {t('AI Pet Matching Quiz', 'AI 萌宠领养精准匹配')}
               </h3>
-              <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
+              <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">
                 {t('Gemini Cognition Matchmaker', '双子星智能匹配算法')}
               </p>
             </div>
@@ -239,7 +239,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                   <h4 className="text-lg font-black text-stone-900 dark:text-white">
                     {t('Consulting AI Counselors...', '咨询 AI 领养顾问中...')}
                   </h4>
-                  <p className="text-xs text-stone-400 font-bold max-w-sm mx-auto">
+                  <p className="text-caption text-stone-400 font-bold max-w-sm mx-auto">
                     {t('Analyzing your work hours, yard space, and activity level to find shelter pets waiting for a home like yours...', '正在综合分析您的工作独处时长、草坪空间及活力偏好，为您比对最契合的救助站萌宠宝贝...')}
                   </p>
                 </div>
@@ -257,11 +257,11 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                 <AlertCircle className="w-12 h-12 text-rose-500" />
                 <div className="space-y-1">
                   <h4 className="font-bold text-stone-900 dark:text-white">{t('Analysis Failed', '匹配分析失败')}</h4>
-                  <p className="text-xs text-stone-500 dark:text-stone-400">{error}</p>
+                  <p className="text-caption text-stone-500 dark:text-stone-400">{error}</p>
                 </div>
                 <button 
                   onClick={submitQuiz}
-                  className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all"
+                  className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-bold rounded-xl flex items-center gap-1.5 transition-all"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   {t('Retry Analysis', '重新发起匹配')}
@@ -280,7 +280,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
               >
                 {/* Progress bar */}
                 <div className="space-y-1">
-                  <div className="flex justify-between text-[11px] font-black text-stone-400">
+                  <div className="flex justify-between text-caption font-black text-stone-400">
                     <span>{t(`Question ${step + 1} of ${steps.length}`, `问题 ${step + 1} / ${steps.length}`)}</span>
                     <span>{Math.round(((step + 1) / steps.length) * 100)}%</span>
                   </div>
@@ -297,7 +297,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                   <h4 className="text-xl font-black text-stone-900 dark:text-white flex items-center gap-2">
                     {steps[step].title}
                   </h4>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-body text-stone-500 dark:text-stone-400">
                     {steps[step].subtitle}
                   </p>
                 </div>
@@ -314,15 +314,15 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                         className={`w-full text-left p-4 rounded-2xl border-2 transition-all group relative cursor-pointer ${
                           isSelected 
                             ? 'bg-rose-500/5 border-rose-500 dark:border-rose-400' 
-                            : 'bg-stone-50/50 hover:bg-stone-100/50 dark:bg-stone-800/40 dark:hover:bg-stone-800/80 border-stone-150 dark:border-stone-850'
+                            : 'bg-stone-50/50 hover:bg-stone-100/50 dark:bg-stone-800/40 dark:hover:bg-stone-800/80 border-stone-200 dark:border-stone-800'
                         }`}
                       >
                         <div className="flex justify-between items-center">
                           <div>
-                            <p className={`font-extrabold text-sm ${isSelected ? 'text-rose-600 dark:text-rose-400' : 'text-stone-850 dark:text-stone-150'}`}>
+                            <p className={`font-extrabold text-body ${isSelected ? 'text-rose-600 dark:text-rose-400' : 'text-stone-800 dark:text-stone-200'}`}>
                               {opt.label}
                             </p>
-                            <p className="text-xs text-stone-400 dark:text-stone-400 mt-1 font-semibold">
+                            <p className="text-caption text-stone-400 dark:text-stone-400 mt-1 font-semibold">
                               {opt.desc}
                             </p>
                           </div>
@@ -338,12 +338,12 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                 </div>
 
                 {/* Actions Nav */}
-                <div className="flex justify-between pt-4 border-t border-stone-100 dark:border-stone-850">
+                <div className="flex justify-between pt-4 border-t border-stone-100 dark:border-stone-800">
                   <button
                     type="button"
                     onClick={handlePrev}
                     disabled={step === 0}
-                    className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 disabled:opacity-50 text-stone-700 dark:text-stone-300 text-xs font-bold rounded-xl transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 disabled:opacity-50 text-stone-700 dark:text-stone-300 text-caption font-bold rounded-xl transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     {t('Back', '上一步')}
@@ -353,7 +353,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                     type="button"
                     onClick={handleNext}
                     disabled={!answers[steps[step].key as keyof typeof answers]}
-                    className="px-6 py-2 bg-rose-500 hover:bg-rose-600 disabled:bg-stone-200 dark:disabled:bg-stone-800 text-white text-xs font-extrabold rounded-xl shadow-md disabled:shadow-none transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                    className="px-6 py-2 bg-rose-500 hover:bg-rose-600 disabled:bg-stone-200 dark:disabled:bg-stone-800 text-white text-caption font-extrabold rounded-xl shadow-md disabled:shadow-none transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                   >
                     <span>{step === steps.length - 1 ? t('Submit Analysis', '开始智能匹配') : t('Next Step', '下一步')}</span>
                     <ChevronRight className="w-4 h-4" />
@@ -372,18 +372,18 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
               >
                 {/* Introduction Callout */}
                 <div className="p-5 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-2xl border border-rose-500/10 space-y-2">
-                  <h4 className="text-xs font-extrabold text-rose-500 flex items-center gap-1 uppercase tracking-wider">
+                  <h4 className="text-caption font-extrabold text-rose-500 flex items-center gap-1 uppercase tracking-wider">
                     <Smile className="w-4 h-4 animate-bounce" />
                     {t('Your Adopter Profile Analysis', '领养匹配度分析')}
                   </h4>
-                  <p className="text-xs text-stone-700 dark:text-stone-200 leading-relaxed font-bold">
+                  <p className="text-caption text-stone-700 dark:text-stone-200 leading-relaxed font-bold">
                     {results.profileAnalysis}
                   </p>
                 </div>
 
                 {/* Recommended breeds from Gemini */}
                 <div className="space-y-3">
-                  <h4 className="text-sm font-black text-stone-800 dark:text-stone-100 flex items-center gap-1.5">
+                  <h4 className="text-body font-black text-stone-800 dark:text-stone-100 flex items-center gap-1.5">
                     <Award className="w-4 h-4 text-orange-500" />
                     {t('Top Compatible Breed Profiles', '推荐匹配的宠物品种')}
                   </h4>
@@ -392,15 +392,15 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                     {results.recommendedBreeds?.slice(0, 3).map((br, index) => (
                       <div 
                         key={index} 
-                        className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-2xl border border-stone-150 dark:border-stone-800 hover:border-orange-200 transition-all space-y-1.5"
+                        className="p-4 bg-stone-50 dark:bg-stone-800/50 rounded-2xl border border-stone-200 dark:border-stone-800 hover:border-orange-200 transition-all space-y-1.5"
                       >
                         <div className="flex justify-between items-center">
-                          <span className="font-extrabold text-sm text-rose-500">{br.breed}</span>
-                          <span className="text-[9px] bg-stone-200 dark:bg-stone-700 px-1.5 py-0.5 rounded text-stone-500 font-bold">
+                          <span className="font-extrabold text-body text-rose-500">{br.breed}</span>
+                          <span className="text-caption bg-stone-200 dark:bg-stone-700 px-1.5 py-0.5 rounded text-stone-500 font-bold">
                             {t(br.species, br.species)}
                           </span>
                         </div>
-                        <p className="text-[10px] text-stone-500 dark:text-stone-400 leading-relaxed font-semibold">
+                        <p className="text-caption text-stone-500 dark:text-stone-400 leading-relaxed font-semibold">
                           {br.reason}
                         </p>
                       </div>
@@ -410,7 +410,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
 
                 {/* Shelter animal ranking */}
                 <div className="space-y-3">
-                  <h4 className="text-sm font-black text-stone-800 dark:text-stone-100 flex items-center gap-1.5">
+                  <h4 className="text-body font-black text-stone-800 dark:text-stone-100 flex items-center gap-1.5">
                     <Heart className="w-4 h-4 text-rose-500 fill-current animate-pulse" />
                     {t('Best Matches Currently In Shelter', '救助站中完美契合的小家伙')}
                   </h4>
@@ -422,7 +422,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                       return (
                         <div 
                           key={match.petId}
-                          className="p-4 bg-white dark:bg-stone-850 rounded-2xl border border-stone-150 dark:border-stone-800/80 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
+                          className="p-4 bg-white dark:bg-stone-800 rounded-2xl border border-stone-200 dark:border-stone-800/80 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
                         >
                           <div className="flex gap-3 items-center flex-1">
                             {pet.imageUrl && (
@@ -434,23 +434,23 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                             )}
                             <div className="min-w-0">
                               <div className="flex items-center gap-2 flex-wrap">
-                                <span className="font-black text-sm text-stone-900 dark:text-white">{pet.name}</span>
-                                <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-500">
+                                <span className="font-black text-body text-stone-900 dark:text-white">{pet.name}</span>
+                                <span className="text-caption px-2 py-0.5 rounded-full font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-500">
                                   {pet.breed} • {t(pet.age, pet.age)}
                                 </span>
                               </div>
-                              <p className="text-[10px] text-stone-400 font-bold mt-0.5">
+                              <p className="text-caption text-stone-400 font-bold mt-0.5">
                                 {t('Shelter:', '所属救助站:')} {pet.shelterName}
                               </p>
-                              <p className="text-xs text-stone-600 dark:text-stone-300 mt-1.5 font-bold leading-relaxed pr-2">
+                              <p className="text-caption text-stone-600 dark:text-stone-300 mt-1.5 font-bold leading-relaxed pr-2">
                                 {match.reason}
                               </p>
                             </div>
                           </div>
 
-                          <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-stone-100 dark:border-stone-850">
+                          <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-stone-100 dark:border-stone-800">
                             <div className="text-left sm:text-right">
-                              <span className="block text-xs font-black text-stone-400 uppercase tracking-widest">{t('AI Match', '匹配指数')}</span>
+                              <span className="block text-caption font-black text-stone-400 uppercase tracking-widest">{t('AI Match', '匹配指数')}</span>
                               <span className="block text-xl font-black text-rose-500 leading-none mt-1">
                                 {match.score}%
                               </span>
@@ -467,7 +467,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                                 }
                                 onClose();
                               }}
-                              className="ml-auto sm:ml-0 px-3.5 py-1.5 bg-rose-500 hover:bg-rose-600 text-white text-[11px] font-extrabold rounded-lg shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                              className="ml-auto sm:ml-0 px-3.5 py-1.5 bg-rose-500 hover:bg-rose-600 text-white text-caption font-extrabold rounded-lg shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
                             >
                               {t('View Detail', '了解细节')}
                               <ChevronRight className="w-3.5 h-3.5" />
@@ -480,17 +480,17 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                 </div>
 
                 {/* Footer buttons */}
-                <div className="flex gap-2 pt-4 border-t border-stone-100 dark:border-stone-850 justify-end">
+                <div className="flex gap-2 pt-4 border-t border-stone-100 dark:border-stone-800 justify-end">
                   <button
                     onClick={handleReset}
-                    className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-xs font-bold rounded-xl transition-all flex items-center gap-1 cursor-pointer"
+                    className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-caption font-bold rounded-xl transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     {t('Retake Quiz', '重新填写')}
                   </button>
                   <button
                     onClick={onClose}
-                    className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
+                    className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-bold rounded-xl shadow-md transition-all cursor-pointer"
                   >
                     {t('Close', '关闭窗口')}
                   </button>

@@ -231,7 +231,7 @@ export default function PetGrid() {
   return (
     <div className="space-y-6" id="pets-grid">
       {/* Sticky Horizontal Quick-Filter Bar */}
-      <div className="sticky top-16 z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md border-b border-stone-200/40 dark:border-stone-850/40 shadow-sm flex items-center transition-colors duration-200">
+      <div className="sticky top-16 z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md border-b border-stone-200/40 dark:border-stone-800/40 shadow-sm flex items-center transition-colors duration-200">
         <div className="max-w-7xl mx-auto w-full flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth">
           {quickCategories.map((cat) => {
             const isActive = currentCategory === cat.id;
@@ -239,13 +239,13 @@ export default function PetGrid() {
               <button
                 key={cat.id}
                 onClick={() => handleSelectQuickCategory(cat)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full font-black text-xs transition-all active:scale-95 cursor-pointer whitespace-nowrap shadow-sm border ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full font-black text-caption transition-all active:scale-95 cursor-pointer whitespace-nowrap shadow-sm border ${
                   isActive
                     ? 'bg-rose-500 text-white border-rose-500 scale-[1.02]'
-                    : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200/60 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-850'
+                    : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200/60 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-800'
                 }`}
               >
-                <span className="text-sm">{cat.icon}</span>
+                <span className="text-body">{cat.icon}</span>
                 <span>{cat.label}</span>
               </button>
             );
@@ -254,14 +254,14 @@ export default function PetGrid() {
       </div>
 
       {/* Top Search Bar */}
-      <div className="bg-gradient-to-br from-rose-50/60 to-orange-50/30 dark:from-stone-900/40 dark:to-stone-950/20 p-6 rounded-3xl border border-rose-100/40 dark:border-stone-850/60 shadow-sm space-y-4 animate-fade-in">
+      <div className="bg-gradient-to-br from-rose-50/60 to-orange-50/30 dark:from-stone-900/40 dark:to-stone-950/20 p-6 rounded-3xl border border-rose-100/40 dark:border-stone-800/60 shadow-sm space-y-4 animate-fade-in">
         <div className="relative">
           <input
             type="text"
             value={filters.search || ''}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={t('Search by pet breed, name, or shelter location...', '搜索宠物特定品种 (如金毛、布偶猫)、姓名或救助站位置...')}
-            className="w-full bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-700 rounded-2xl pl-12 pr-10 py-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-stone-500 font-bold shadow-inner"
+            className="w-full bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-700 rounded-2xl pl-12 pr-10 py-3.5 text-caption focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-stone-500 font-bold shadow-inner"
           />
           <Search className="absolute left-4.5 top-4 h-4.5 w-4.5 text-rose-500" />
           {filters.search && (
@@ -275,7 +275,7 @@ export default function PetGrid() {
         </div>
         
         {/* Hot Quick Search Recommendations */}
-        <div className="flex flex-wrap items-center gap-2 text-[11px]">
+        <div className="flex flex-wrap items-center gap-2 text-caption">
           <span className="text-stone-400 dark:text-stone-500 font-bold">{t('Popular searches:', '热门搜索品种/地点：')}</span>
           {[
             { label: t('Golden Retriever', '金毛犬 🦮'), value: 'Golden Retriever' },
@@ -306,7 +306,7 @@ export default function PetGrid() {
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
           <button 
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-5 py-2.5 rounded-2xl font-semibold transition-all active:scale-95 shadow-sm text-sm cursor-pointer shrink-0"
+            className="flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-5 py-2.5 rounded-2xl font-semibold transition-all active:scale-95 shadow-sm text-body cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
             {t('Add New Pet', '登记发布待领养')}
@@ -318,7 +318,7 @@ export default function PetGrid() {
               'Data source: Firestore live / local cache / bundled seed',
               '数据来源：Firestore 实时 / 本地缓存 / 内置示例',
             )}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border shrink-0 ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-caption font-bold border shrink-0 ${
               petsSource === 'firestore'
                 ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900'
                 : petsSource === 'cache'
@@ -346,7 +346,7 @@ export default function PetGrid() {
         <div className="relative">
           <button 
             onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700/80 border border-stone-200 dark:border-stone-700 rounded-2xl text-stone-700 dark:text-stone-300 font-medium text-xs transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700/80 border border-stone-200 dark:border-stone-700 rounded-2xl text-stone-700 dark:text-stone-300 font-medium text-caption transition-colors cursor-pointer"
           >
             <ArrowUpDown className="w-3.5 h-3.5 text-rose-500" />
             <span>{t('Sort by:', '排序方式：')} <strong className="text-stone-900 dark:text-white">{sortLabels[sortBy]}</strong></span>
@@ -366,7 +366,7 @@ export default function PetGrid() {
                       setSortBy(opt);
                       setIsSortDropdownOpen(false);
                     }}
-                    className={`flex items-center justify-between w-full px-3 py-2 text-left text-xs rounded-xl transition-colors cursor-pointer ${
+                    className={`flex items-center justify-between w-full px-3 py-2 text-left text-caption rounded-xl transition-colors cursor-pointer ${
                       sortBy === opt 
                         ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400 font-semibold' 
                         : 'text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/60'
@@ -388,8 +388,8 @@ export default function PetGrid() {
           <div className="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-950/20 text-rose-500 flex items-center justify-center mx-auto mb-4 animate-bounce">
             <SlidersHorizontal className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-stone-900 dark:text-white mb-1 text-sm">{t('No Companions Found', '未找到匹配的宠物宝贝')}</h4>
-          <p className="text-xs text-stone-500 dark:text-stone-400 max-w-xs mx-auto mb-5">
+          <h4 className="font-bold text-stone-900 dark:text-white mb-1 text-body">{t('No Companions Found', '未找到匹配的宠物宝贝')}</h4>
+          <p className="text-caption text-stone-500 dark:text-stone-400 max-w-xs mx-auto mb-5">
             {t('Try adjusting your species, age filters, or location query to find your match.', '您可以尝试重新调整物种类别、年龄区间或搜索地区，以便匹配到待领养的宝贝。')}
           </p>
           <button
@@ -399,7 +399,7 @@ export default function PetGrid() {
                 window.dispatchEvent(new CustomEvent('pet-filters-changed'));
               } catch (_) {}
             }}
-            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
+            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 rounded-xl font-semibold text-caption transition-colors cursor-pointer"
           >
             {t('Clear Filters', '清空所有筛选条件')}
           </button>

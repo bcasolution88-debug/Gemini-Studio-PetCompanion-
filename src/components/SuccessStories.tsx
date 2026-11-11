@@ -128,7 +128,7 @@ export default function SuccessStories() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-full transition-all shadow-sm active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-caption rounded-full transition-all shadow-sm active:scale-95 cursor-pointer"
           >
             <Plus className="w-4 h-4" /> {t('Share Your Story', '分享领养故事')}
           </button>
@@ -138,7 +138,7 @@ export default function SuccessStories() {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${filter === f ? 'bg-rose-500 text-white' : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'}`}
+                className={`px-3 py-1 rounded-full text-caption font-bold whitespace-nowrap transition-colors ${filter === f ? 'bg-rose-500 text-white' : 'bg-stone-100 dark:bg-stone-900 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800'}`}
               >
                 {f}
               </button>
@@ -154,10 +154,10 @@ export default function SuccessStories() {
             <div className="flex-1 pr-6">
               <p className="font-bold text-stone-900 dark:text-white">{story.petName} & {story.adopterName}</p>
               <div className="flex gap-1.5 mt-1">
-                <span className="text-[10px] bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md font-bold">{story.species}</span>
-                <span className="text-[10px] bg-stone-200/60 dark:bg-stone-800 text-stone-600 dark:text-stone-400 px-2 py-0.5 rounded-md font-bold">{story.type}</span>
+                <span className="text-caption bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md font-bold">{story.species}</span>
+                <span className="text-caption bg-stone-200/60 dark:bg-stone-800 text-stone-600 dark:text-stone-400 px-2 py-0.5 rounded-md font-bold">{story.type}</span>
               </div>
-              <p className="text-sm text-stone-600 dark:text-stone-400 italic mt-2 leading-relaxed">"{story.testimonial}"</p>
+              <p className="text-body text-stone-600 dark:text-stone-400 italic mt-2 leading-relaxed">"{story.testimonial}"</p>
             </div>
             <button 
               onClick={() => handleShare(story.id)}
@@ -201,7 +201,7 @@ export default function SuccessStories() {
             <form onSubmit={handleCreateStorySubmit} className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
                     {t("Pet's Name", '宠物名字')}
                   </label>
                   <input
@@ -210,11 +210,11 @@ export default function SuccessStories() {
                     value={newPetName}
                     onChange={(e) => setNewPetName(e.target.value)}
                     placeholder={t("e.g. Luna", "例如：露娜")}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold outline-none focus:ring-2 focus:ring-rose-500/20"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold outline-none focus:ring-2 focus:ring-rose-500/20"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
                     {t("Adopter's Name", '领养人姓名')}
                   </label>
                   <input
@@ -223,20 +223,20 @@ export default function SuccessStories() {
                     value={newAdopterName}
                     onChange={(e) => setNewAdopterName(e.target.value)}
                     placeholder={t("e.g. Sarah J.", "例如：杰克")}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold outline-none focus:ring-2 focus:ring-rose-500/20"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold outline-none focus:ring-2 focus:ring-rose-500/20"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
                     {t('Species', '宠物品类')}
                   </label>
                   <select
                     value={newSpecies}
                     onChange={(e) => setNewSpecies(e.target.value as any)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
                   >
                     <option value="Dog">{t('Dog', '狗狗')}</option>
                     <option value="Cat">{t('Cat', '猫咪')}</option>
@@ -245,13 +245,13 @@ export default function SuccessStories() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
                     {t('Life Stage', '成长阶段')}
                   </label>
                   <select
                     value={newType}
                     onChange={(e) => setNewType(e.target.value as any)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
                   >
                     <option value="Puppy/Kitten">{t('Puppy / Kitten', '幼宠')}</option>
                     <option value="Adult">{t('Adult', '成宠')}</option>
@@ -262,7 +262,7 @@ export default function SuccessStories() {
 
               {/* Journey details / caption */}
               <div>
-                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">
+                <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
                   {t('Adoption Story & Caption', '领养旅程与感言')}
                 </label>
                 <textarea
@@ -271,13 +271,13 @@ export default function SuccessStories() {
                   value={newTestimonial}
                   onChange={(e) => setNewTestimonial(e.target.value)}
                   placeholder={t("Tell us a bit about how they settled in and what makes them special!", "分享宠物入住后发生的小故事，或是任何有趣温暖的细节！")}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none resize-none focus:ring-2 focus:ring-rose-500/20"
+                  className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none resize-none focus:ring-2 focus:ring-rose-500/20"
                 />
               </div>
 
               {/* Photo Upload or Capture Section */}
               <div className="space-y-2">
-                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider">
+                <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider">
                   {t('Pet Photo', '宠物照片')}
                 </label>
                 
@@ -290,7 +290,7 @@ export default function SuccessStories() {
                         setCapturedImage(null);
                         setShowCamera(true);
                       }}
-                      className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-stone-900/80 hover:bg-stone-950 text-white text-xs font-bold rounded-xl backdrop-blur-sm transition-all"
+                      className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-stone-900/80 hover:bg-stone-950 text-white text-caption font-bold rounded-xl backdrop-blur-sm transition-all"
                     >
                       <RefreshCw className="w-3.5 h-3.5 animate-pulse" /> {t('Retake Photo', '重新拍摄')}
                     </button>
@@ -301,7 +301,7 @@ export default function SuccessStories() {
                     <button
                       type="button"
                       onClick={() => setShowCamera(false)}
-                      className="w-full mt-2 py-2 text-stone-500 dark:text-stone-400 text-xs font-bold hover:text-stone-700 dark:hover:text-stone-200 transition-colors"
+                      className="w-full mt-2 py-2 text-stone-500 dark:text-stone-400 text-caption font-bold hover:text-stone-700 dark:hover:text-stone-200 transition-colors"
                     >
                       {t('Cancel Camera', '关闭相机')}
                     </button>
@@ -309,13 +309,13 @@ export default function SuccessStories() {
                 ) : (
                   <div className="flex flex-col items-center justify-center border-2 border-dashed border-stone-200 dark:border-stone-800 p-8 rounded-2xl bg-stone-50/50 dark:bg-stone-950/40 text-center animate-fade-in">
                     <Camera className="w-8 h-8 text-stone-400 mb-2" />
-                    <p className="text-xs font-bold text-stone-600 dark:text-stone-400">{t('Capture a beautiful photo of your pet', '实时拍摄您的萌宠相片')}</p>
-                    <p className="text-[10px] text-stone-400 mt-0.5 mb-4">{t('Use your web camera to take a snap instantly', '使用摄像头即可一键拍摄并发表')}</p>
+                    <p className="text-caption font-bold text-stone-600 dark:text-stone-400">{t('Capture a beautiful photo of your pet', '实时拍摄您的萌宠相片')}</p>
+                    <p className="text-caption text-stone-400 mt-0.5 mb-4">{t('Use your web camera to take a snap instantly', '使用摄像头即可一键拍摄并发表')}</p>
                     
                     <button
                       type="button"
                       onClick={() => setShowCamera(true)}
-                      className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-xl shadow-sm active:scale-95"
+                      className="flex items-center gap-1.5 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white font-bold text-caption rounded-xl shadow-sm active:scale-95"
                     >
                       <Camera className="w-4 h-4" /> {t('Activate Camera', '开启摄像头')}
                     </button>
@@ -332,13 +332,13 @@ export default function SuccessStories() {
                     setCapturedImage(null);
                     setShowCamera(false);
                   }}
-                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-xs font-bold rounded-xl transition-all"
+                  className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 text-caption font-bold rounded-xl transition-all"
                 >
                   {t('Cancel', '取消')}
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
+                  className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-bold rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
                 >
                   {t('Publish Journey', '发布喜悦')}
                 </button>

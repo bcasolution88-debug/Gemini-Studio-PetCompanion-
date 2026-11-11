@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { X, Printer, Heart, Share2, HelpCircle, MapPin, Phone, MessageCircle, Star, BadgeCheck, RefreshCw } from 'lucide-react';
 import { Pet } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
+import Modal from './ui/Modal';
+import { IconButton } from './ui/IconButton';
 
 interface PetFlyerGeneratorProps {
   pet: Pet;
@@ -330,35 +332,39 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white dark:bg-stone-900 w-full max-w-xl rounded-3xl overflow-hidden border border-stone-200 dark:border-stone-800 shadow-2xl flex flex-col max-h-[92vh]">
-        
+    <Modal
+      open
+      onClose={onClose}
+      labelledBy="flyer-title"
+      size="xl"
+      scrollable={false}
+      panelClassName="bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 max-h-[92vh]"
+    >
         {/* Modal Header */}
-        <div className="p-5 border-b border-stone-150 dark:border-stone-800/80 flex justify-between items-center bg-stone-50/50 dark:bg-stone-950/20">
+        <div className="p-5 border-b border-stone-200 dark:border-stone-800/80 flex justify-between items-center bg-stone-50/50 dark:bg-stone-950/20">
           <div className="flex items-center gap-2">
-            <Printer className="w-5 h-5 text-rose-500" />
+            <Printer className="w-5 h-5 text-brand-500" aria-hidden="true" />
             <div>
-              <h3 className="text-base font-black text-stone-900 dark:text-white">
+              <h3 id="flyer-title" className="text-base font-black text-stone-900 dark:text-white">
                 {t('Printable Adoption Flyer', '生成社区领养宣传单')}
               </h3>
-              <p className="text-[11px] text-stone-400 dark:text-stone-500 font-medium">
+              <p className="text-caption text-stone-400 dark:text-stone-500 font-medium">
                 {t('Share offline on local boards, clinics, and animal shelters to help find a family.', '张贴于社区宣传栏、诊所或分享至社交媒体，加速爱宠回家旅程。')}
               </p>
             </div>
           </div>
-          <button
+          <IconButton
+            aria-label={t('Close flyer generator', '关闭宣传单生成器')}
+            icon={<X className="w-5 h-5" />}
             onClick={onClose}
-            className="p-1.5 rounded-xl hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          />
         </div>
 
         {/* Modal Body: High fidelity visual preview */}
         <div className="flex-1 overflow-y-auto p-6 bg-stone-100 dark:bg-stone-950/60 flex flex-col items-center">
           
           <div className="bg-white text-stone-950 rounded-2xl p-6 shadow-lg border border-stone-200 w-full max-w-md aspect-[1/1.4] flex flex-col justify-between relative overflow-hidden text-left">
-            <span className="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full rotate-2 shadow-sm">
+            <span className="absolute top-4 right-4 bg-rose-500 text-white text-caption font-black uppercase tracking-widest px-2.5 py-1 rounded-full rotate-2 shadow-sm">
               {t('Adopt Me', '寻找有爱家庭')}
             </span>
 
@@ -367,7 +373,7 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
               <h1 className="text-3xl font-black tracking-tight text-rose-500 uppercase leading-none font-sans">
                 {t(`ADOPT ${pet.name}!`, `领养 ${pet.name}！`)}
               </h1>
-              <p className="text-xs text-stone-500 font-semibold mt-1">
+              <p className="text-caption text-stone-500 font-semibold mt-1">
                 {t('Could I be your perfect furry friend?', '我可以成为您最贴心的爱宠伙伴吗？')}
               </p>
             </div>
@@ -380,23 +386,23 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
             {/* Specs & Description row */}
             <div className="grid grid-cols-2 gap-3.5 my-4">
               <div className="bg-rose-50/50 p-3 rounded-xl border-l-4 border-rose-500 flex flex-col justify-center">
-                <h5 className="text-[10px] font-black text-stone-800 tracking-wide uppercase">{t('About Me', '自述故事')}</h5>
-                <p className="text-[11px] text-stone-600 line-clamp-4 leading-relaxed mt-1 font-medium">
+                <h5 className="text-caption font-black text-stone-800 tracking-wide uppercase">{t('About Me', '自述故事')}</h5>
+                <p className="text-caption text-stone-600 line-clamp-4 leading-relaxed mt-1 font-medium">
                   {pet.description}
                 </p>
               </div>
 
-              <div className="bg-stone-50 p-3 rounded-xl border border-stone-150 text-[11px] font-bold text-stone-800 space-y-1.5 flex flex-col justify-center">
+              <div className="bg-stone-50 p-3 rounded-xl border border-stone-200 text-caption font-bold text-stone-800 space-y-1.5 flex flex-col justify-center">
                 <div className="flex justify-between border-b pb-1 border-stone-200/50">
-                  <span className="text-stone-400 font-bold uppercase text-[9px]">{t('Breed', '品类')}</span>
+                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Breed', '品类')}</span>
                   <span>{pet.species === 'Dog' ? t('Dog', '狗狗') : pet.species === 'Cat' ? t('Cat', '猫咪') : pet.species}</span>
                 </div>
                 <div className="flex justify-between border-b pb-1 border-stone-200/50">
-                  <span className="text-stone-400 font-bold uppercase text-[9px]">{t('Age', '年龄阶段')}</span>
+                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Age', '年龄阶段')}</span>
                   <span>{pet.age === 'Puppy/Kitten' ? t('Young', '幼年') : pet.age === 'Adult' ? t('Adult', '成年') : t('Senior', '老年')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-400 font-bold uppercase text-[9px]">{t('Location', '位置')}</span>
+                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Location', '位置')}</span>
                   <span>{pet.location}</span>
                 </div>
               </div>
@@ -405,9 +411,9 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
             {/* Bottom Contact Section */}
             <div className="bg-stone-900 text-white rounded-xl p-3.5 flex justify-between items-center">
               <div className="space-y-1">
-                <span className="text-[8px] tracking-wider text-rose-400 font-black uppercase">{t('Shelter Contact', '救助中心联系方式')}</span>
-                <p className="text-sm font-black tracking-tight leading-none">📞 {pet.shelterPhone}</p>
-                <p className="text-[10px] text-stone-300 font-bold truncate max-w-[180px]">{pet.shelterName}</p>
+                <span className="text-caption tracking-wider text-rose-400 font-black uppercase">{t('Shelter Contact', '救助中心联系方式')}</span>
+                <p className="text-body font-black tracking-tight leading-none">📞 {pet.shelterPhone}</p>
+                <p className="text-caption text-stone-300 font-bold truncate max-w-[180px]">{pet.shelterName}</p>
               </div>
 
               <div className="bg-white p-1 rounded-lg text-stone-950 flex items-center gap-1.5 flex-shrink-0">
@@ -428,7 +434,7 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
                   <rect x="45" y="45" width="15" height="15" fill="black" />
                   <rect x="35" y="70" width="8" height="12" fill="black" />
                 </svg>
-                <span className="text-[7px] text-stone-600 font-extrabold leading-tight max-w-[50px] block">
+                <span className="text-caption text-stone-600 font-extrabold leading-tight max-w-[50px] block">
                   {t('Scan to adopt', '扫码快捷预约')}
                 </span>
               </div>
@@ -438,10 +444,10 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
         </div>
 
         {/* Modal Actions */}
-        <div className="p-5 border-t border-stone-150 dark:border-stone-800/80 flex justify-end gap-3 bg-stone-50 dark:bg-stone-950/20">
+        <div className="p-5 border-t border-stone-200 dark:border-stone-800/80 flex justify-end gap-3 bg-stone-50 dark:bg-stone-950/20">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-bold rounded-xl transition-all"
+            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 text-caption font-bold rounded-xl transition-all"
           >
             {t('Close', '关闭')}
           </button>
@@ -449,7 +455,7 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
           <button
             disabled={isGenerating}
             onClick={handlePrint}
-            className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-black rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1.5 cursor-pointer"
+            className="px-5 py-2 bg-rose-500 hover:bg-rose-600 text-white text-caption font-black rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1.5 cursor-pointer"
           >
             {isGenerating ? (
               <>
@@ -464,8 +470,6 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
             )}
           </button>
         </div>
-
-      </div>
-    </div>
+    </Modal>
   );
 }

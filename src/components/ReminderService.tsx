@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Bell, Plus, X } from 'lucide-react';
 import { HealthRecord, Pet } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
+import Modal from './ui/Modal';
+import { IconButton } from './ui/IconButton';
 
 export default function ReminderService() {
   const [reminders, setReminders] = useState<HealthRecord[]>([]);
@@ -65,33 +67,45 @@ export default function ReminderService() {
             <p className="font-semibold text-stone-900 dark:text-white">
               {reminder.type}: {reminder.details}
             </p>
-            <p className="text-sm text-stone-500">{reminder.date} ({reminder.frequency})</p>
+            <p className="text-body text-stone-500">{reminder.date} ({reminder.frequency})</p>
           </div>
         ))}
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white dark:bg-stone-800 p-6 rounded-3xl w-full max-w-sm space-y-4">
-            <h3 className="font-bold flex justify-between">
+        <Modal
+          open
+          onClose={() => setIsOpen(false)}
+          labelledBy="new-reminder-title"
+          size="sm"
+          panelClassName="p-6 space-y-4"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <h3 id="new-reminder-title" className="font-bold text-title text-stone-900 dark:text-white">
               {t('New Reminder', '新建提醒')}
-              <button onClick={() => setIsOpen(false)}><X className="w-5 h-5"/></button>
             </h3>
-            <select className="w-full p-2 border rounded-xl" onChange={(e) => setNewReminder({...newReminder, petId: e.target.value})}>
-              <option value="">{t('Select Pet', '选择宠物')}</option>
-              {pets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-            </select>
-            <input className="w-full p-2 border rounded-xl" placeholder={t('Task Type', '任务类型')} onChange={(e) => setNewReminder({...newReminder, type: e.target.value})} />
-            <input className="w-full p-2 border rounded-xl" placeholder={t('Details', '详细说明')} onChange={(e) => setNewReminder({...newReminder, details: e.target.value})} />
-            <input className="w-full p-2 border rounded-xl" type="date" onChange={(e) => setNewReminder({...newReminder, date: e.target.value})} />
-            <select className="w-full p-2 border rounded-xl" onChange={(e) => setNewReminder({...newReminder, frequency: e.target.value as any})}>
-              <option value="Once">{t('Once', '单次')}</option>
-              <option value="Monthly">{t('Monthly', '每月')}</option>
-              <option value="Annual">{t('Annual', '每年')}</option>
-            </select>
-            <button onClick={addReminder} className="w-full p-3 bg-rose-500 text-white rounded-xl">{t('Save', '保存')}</button>
+            <IconButton
+              aria-label={t('Close new reminder', '关闭新建提醒')}
+              icon={<X className="w-5 h-5" />}
+              onClick={() => setIsOpen(false)}
+            />
           </div>
-        </div>
+          <select aria-label={t('Select pet', '选择宠物')} className="w-full p-2 border rounded-control bg-white dark:bg-stone-900 dark:border-stone-700 text-stone-900 dark:text-white" onChange={(e) => setNewReminder({...newReminder, petId: e.target.value})}>
+            <option value="">{t('Select Pet', '选择宠物')}</option>
+            {pets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+          <input aria-label={t('Task type', '任务类型')} className="w-full p-2 border rounded-control bg-white dark:bg-stone-900 dark:border-stone-700 text-stone-900 dark:text-white" placeholder={t('Task Type', '任务类型')} onChange={(e) => setNewReminder({...newReminder, type: e.target.value})} />
+          <input aria-label={t('Details', '详细说明')} className="w-full p-2 border rounded-control bg-white dark:bg-stone-900 dark:border-stone-700 text-stone-900 dark:text-white" placeholder={t('Details', '详细说明')} onChange={(e) => setNewReminder({...newReminder, details: e.target.value})} />
+          <input aria-label={t('Reminder date', '提醒日期')} className="w-full p-2 border rounded-control bg-white dark:bg-stone-900 dark:border-stone-700 text-stone-900 dark:text-white" type="date" onChange={(e) => setNewReminder({...newReminder, date: e.target.value})} />
+          <select aria-label={t('Frequency', '重复频率')} className="w-full p-2 border rounded-control bg-white dark:bg-stone-900 dark:border-stone-700 text-stone-900 dark:text-white" onChange={(e) => setNewReminder({...newReminder, frequency: e.target.value as any})}>
+            <option value="Once">{t('Once', '单次')}</option>
+            <option value="Monthly">{t('Monthly', '每月')}</option>
+            <option value="Annual">{t('Annual', '每年')}</option>
+          </select>
+          <button onClick={addReminder} className="w-full p-3 bg-brand-500 hover:bg-brand-600 text-white rounded-control font-semibold transition-colors">
+            {t('Save', '保存')}
+          </button>
+        </Modal>
       )}
     </div>
   );

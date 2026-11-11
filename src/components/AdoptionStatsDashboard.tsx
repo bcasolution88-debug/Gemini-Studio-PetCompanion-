@@ -246,10 +246,10 @@ export default function AdoptionStatsDashboard() {
         {/* Metric 1 */}
         <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-orange-100/60 dark:border-stone-800/60 shadow-sm flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">{t('Available Companions', '待领养伙伴')}</span>
+            <span className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Available Companions', '待领养伙伴')}</span>
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-black text-stone-900 dark:text-white">{petsCount}</span>
-              <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+              <span className="text-caption font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 px-1.5 py-0.5 rounded flex items-center gap-0.5">
                 <ArrowUpRight className="w-3 h-3" /> {t('Live', '实时数据')}
               </span>
             </div>
@@ -262,11 +262,11 @@ export default function AdoptionStatsDashboard() {
         {/* Metric 2 */}
         <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-orange-100/60 dark:border-stone-800/60 shadow-sm flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">{t('Your Inquiries', '您的意向咨询')}</span>
+            <span className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Your Inquiries', '您的意向咨询')}</span>
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-black text-stone-900 dark:text-white">{inquiriesCount}</span>
               {inquiriesCount > 0 && (
-                <span className="text-[10px] font-semibold text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-1.5 py-0.5 rounded">
+                <span className="text-caption font-semibold text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-1.5 py-0.5 rounded">
                   {t('New', '最新记录')}
                 </span>
               )}
@@ -280,10 +280,10 @@ export default function AdoptionStatsDashboard() {
         {/* Metric 3 */}
         <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-orange-100/60 dark:border-stone-800/60 shadow-sm flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">{t('Match Accuracy', 'AI 推荐度')}</span>
+            <span className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Match Accuracy', 'AI 推荐度')}</span>
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-black text-stone-900 dark:text-white">98%</span>
-              <span className="text-[10px] font-semibold text-purple-500 bg-purple-50 dark:bg-purple-950/30 px-1.5 py-0.5 rounded">
+              <span className="text-caption font-semibold text-purple-500 bg-purple-50 dark:bg-purple-950/30 px-1.5 py-0.5 rounded">
                 {t('High', '高精准')}
               </span>
             </div>
@@ -301,7 +301,7 @@ export default function AdoptionStatsDashboard() {
             <Award className="w-5 h-5 text-indigo-500" />
             {t('Application Readiness Tracker', '申请就绪度追踪')}
           </h3>
-          <p className="text-[11px] text-stone-400 dark:text-stone-500">
+          <p className="text-caption text-stone-400 dark:text-stone-500">
             {t('Maximize your adoption readiness score by completing essential preparatory checkpoints.', '通过完善新手学习、档案和居住自检，点亮您的就绪徽章。')}
           </p>
         </div>
@@ -319,7 +319,7 @@ export default function AdoptionStatsDashboard() {
                   cx="48"
                   cy="48"
                   r={36}
-                  className="stroke-stone-150 dark:stroke-stone-800 fill-none"
+                  className="stroke-stone-200 dark:stroke-stone-800 fill-none"
                   strokeWidth={7}
                 />
                 <circle
@@ -337,12 +337,12 @@ export default function AdoptionStatsDashboard() {
                 <span className="text-xl font-black text-stone-900 dark:text-white leading-none">
                   {Math.round((((readiness.quizCompleted ? 1 : 0) + (readiness.careTipsRead ? 1 : 0) + (readiness.profileInfoSet ? 1 : 0) + (readiness.homeContextSet ? 1 : 0) + (applications.length > 0 ? 1 : 0)) / 5) * 100)}%
                 </span>
-                <span className="text-[9px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mt-0.5">{t('Score', '就绪分')}</span>
+                <span className="text-caption font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mt-0.5">{t('Score', '就绪分')}</span>
               </div>
             </div>
 
             <div className="space-y-1.5 z-10">
-              <span className="px-2.5 py-0.5 text-[10px] font-black rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100/40 dark:border-indigo-900/40 uppercase tracking-wide inline-block">
+              <span className="px-2.5 py-0.5 text-caption font-black rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100/40 dark:border-indigo-900/40 uppercase tracking-wide inline-block">
                 {(() => {
                   const totalPercent = Math.round((((readiness.quizCompleted ? 1 : 0) + (readiness.careTipsRead ? 1 : 0) + (readiness.profileInfoSet ? 1 : 0) + (readiness.homeContextSet ? 1 : 0) + (applications.length > 0 ? 1 : 0)) / 5) * 100);
                   if (totalPercent === 100) return t('Certified Adopter', '完美通关 🏆');
@@ -352,7 +352,7 @@ export default function AdoptionStatsDashboard() {
                   return t('Beginner', '规划起步 🚀');
                 })()}
               </span>
-              <p className="text-xs font-semibold text-stone-700 dark:text-stone-300 px-2 line-clamp-3">
+              <p className="text-caption font-semibold text-stone-700 dark:text-stone-300 px-2 line-clamp-3">
                 {(() => {
                   const totalPercent = Math.round((((readiness.quizCompleted ? 1 : 0) + (readiness.careTipsRead ? 1 : 0) + (readiness.profileInfoSet ? 1 : 0) + (readiness.homeContextSet ? 1 : 0) + (applications.length > 0 ? 1 : 0)) / 5) * 100);
                   if (totalPercent === 100) return t('Outstanding! You are fully qualified. Prepare to welcome your new family member.', '无懈可击！您的资料完全齐备。做好万全准备迎接新家庭成员吧！');
@@ -418,7 +418,7 @@ export default function AdoptionStatsDashboard() {
                   className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-all ${
                     isChecked 
                       ? 'bg-emerald-50/15 dark:bg-emerald-950/5 border-emerald-100/50 dark:border-emerald-900/30' 
-                      : 'bg-stone-50/30 dark:bg-stone-950/10 border-stone-150/40 dark:border-stone-800/40 hover:border-indigo-150 dark:hover:border-indigo-900'
+                      : 'bg-stone-50/30 dark:bg-stone-950/10 border-stone-200/40 dark:border-stone-800/40 hover:border-indigo-100 dark:hover:border-indigo-900'
                   }`}
                 >
                   <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -439,10 +439,10 @@ export default function AdoptionStatsDashboard() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className={`text-xs font-bold truncate transition-colors ${isChecked ? 'text-stone-400 dark:text-stone-500 line-through' : 'text-stone-800 dark:text-stone-200'}`}>
+                      <p className={`text-caption font-bold truncate transition-colors ${isChecked ? 'text-stone-400 dark:text-stone-500 line-through' : 'text-stone-800 dark:text-stone-200'}`}>
                         {item.label}
                       </p>
-                      <p className="text-[10px] text-stone-400 dark:text-stone-500 leading-tight line-clamp-1 mt-0.5">
+                      <p className="text-caption text-stone-400 dark:text-stone-500 leading-tight line-clamp-1 mt-0.5">
                         {item.desc}
                       </p>
                     </div>
@@ -461,7 +461,7 @@ export default function AdoptionStatsDashboard() {
                       }
                       toggleReadiness(item.key);
                     }}
-                    className={`px-3 py-1.5 text-[10px] font-bold rounded-lg border transition-all flex items-center gap-1 cursor-pointer flex-shrink-0 ${
+                    className={`px-3 py-1.5 text-caption font-bold rounded-lg border transition-all flex items-center gap-1 cursor-pointer flex-shrink-0 ${
                       isChecked
                         ? 'bg-stone-100 dark:bg-stone-800 text-stone-400 border-stone-200 dark:border-stone-700'
                         : 'bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 border-indigo-100/40 dark:border-indigo-900/30 hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500'
@@ -482,7 +482,7 @@ export default function AdoptionStatsDashboard() {
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
           <div>
             <h3 className="font-black text-stone-900 dark:text-white text-base tracking-tight">{t('Adoption Application Hub', '领养申请追踪中心')}</h3>
-            <p className="text-[11px] text-stone-400 dark:text-stone-500">{t('Track the step-by-step progress of your submitted companion inquiries.', '实时追踪您已提交的领养意向书或申请进展。')}</p>
+            <p className="text-caption text-stone-400 dark:text-stone-500">{t('Track the step-by-step progress of your submitted companion inquiries.', '实时追踪您已提交的领养意向书或申请进展。')}</p>
           </div>
           <div className="flex flex-wrap items-center gap-4 self-start sm:self-center">
             {/* Status Filter Dropdown */}
@@ -491,7 +491,7 @@ export default function AdoptionStatsDashboard() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="appearance-none bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-750 border border-stone-200 dark:border-stone-700 text-xs font-bold px-3 py-1.5 pr-8 rounded-full text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer transition-all"
+                  className="appearance-none bg-stone-50 hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 text-caption font-bold px-3 py-1.5 pr-8 rounded-full text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer transition-all"
                 >
                   <option value="all">📁 {t('All Statuses', '全部状态')}</option>
                   <option value="pending">⚙️ {t('Sent', '已提交')}</option>
@@ -514,12 +514,12 @@ export default function AdoptionStatsDashboard() {
                 <div className={`block w-9 h-5 rounded-full ${notificationsEnabled ? 'bg-indigo-600' : 'bg-stone-300 dark:bg-stone-700'}`}></div>
                 <div className={`absolute left-1 top-1 w-3 h-3 rounded-full bg-white transition-transform ${notificationsEnabled ? 'translate-x-4' : 'translate-x-0'}`}></div>
               </div>
-              <span className="ml-2 text-[10px] font-bold text-stone-500 uppercase">{t('Notify', '通知')}</span>
+              <span className="ml-2 text-caption font-bold text-stone-500 uppercase">{t('Notify', '通知')}</span>
             </label>
             {approvedSpecies && (
                 <button 
                   onClick={() => setIsModalOpen(true)}
-                  className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors"
+                  className="flex items-center gap-1.5 text-caption font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/30 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors"
                 >
                     <ListChecks className="w-3.5 h-3.5" /> {t('Checklist', '准备清单')}
                 </button>
@@ -532,8 +532,8 @@ export default function AdoptionStatsDashboard() {
             <div className="w-12 h-12 rounded-full bg-orange-50 dark:bg-orange-950/30 text-orange-500 flex items-center justify-center mx-auto mb-3">
               <Heart className="w-6 h-6 animate-pulse" />
             </div>
-            <h4 className="font-bold text-sm text-stone-800 dark:text-stone-200 mb-1">{t('No Submitted Applications', '暂无提交的领养申请')}</h4>
-            <p className="text-xs text-stone-400 dark:text-stone-500 max-w-sm mx-auto mb-4">
+            <h4 className="font-bold text-body text-stone-800 dark:text-stone-200 mb-1">{t('No Submitted Applications', '暂无提交的领养申请')}</h4>
+            <p className="text-caption text-stone-400 dark:text-stone-500 max-w-sm mx-auto mb-4">
               {t('You haven\'t submitted any adoption applications or inquiries yet. Explore our lovely pets and start your application journey!', '您目前还没有提交任何领养申请。浏览待领养列表，开启属于您的温馨故事吧！')}
             </p>
           </div>
@@ -542,8 +542,8 @@ export default function AdoptionStatsDashboard() {
             <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-950/30 text-amber-500 flex items-center justify-center mx-auto mb-3">
               <ShieldAlert className="w-6 h-6" />
             </div>
-            <h4 className="font-bold text-sm text-stone-800 dark:text-stone-200 mb-1">{t('No Matching Applications', '无符合筛选状态的申请')}</h4>
-            <p className="text-xs text-stone-400 dark:text-stone-500 max-w-sm mx-auto">
+            <h4 className="font-bold text-body text-stone-800 dark:text-stone-200 mb-1">{t('No Matching Applications', '无符合筛选状态的申请')}</h4>
+            <p className="text-caption text-stone-400 dark:text-stone-500 max-w-sm mx-auto">
               {t('You currently do not have any applications in this status stage. Please try selecting a different filter.', '您当前暂无处于该状态阶段的申请。请尝试选择其他筛选条件。')}
             </p>
           </div>
@@ -567,7 +567,7 @@ export default function AdoptionStatsDashboard() {
               return (
                 <div 
                   key={app.id} 
-                  className="p-5 rounded-2xl border border-stone-100 dark:border-stone-850 bg-stone-50/40 dark:bg-stone-950/10 space-y-4"
+                  className="p-5 rounded-2xl border border-stone-100 dark:border-stone-800 bg-stone-50/40 dark:bg-stone-950/10 space-y-4"
                 >
                   {/* Top: Pet Info and Actions */}
                   <div className="flex items-center justify-between gap-3">
@@ -585,12 +585,12 @@ export default function AdoptionStatsDashboard() {
                       )}
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-sm text-stone-900 dark:text-stone-100">{app.petName || t('Pet Companion', '爱心伙伴')}</span>
-                          <span className="px-2 py-0.5 text-[9px] font-bold rounded-md bg-rose-50 dark:bg-rose-950/40 text-rose-500 border border-rose-100 dark:border-rose-900/30">
+                          <span className="font-bold text-body text-stone-900 dark:text-stone-100">{app.petName || t('Pet Companion', '爱心伙伴')}</span>
+                          <span className="px-2 py-0.5 text-caption font-bold rounded-md bg-rose-50 dark:bg-rose-950/40 text-rose-500 border border-rose-100 dark:border-rose-900/30">
                             {app.type === 'formal_application' ? t('Formal Application', '正式领养申请') : t('General Inquiry', '咨询意向')}
                           </span>
                         </div>
-                        <p className="text-[10px] text-stone-400 dark:text-stone-500">
+                        <p className="text-caption text-stone-400 dark:text-stone-500">
                           {t('Submitted by:', '提交人：')} {app.inquirerName || app.name || t('Guest User', '访客')}
                         </p>
                       </div>
@@ -602,7 +602,7 @@ export default function AdoptionStatsDashboard() {
                         <select
                           value={app.status || 'pending'}
                           onChange={(e) => updateApplicationStatus(app.id, e.target.value)}
-                          className="appearance-none bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-[10px] font-bold px-2.5 py-1.5 pr-6 rounded-lg text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+                          className="appearance-none bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-caption font-bold px-2.5 py-1.5 pr-6 rounded-lg text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
                         >
                           <option value="pending">⚙️ {t('Sent', '已提交')}</option>
                           <option value="screening">🔎 {t('Screening', '资料审核')}</option>
@@ -628,7 +628,7 @@ export default function AdoptionStatsDashboard() {
                   <div className="pt-2">
                     <div className="relative flex items-center justify-between">
                       {/* Progress Line Track */}
-                      <div className="absolute left-3.5 right-3.5 top-3.5 h-1 bg-stone-150 dark:bg-stone-800 z-0">
+                      <div className="absolute left-3.5 right-3.5 top-3.5 h-1 bg-stone-200 dark:bg-stone-800 z-0">
                         <div 
                           className="h-full bg-indigo-500 transition-all duration-500 ease-out"
                           style={{ width: `${(activeStepIdx / (stages.length - 1)) * 100}%` }}
@@ -656,12 +656,12 @@ export default function AdoptionStatsDashboard() {
                               {isCompleted ? (
                                 <Check className="w-4 h-4 stroke-[3]" />
                               ) : (
-                                <span className="text-xs font-bold">{sIdx + 1}</span>
+                                <span className="text-caption font-bold">{sIdx + 1}</span>
                               )}
                             </div>
                             {/* Label */}
                             <span 
-                              className={`text-[10px] font-bold mt-2 text-center transition-colors ${
+                              className={`text-caption font-bold mt-2 text-center transition-colors ${
                                 isActive 
                                   ? 'text-indigo-600 dark:text-indigo-400' 
                                   : isCompleted 
@@ -678,7 +678,7 @@ export default function AdoptionStatsDashboard() {
                   </div>
 
                   {/* Explanatory update message */}
-                  <div className="bg-stone-100/60 dark:bg-stone-900/60 rounded-xl px-3.5 py-2.5 text-xs text-stone-600 dark:text-stone-300 flex items-start gap-2 border border-stone-150/40 dark:border-stone-800/40">
+                  <div className="bg-stone-100/60 dark:bg-stone-900/60 rounded-xl px-3.5 py-2.5 text-caption text-stone-600 dark:text-stone-300 flex items-start gap-2 border border-stone-200/40 dark:border-stone-800/40">
                     <span className="text-indigo-500 font-bold">ℹ️</span>
                     <p className="leading-relaxed">{stageNotes}</p>
                   </div>
@@ -698,9 +698,9 @@ export default function AdoptionStatsDashboard() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="font-black text-stone-900 dark:text-white text-base tracking-tight">{t('Adoption Trends (June)', '领养与关怀趋势分析 (六月份)')}</h3>
-            <p className="text-[11px] text-stone-400">{t('Activity matching index, showing newly added pets vs. incoming queries.', '活跃匹配度统计：直观展示最新发布的待领养宝贝数与用户的互动申请数对比。')}</p>
+            <p className="text-caption text-stone-400">{t('Activity matching index, showing newly added pets vs. incoming queries.', '活跃匹配度统计：直观展示最新发布的待领养宝贝数与用户的互动申请数对比。')}</p>
           </div>
-          <span className="text-[10px] font-bold bg-stone-150 dark:bg-stone-800 px-2.5 py-1 rounded-full text-stone-500 uppercase tracking-wider">
+          <span className="text-caption font-bold bg-stone-200 dark:bg-stone-800 px-2.5 py-1 rounded-full text-stone-500 uppercase tracking-wider">
             {t('Realtime Updating', '实时更新')}
           </span>
         </div>

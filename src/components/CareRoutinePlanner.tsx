@@ -243,7 +243,7 @@ export default function CareRoutinePlanner() {
             <h2 className="text-lg font-black text-stone-900 dark:text-white">
               {t('AI Routine Builder', 'AI 萌宠自动排班生成器')}
             </h2>
-            <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">
+            <p className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">
               {t('Smart Hourly Care Generator', '小时级定制化科学排班计划')}
             </p>
           </div>
@@ -251,12 +251,12 @@ export default function CareRoutinePlanner() {
 
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-caption font-bold text-stone-400 dark:text-stone-400 uppercase tracking-wider">
+            <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
               {t("Pet Details", "爱宠核心属性 (年龄/品种/习性)")}
             </label>
             <input 
               type="text" 
-              className="w-full p-2.5 bg-stone-50 hover:bg-stone-100/50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400 focus:outline-none transition-all"
+              className="w-full p-2.5 bg-stone-50 hover:bg-stone-100/50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400 transition-all"
               placeholder={t("e.g., 3-month-old golden retriever puppy", "例：3个月大的金毛幼犬，活泼好动")}
               value={petDetails}
               onChange={e => setPetDetails(e.target.value)}
@@ -264,11 +264,11 @@ export default function CareRoutinePlanner() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-caption font-bold text-stone-400 dark:text-stone-400 uppercase tracking-wider">
+            <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
               {t("Owner Schedule", "主人平时作息 / 上班时间")}
             </label>
             <select 
-              className="w-full p-2.5 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400 focus:outline-none"
+              className="w-full p-2.5 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400"
               value={workday}
               onChange={e => setWorkday(e.target.value)}
             >
@@ -280,12 +280,12 @@ export default function CareRoutinePlanner() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-caption font-bold text-stone-400 dark:text-stone-400 uppercase tracking-wider">
+            <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
               {t("Health/Behavioral Concerns", "特殊健康与行为关注")}
             </label>
             <input 
               type="text" 
-              className="w-full p-2.5 bg-stone-50 hover:bg-stone-100/50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400 focus:outline-none transition-all"
+              className="w-full p-2.5 bg-stone-50 hover:bg-stone-100/50 dark:bg-stone-800 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:border-indigo-400 transition-all"
               placeholder={t("e.g., recovering skin rash, soft stools, severe barking", "例：轻微软便拉稀，需要触觉脱敏与训练")}
               value={concerns}
               onChange={e => setConcerns(e.target.value)}
@@ -375,12 +375,12 @@ export default function CareRoutinePlanner() {
               <h2 className="text-lg font-black text-stone-900 dark:text-white">
                 {t('My Care Routine Checklist', '我的日常关怀清单')}
               </h2>
-              <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">
+              <p className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">
                 {t('Track completion & log to journal', '定时完成与自动记录健康日志')}
               </p>
             </div>
           </div>
-          <span className="text-caption font-black text-stone-400 bg-stone-50 dark:bg-stone-800 border border-stone-100 dark:border-stone-800 px-2.5 py-1 rounded-full">
+          <span className="text-caption font-black text-stone-500 dark:text-stone-400 bg-stone-50 dark:bg-stone-800 border border-stone-100 dark:border-stone-800 px-2.5 py-1 rounded-full">
             {routines.length} {t('Items', '个项目')}
           </span>
         </div>
@@ -390,8 +390,8 @@ export default function CareRoutinePlanner() {
           {routines.length === 0 ? (
             <div className="text-center py-12 border-2 border-dashed border-stone-100 dark:border-stone-800 rounded-2xl">
               <Bell className="w-8 h-8 text-stone-300 mx-auto mb-2 animate-bounce" />
-              <p className="text-caption text-stone-400 font-bold">{t('No care routines configured.', '当前还没有日常关怀项目。')}</p>
-              <p className="text-caption text-stone-400 font-medium max-w-xs mx-auto mt-1">
+              <p className="text-caption text-stone-500 dark:text-stone-400 font-bold">{t('No care routines configured.', '当前还没有日常关怀项目。')}</p>
+              <p className="text-caption text-stone-500 dark:text-stone-400 font-medium max-w-xs mx-auto mt-1">
                 {t('Use the AI Builder on the left or add tasks manually below.', '可在左侧输入信息通过 AI 一键生成科学照看清单，或在下方手动添加。')}
               </p>
             </div>
@@ -414,7 +414,7 @@ export default function CareRoutinePlanner() {
                   
                   <div className="flex-1 min-w-0 text-left">
                     <div className="flex items-center gap-1.5">
-                      <p className={`text-caption font-black truncate ${isCompleted ? 'line-through text-stone-400' : 'text-stone-800 dark:text-stone-100'}`}>
+                      <p className={`text-caption font-black truncate ${isCompleted ? 'line-through text-stone-500 dark:text-stone-400' : 'text-stone-800 dark:text-stone-100'}`}>
                         {r.name}
                       </p>
                       <span className={`text-caption font-bold border px-1 rounded-md ${getTypeColor(r.type)}`}>
@@ -422,8 +422,8 @@ export default function CareRoutinePlanner() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-caption text-stone-400 font-bold">⏱ {r.time}</span>
-                      <span className="text-caption text-stone-400 font-bold uppercase tracking-wider">• {r.frequency === 'daily' ? t('Daily', '每日') : r.frequency === 'weekly' ? t('Weekly', '每周') : r.frequency}</span>
+                      <span className="text-caption text-stone-500 dark:text-stone-400 font-bold">⏱ {r.time}</span>
+                      <span className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">• {r.frequency === 'daily' ? t('Daily', '每日') : r.frequency === 'weekly' ? t('Weekly', '每周') : r.frequency}</span>
                     </div>
                     {r.description && (
                       <p className="text-caption text-stone-500 dark:text-stone-400 mt-1 leading-normal font-medium">{r.description}</p>
@@ -447,7 +447,7 @@ export default function CareRoutinePlanner() {
                     <button 
                       type="button"
                       onClick={() => deleteRoutine(r.id)} 
-                      className="p-2 rounded-full cursor-pointer bg-white hover:bg-rose-50 border border-stone-200 text-stone-400 hover:text-rose-600 dark:bg-stone-800 dark:hover:bg-stone-700 dark:border-stone-700 transition-all active:scale-90 flex items-center justify-center"
+                      className="p-2 rounded-full cursor-pointer bg-white hover:bg-rose-50 border border-stone-200 text-stone-500 dark:text-stone-400 hover:text-rose-600 dark:bg-stone-800 dark:hover:bg-stone-700 dark:border-stone-700 transition-all active:scale-90 flex items-center justify-center"
                       title={t('Delete task', '删除此任务')}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -461,14 +461,14 @@ export default function CareRoutinePlanner() {
 
         {/* Manual Addition Form */}
         <div className="pt-4 border-t border-stone-200 dark:border-stone-800 space-y-3">
-          <p className="text-caption font-black text-stone-400 dark:text-stone-400 uppercase tracking-widest text-left">
+          <p className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-widest text-left">
             {t('Add Custom Task Manually', '手动添加自定义项目')}
           </p>
 
           <div className="grid grid-cols-2 gap-2 text-left">
             <div className="col-span-2 space-y-1">
               <input 
-                className="w-full p-2.5 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:outline-none" 
+                className="w-full p-2.5 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl" 
                 placeholder={t('Task Name', '任务名称')} 
                 value={newRoutine.name} 
                 onChange={e => setNewRoutine({...newRoutine, name: e.target.value})} 
@@ -476,9 +476,9 @@ export default function CareRoutinePlanner() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider pl-1">{t('Category', '任务分类')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pl-1">{t('Category', '任务分类')}</label>
               <select 
-                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:outline-none h-10" 
+                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl h-10" 
                 value={newRoutine.type} 
                 onChange={e => setNewRoutine({...newRoutine, type: e.target.value as RoutineType})}
               >
@@ -493,9 +493,9 @@ export default function CareRoutinePlanner() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider pl-1">{t('Frequency', '频次')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pl-1">{t('Frequency', '频次')}</label>
               <select 
-                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:outline-none h-10" 
+                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl h-10" 
                 value={newRoutine.frequency} 
                 onChange={e => setNewRoutine({...newRoutine, frequency: e.target.value as 'daily' | 'weekly'})}
               >
@@ -505,20 +505,20 @@ export default function CareRoutinePlanner() {
             </div>
 
             <div className="col-span-1 space-y-1">
-              <label className="text-caption font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider pl-1">{t('Target Time', '目标执行时间')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pl-1">{t('Target Time', '目标执行时间')}</label>
               <input 
                 type="time" 
-                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:outline-none h-10" 
+                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl h-10" 
                 value={newRoutine.time} 
                 onChange={e => setNewRoutine({...newRoutine, time: e.target.value})} 
               />
             </div>
 
             <div className="col-span-1 space-y-1">
-              <label className="text-caption font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider pl-1">{t('Instructions', '特殊叮嘱/说明')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider pl-1">{t('Instructions', '特殊叮嘱/说明')}</label>
               <input 
                 type="text" 
-                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl focus:outline-none h-10" 
+                className="w-full p-2 bg-stone-50 border border-stone-200 dark:border-stone-800 text-caption text-stone-800 dark:text-stone-100 rounded-xl h-10" 
                 placeholder={t('Optional description...', '选填叮嘱内容...')}
                 value={newRoutine.description} 
                 onChange={e => setNewRoutine({...newRoutine, description: e.target.value})} 

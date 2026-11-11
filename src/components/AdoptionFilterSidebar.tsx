@@ -175,7 +175,7 @@ export default function AdoptionFilterSidebar() {
               placeholder={t('e.g. Golden Retriever, calm...', '例如：金毛犬, 温柔温顺...')}
               className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl pl-10 pr-4 py-2.5 text-body focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white"
             />
-            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
+            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-500 dark:text-stone-400" />
           </div>
         </div>
 
@@ -197,7 +197,7 @@ export default function AdoptionFilterSidebar() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-stone-400 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-stone-500 dark:text-stone-400 pointer-events-none" />
           </div>
         </div>
 
@@ -244,7 +244,7 @@ export default function AdoptionFilterSidebar() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-stone-400 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-stone-500 dark:text-stone-400 pointer-events-none" />
           </div>
         </div>
 
@@ -252,12 +252,12 @@ export default function AdoptionFilterSidebar() {
         <div className="bg-stone-50 dark:bg-stone-800/40 p-4 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-inner space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <MapPin className={`w-4 h-4 ${sortByDistance ? 'text-rose-500 animate-bounce' : 'text-stone-400 dark:text-stone-500'}`} />
+              <MapPin className={`w-4 h-4 ${sortByDistance ? 'text-rose-500 animate-bounce' : 'text-stone-500 dark:text-stone-400'}`} />
               <div className="text-left">
                 <span className="block text-caption font-extrabold text-stone-800 dark:text-stone-200">
                   {t('Sort by Proximity', '按距离近到远排序')}
                 </span>
-                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold">
+                <span className="block text-caption text-stone-500 dark:text-stone-400 font-bold">
                   {t('Use GPS Geolocation', '使用 GPS 浏览器定位')}
                 </span>
               </div>
@@ -268,9 +268,7 @@ export default function AdoptionFilterSidebar() {
               type="button"
               onClick={handleToggleDistance}
               disabled={isLocating}
-              className={`relative inline-flex h-5.5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                sortByDistance ? 'bg-rose-500' : 'bg-stone-300 dark:bg-stone-700'
-              }`}
+              className={`relative inline-flex h-5.5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out ${ sortByDistance ? 'bg-rose-500' : 'bg-stone-300 dark:bg-stone-700' }`}
             >
               <span
                 className={`pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${

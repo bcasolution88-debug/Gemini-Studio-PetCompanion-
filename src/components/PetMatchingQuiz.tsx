@@ -205,14 +205,15 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
               <h3 className="font-extrabold text-stone-900 dark:text-white text-base">
                 {t('AI Pet Matching Quiz', 'AI 萌宠领养精准匹配')}
               </h3>
-              <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">
+              <p className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">
                 {t('Gemini Cognition Matchmaker', '双子星智能匹配算法')}
               </p>
             </div>
           </div>
           <button 
+            aria-label={t('Close', '关闭')}
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors cursor-pointer"
+            className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -239,7 +240,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                   <h4 className="text-lg font-black text-stone-900 dark:text-white">
                     {t('Consulting AI Counselors...', '咨询 AI 领养顾问中...')}
                   </h4>
-                  <p className="text-caption text-stone-400 font-bold max-w-sm mx-auto">
+                  <p className="text-caption text-stone-500 dark:text-stone-400 font-bold max-w-sm mx-auto">
                     {t('Analyzing your work hours, yard space, and activity level to find shelter pets waiting for a home like yours...', '正在综合分析您的工作独处时长、草坪空间及活力偏好，为您比对最契合的救助站萌宠宝贝...')}
                   </p>
                 </div>
@@ -280,7 +281,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
               >
                 {/* Progress bar */}
                 <div className="space-y-1">
-                  <div className="flex justify-between text-caption font-black text-stone-400">
+                  <div className="flex justify-between text-caption font-black text-stone-500 dark:text-stone-400">
                     <span>{t(`Question ${step + 1} of ${steps.length}`, `问题 ${step + 1} / ${steps.length}`)}</span>
                     <span>{Math.round(((step + 1) / steps.length) * 100)}%</span>
                   </div>
@@ -322,7 +323,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                             <p className={`font-extrabold text-body ${isSelected ? 'text-rose-600 dark:text-rose-400' : 'text-stone-800 dark:text-stone-200'}`}>
                               {opt.label}
                             </p>
-                            <p className="text-caption text-stone-400 dark:text-stone-400 mt-1 font-semibold">
+                            <p className="text-caption text-stone-500 dark:text-stone-400 mt-1 font-semibold">
                               {opt.desc}
                             </p>
                           </div>
@@ -439,7 +440,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
                                   {pet.breed} • {t(pet.age, pet.age)}
                                 </span>
                               </div>
-                              <p className="text-caption text-stone-400 font-bold mt-0.5">
+                              <p className="text-caption text-stone-500 dark:text-stone-400 font-bold mt-0.5">
                                 {t('Shelter:', '所属救助站:')} {pet.shelterName}
                               </p>
                               <p className="text-caption text-stone-600 dark:text-stone-300 mt-1.5 font-bold leading-relaxed pr-2">
@@ -450,7 +451,7 @@ export default function PetMatchingQuiz({ onClose }: { onClose: () => void }) {
 
                           <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-stone-100 dark:border-stone-800">
                             <div className="text-left sm:text-right">
-                              <span className="block text-caption font-black text-stone-400 uppercase tracking-widest">{t('AI Match', '匹配指数')}</span>
+                              <span className="block text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-widest">{t('AI Match', '匹配指数')}</span>
                               <span className="block text-xl font-black text-rose-500 leading-none mt-1">
                                 {match.score}%
                               </span>

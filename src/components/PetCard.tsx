@@ -215,7 +215,7 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
         <div className="relative w-full h-48 bg-stone-100 dark:bg-stone-900 overflow-hidden">
           {!imageLoaded && (
             <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-stone-200 via-stone-200 to-stone-200 dark:from-stone-800 dark:via-stone-800 dark:to-stone-800 flex items-center justify-center">
-              <span className="text-caption font-semibold text-stone-400 dark:text-stone-500 animate-pulse">Loading...</span>
+              <span className="text-caption font-semibold text-stone-500 dark:text-stone-400 animate-pulse">Loading...</span>
             </div>
           )}
           <img
@@ -252,7 +252,7 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
           }
         </p>
         <div className="flex items-center justify-between mt-1">
-          <p className="text-caption text-stone-500 dark:text-stone-500 font-bold">
+          <p className="text-caption text-stone-500 dark:text-stone-400 font-bold">
             {pet.location === 'New York' ? t('New York', '纽约') : pet.location === 'Los Angeles' ? t('Los Angeles', '洛杉矶') : pet.location === 'Chicago' ? t('Chicago', '芝加哥') : pet.location === 'San Francisco' ? t('San Francisco', '旧金山') : pet.location}
           </p>
           {distance !== undefined && (
@@ -315,13 +315,14 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
                 <h4 className="font-extrabold text-stone-900 dark:text-white text-body">
                   {t(`Share ${pet.name}`, `分享 ${pet.name}`)}
                 </h4>
-                <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">
+                <p className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">
                   {t('Post to your social network', '发布至您的社交网络')}
                 </p>
               </div>
               <button 
+                aria-label={t('Close', '关闭')}
                 onClick={() => setShowShareModal(false)}
-                className="p-1 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
+                className="p-1 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -336,7 +337,7 @@ export const PetCard: FC<PetCardProps> = ({ pet, onClick, distance }) => {
               />
               <div className="text-left min-w-0">
                 <p className="font-black text-caption text-stone-900 dark:text-white truncate">{pet.name}</p>
-                <p className="text-caption text-stone-400 font-bold truncate">
+                <p className="text-caption text-stone-500 dark:text-stone-400 font-bold truncate">
                   {pet.breed || pet.species} • {pet.location}
                 </p>
                 <p className="text-caption text-stone-500 dark:text-stone-400 truncate italic mt-0.5">

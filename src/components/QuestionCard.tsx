@@ -104,7 +104,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, onUpdate, 
             }`}>
               {question.status === 'resolved' ? t('✅ Resolved', '✅ 已解决') : t('❓ Open', '❓ 待解决')}
             </span>
-            <span className="text-caption font-bold text-stone-400 uppercase tracking-wide">
+            <span className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wide">
               {t('Asked by ', '提问者：')}{question.author === 'Mark Jenkins' ? t('Mark Jenkins', '马克·詹金斯') : question.author === 'Sarah Wood' ? t('Sarah Wood', '莎拉·伍德') : question.author} • {question.timestamp === '2 hours ago' ? t('2 hours ago', '2 小时前') : question.timestamp === '1 day ago' ? t('1 day ago', '1 天前') : question.timestamp === 'Just now' ? t('Just now', '刚刚') : question.timestamp}
             </span>
           </div>
@@ -134,7 +134,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, onUpdate, 
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setIsShareMenuOpen(false)} />
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-stone-900 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-800 p-2 z-20 space-y-1 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <p className="text-caption font-bold text-stone-400 dark:text-stone-500 px-2.5 py-1.5 uppercase tracking-wider">{t('Share QA', '分享问答')}</p>
+                  <p className="text-caption font-bold text-stone-500 dark:text-stone-400 px-2.5 py-1.5 uppercase tracking-wider">{t('Share QA', '分享问答')}</p>
                   
                   <button
                     onClick={() => handleSharePlatform('copy')}
@@ -204,7 +204,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, onUpdate, 
       {/* Answers Section */}
       <div className="space-y-4 border-t border-stone-100 dark:border-stone-700/60 pt-5">
         <div className="flex justify-between items-center mb-1">
-          <h4 className="text-caption font-black text-stone-400 uppercase tracking-widest">{t('Expert Advice', '专家建议')} ({answers.length})</h4>
+          <h4 className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-widest">{t('Expert Advice', '专家建议')} ({answers.length})</h4>
           <button
             onClick={() => setShowAnswerForm(!showAnswerForm)}
             className="flex items-center gap-1 text-caption font-bold text-rose-500 hover:text-rose-600"
@@ -215,7 +215,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, onUpdate, 
 
         {/* Answers List */}
         {answers.length === 0 ? (
-          <p className="text-caption text-stone-400 italic py-2">{t("No suggestions logged yet. Click 'Post Answer' to help this parent!", '暂无建议。点击“发表回答”来提供帮助吧！')}</p>
+          <p className="text-caption text-stone-500 dark:text-stone-400 italic py-2">{t("No suggestions logged yet. Click 'Post Answer' to help this parent!", '暂无建议。点击“发表回答”来提供帮助吧！')}</p>
         ) : (
           <div className="space-y-3">
             {answers.map(answer => (
@@ -240,7 +240,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, onUpdate, 
                         <Award className="w-3.5 h-3.5 text-rose-500" title={t("Verified Professional", "已认证专业人士")} />
                       ) : null}
                     </span>
-                    <span className="text-caption text-stone-400 font-semibold">
+                    <span className="text-caption text-stone-500 dark:text-stone-400 font-semibold">
                       {answer.timestamp === '1 hour ago' ? t('1 hour ago', '1 小时前') : answer.timestamp === '18 hours ago' ? t('18 hours ago', '18 小时前') : answer.timestamp === 'Just now' ? t('Just now', '刚刚') : answer.timestamp === '30m ago' ? t('30m ago', '30 分钟前') : answer.timestamp}
                     </span>
                   </div>

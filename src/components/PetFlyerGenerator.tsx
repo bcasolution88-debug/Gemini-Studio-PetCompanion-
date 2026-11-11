@@ -112,7 +112,6 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
           .photo {
             width: 100%;
             height: 100%;
-            object-cover: cover;
             object-fit: cover;
           }
           .details-grid {
@@ -348,7 +347,7 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
               <h3 id="flyer-title" className="text-base font-black text-stone-900 dark:text-white">
                 {t('Printable Adoption Flyer', '生成社区领养宣传单')}
               </h3>
-              <p className="text-caption text-stone-400 dark:text-stone-500 font-medium">
+              <p className="text-caption text-stone-500 dark:text-stone-400 font-medium">
                 {t('Share offline on local boards, clinics, and animal shelters to help find a family.', '张贴于社区宣传栏、诊所或分享至社交媒体，加速爱宠回家旅程。')}
               </p>
             </div>
@@ -394,15 +393,15 @@ export default function PetFlyerGenerator({ pet, onClose }: PetFlyerGeneratorPro
 
               <div className="bg-stone-50 p-3 rounded-xl border border-stone-200 text-caption font-bold text-stone-800 space-y-1.5 flex flex-col justify-center">
                 <div className="flex justify-between border-b pb-1 border-stone-200/50">
-                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Breed', '品类')}</span>
+                  <span className="text-stone-500 dark:text-stone-400 font-bold uppercase text-caption">{t('Breed', '品类')}</span>
                   <span>{pet.species === 'Dog' ? t('Dog', '狗狗') : pet.species === 'Cat' ? t('Cat', '猫咪') : pet.species}</span>
                 </div>
                 <div className="flex justify-between border-b pb-1 border-stone-200/50">
-                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Age', '年龄阶段')}</span>
+                  <span className="text-stone-500 dark:text-stone-400 font-bold uppercase text-caption">{t('Age', '年龄阶段')}</span>
                   <span>{pet.age === 'Puppy/Kitten' ? t('Young', '幼年') : pet.age === 'Adult' ? t('Adult', '成年') : t('Senior', '老年')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-400 font-bold uppercase text-caption">{t('Location', '位置')}</span>
+                  <span className="text-stone-500 dark:text-stone-400 font-bold uppercase text-caption">{t('Location', '位置')}</span>
                   <span>{pet.location}</span>
                 </div>
               </div>

@@ -293,7 +293,7 @@ export default function MyAdoptionJourney() {
           <h4 className="font-extrabold text-body text-stone-800 dark:text-stone-200 mb-1">
             {t('Ready to begin your journey?', '开启您的首个领养成长故事？')}
           </h4>
-          <p className="text-caption text-stone-400 dark:text-stone-500 max-w-md mx-auto mb-5">
+          <p className="text-caption text-stone-500 dark:text-stone-400 max-w-md mx-auto mb-5">
             {t('You do not have any pending applications. Go to the pet listings below, pick a companion and tap "Apply to Adopt" to automatically log your journey here!', '您目前还没有提交任何领养意向。在下方宝贝列表中，点击申请即可瞬间点亮您的进度图谱！')}
           </p>
           <button
@@ -311,7 +311,7 @@ export default function MyAdoptionJourney() {
           
           {/* Left Column: Applications List */}
           <div className="lg:col-span-4 space-y-3">
-            <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
+            <p className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider">
               {t('Submitted Applications', '意向申请列表')} ({journeys.length})
             </p>
             <div className="space-y-2..5 max-h-[420px] overflow-y-auto pr-1">
@@ -355,7 +355,7 @@ export default function MyAdoptionJourney() {
                         </span>
                       </div>
 
-                      <p className="text-caption text-stone-400 dark:text-stone-500 font-bold mt-1 line-clamp-1">
+                      <p className="text-caption text-stone-500 dark:text-stone-400 font-bold mt-1 line-clamp-1">
                         {t('Adopter:', '领养人：')} {j.inquirerName}
                       </p>
 
@@ -372,7 +372,7 @@ export default function MyAdoptionJourney() {
 
                     <button
                       onClick={(e) => handleDeleteJourney(j.id, e)}
-                      className="p-1.5 text-stone-400 hover:text-rose-500 dark:hover:text-rose-400 rounded-lg hover:bg-white/80 dark:hover:bg-stone-800 transition-colors opacity-0 hover:opacity-100 group-hover:opacity-100 absolute right-1.5 top-1.5 cursor-pointer"
+                      className="p-1.5 text-stone-500 dark:text-stone-400 hover:text-rose-500 dark:hover:text-rose-400 rounded-lg hover:bg-white/80 dark:hover:bg-stone-800 transition-colors opacity-0 hover:opacity-100 group-hover:opacity-100 absolute right-1.5 top-1.5 cursor-pointer"
                       title={t('Cancel Journey Record', '撤销此条记录')}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -397,7 +397,7 @@ export default function MyAdoptionJourney() {
                     <h4 className="font-extrabold text-body text-stone-900 dark:text-white">
                       {t('Interactive Road for', '领养培育路线：')} {activeApp.petName}
                     </h4>
-                    <p className="text-caption text-stone-400 dark:text-stone-500">
+                    <p className="text-caption text-stone-500 dark:text-stone-400">
                       {t('Watch real caretakers actions or advance simulator manually to test.', '查看救助负责人留言或手动模拟下一步以观察效果。')}
                     </p>
                   </div>
@@ -438,7 +438,7 @@ export default function MyAdoptionJourney() {
 
               {/* Step-by-Step Progress Visual */}
               <div className="space-y-4">
-                <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider">
+                <p className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider">
                   {t('Process Timeline Progress', '阶段进度追踪流')}
                 </p>
 
@@ -483,7 +483,7 @@ export default function MyAdoptionJourney() {
                               </span>
                             )}
                           </h5>
-                          <p className="text-caption text-stone-400 dark:text-stone-500 mt-0.5">
+                          <p className="text-caption text-stone-500 dark:text-stone-400 mt-0.5">
                             {language === 'en' ? step.desc : step.zhDesc}
                           </p>
                         </div>
@@ -495,8 +495,8 @@ export default function MyAdoptionJourney() {
 
               {/* Caretaker / System Logs Section */}
               <div className="bg-white dark:bg-stone-900 rounded-2xl p-4 border border-stone-200 dark:border-stone-800 space-y-3">
-                <p className="text-caption font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-stone-400" />
+                <p className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
                   {t('Verification Log & Caretaker Comments', '交互核查日志与负责人评语')}
                 </p>
 
@@ -511,10 +511,10 @@ export default function MyAdoptionJourney() {
                       }`}
                     >
                       <div className="flex items-center justify-between text-caption font-bold">
-                        <span className={log.author === 'Shelter Caretaker' ? 'text-indigo-600 dark:text-indigo-400' : 'text-stone-400'}>
+                        <span className={log.author === 'Shelter Caretaker' ? 'text-indigo-600 dark:text-indigo-400' : 'text-stone-500 dark:text-stone-400'}>
                           👤 {log.author === 'Shelter Caretaker' ? t('Shelter Caretaker Officer', '收容救助中心审批人') : t('System Automatic Log', '系统日志')}
                         </span>
-                        <span className="text-stone-400">{log.time}</span>
+                        <span className="text-stone-500 dark:text-stone-400">{log.time}</span>
                       </div>
                       <p className="text-stone-700 dark:text-stone-300 leading-relaxed font-medium">
                         {log.message}
@@ -526,7 +526,7 @@ export default function MyAdoptionJourney() {
 
             </div>
           ) : (
-            <div className="lg:col-span-8 flex items-center justify-center py-20 text-stone-400">
+            <div className="lg:col-span-8 flex items-center justify-center py-20 text-stone-500 dark:text-stone-400">
               {t('Select an application from the left panel to inspect progress.', '从左侧面板选择一个意向申请，即可开启查看详细互动。')}
             </div>
           )}

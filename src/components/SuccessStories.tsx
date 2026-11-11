@@ -167,7 +167,7 @@ export default function SuccessStories() {
               {copiedId === story.id ? (
                 <Check className="w-4 h-4 text-emerald-500" />
               ) : (
-                <Share2 className="w-4 h-4 text-stone-400" />
+                <Share2 className="w-4 h-4 text-stone-500 dark:text-stone-400" />
               )}
             </button>
           </div>
@@ -186,12 +186,13 @@ export default function SuccessStories() {
                 {t('Share Your Adoption Journey', '分享您的领养喜悦')}
               </h3>
               <button
+                aria-label={t('Close', '关闭')}
                 onClick={() => {
                   setIsModalOpen(false);
                   setCapturedImage(null);
                   setShowCamera(false);
                 }}
-                className="p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
+                className="p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -201,7 +202,7 @@ export default function SuccessStories() {
             <form onSubmit={handleCreateStorySubmit} className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-1">
                     {t("Pet's Name", '宠物名字')}
                   </label>
                   <input
@@ -214,7 +215,7 @@ export default function SuccessStories() {
                   />
                 </div>
                 <div>
-                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-1">
                     {t("Adopter's Name", '领养人姓名')}
                   </label>
                   <input
@@ -230,13 +231,13 @@ export default function SuccessStories() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-1">
                     {t('Species', '宠物品类')}
                   </label>
                   <select
                     value={newSpecies}
                     onChange={(e) => setNewSpecies(e.target.value as any)}
-                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold animate-fade-in"
                   >
                     <option value="Dog">{t('Dog', '狗狗')}</option>
                     <option value="Cat">{t('Cat', '猫咪')}</option>
@@ -245,13 +246,13 @@ export default function SuccessStories() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
+                  <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-1">
                     {t('Life Stage', '成长阶段')}
                   </label>
                   <select
                     value={newType}
                     onChange={(e) => setNewType(e.target.value as any)}
-                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white outline-none font-bold animate-fade-in"
+                    className="w-full px-3.5 py-2.5 text-body bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl text-stone-900 dark:text-white font-bold animate-fade-in"
                   >
                     <option value="Puppy/Kitten">{t('Puppy / Kitten', '幼宠')}</option>
                     <option value="Adult">{t('Adult', '成宠')}</option>
@@ -262,7 +263,7 @@ export default function SuccessStories() {
 
               {/* Journey details / caption */}
               <div>
-                <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider mb-1">
+                <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-1">
                   {t('Adoption Story & Caption', '领养旅程与感言')}
                 </label>
                 <textarea
@@ -277,7 +278,7 @@ export default function SuccessStories() {
 
               {/* Photo Upload or Capture Section */}
               <div className="space-y-2">
-                <label className="block text-caption font-bold text-stone-400 uppercase tracking-wider">
+                <label className="block text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
                   {t('Pet Photo', '宠物照片')}
                 </label>
                 
@@ -308,9 +309,9 @@ export default function SuccessStories() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center border-2 border-dashed border-stone-200 dark:border-stone-800 p-8 rounded-2xl bg-stone-50/50 dark:bg-stone-950/40 text-center animate-fade-in">
-                    <Camera className="w-8 h-8 text-stone-400 mb-2" />
+                    <Camera className="w-8 h-8 text-stone-500 dark:text-stone-400 mb-2" />
                     <p className="text-caption font-bold text-stone-600 dark:text-stone-400">{t('Capture a beautiful photo of your pet', '实时拍摄您的萌宠相片')}</p>
-                    <p className="text-caption text-stone-400 mt-0.5 mb-4">{t('Use your web camera to take a snap instantly', '使用摄像头即可一键拍摄并发表')}</p>
+                    <p className="text-caption text-stone-500 dark:text-stone-400 mt-0.5 mb-4">{t('Use your web camera to take a snap instantly', '使用摄像头即可一键拍摄并发表')}</p>
                     
                     <button
                       type="button"

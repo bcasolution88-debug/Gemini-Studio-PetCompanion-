@@ -42,6 +42,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     };
   }, [language]);
 
+  // Keep <html lang> in sync with the active UI language.
+  //
+  // index.html ships `lang="en"`, but the default language here is Chinese, so
+  // without this the document claims to be English while rendering Chinese.
+  // Consequences: screen readers pick English phonemes for CJK text, the
+  // browser offers to translate the page incorrectly, and CJK font fallback
+  // and hyphenation rules are chosen for the wrong locale.
+  useEffect(() => {
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+  }, [language]);
+
   // t function: returns enText if language is 'en', otherwise zhText
   const t = (enText: string, zhText: string): string => {
     return language === 'zh' ? zhText : enText;

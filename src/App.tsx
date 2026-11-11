@@ -3,31 +3,62 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import AdoptionFilterSidebar from './components/AdoptionFilterSidebar';
 import PetGrid from './components/PetGrid';
 import PostFeed from './components/PostFeed';
-import AIChatWidget from './components/AIChatWidget';
-import PetTracker from './components/PetTracker';
-import RecommendationWidget from './components/RecommendationWidget';
 import DailyPetWisdom from './components/DailyPetWisdom';
-import PetMemoriesGallery from './components/PetMemoriesGallery';
-import SuccessStories from './components/SuccessStories';
-import AdoptionStatsDashboard from './components/AdoptionStatsDashboard';
-import MyAdoptionJourney from './components/MyAdoptionJourney';
-import PetQAFeed from './components/PetQAFeed';
-import ReminderService from './components/ReminderService';
-import WeeklyPetDigest from './components/WeeklyPetDigest';
-import PetHealthJournal from './components/PetHealthJournal';
-import NearbyServicesMap from './components/NearbyServicesMap';
-import AIHelperView from './components/AIHelperView';
-import DailyCareTips from './components/DailyCareTips';
-import { 
-  Users, MessageSquare, BookOpen, Sparkles, Bot, 
-  MapPin, Heart, Info, Send, Calendar, Star, Compass, RefreshCw, ChevronUp
+import {
+  Users, MessageSquare, BookOpen, Heart,
+  MapPin, ChevronUp
 } from 'lucide-react';
 import { useLanguage } from './lib/LanguageContext';
+
+// ---------------------------------------------------------------------------
+// Code splitting
+//
+// These views were all statically imported, so the entry graph pulled in
+// recharts, leaflet, the QR reader, jsPDF and motion before the first paint —
+// even though the landing view needs none of them. Loading them lazily means
+// the browser can render the pet grid first and fetch the heavy chunks only
+// when the user opens that view.
+//
+// Kept eager on purpose: Navbar, PetGrid, AdoptionFilterSidebar, PostFeed and
+// DailyPetWisdom, because they are visible on the default route.
+// ---------------------------------------------------------------------------
+const AIChatWidget = lazy(() => import('./components/AIChatWidget'));
+const AIHelperView = lazy(() => import('./components/AIHelperView'));
+const NearbyServicesMap = lazy(() => import('./components/NearbyServicesMap'));
+const PetTracker = lazy(() => import('./components/PetTracker'));
+const AdoptionStatsDashboard = lazy(() => import('./components/AdoptionStatsDashboard'));
+const MyAdoptionJourney = lazy(() => import('./components/MyAdoptionJourney'));
+const SuccessStories = lazy(() => import('./components/SuccessStories'));
+const PetMemoriesGallery = lazy(() => import('./components/PetMemoriesGallery'));
+const PetQAFeed = lazy(() => import('./components/PetQAFeed'));
+const RecommendationWidget = lazy(() => import('./components/RecommendationWidget'));
+const ReminderService = lazy(() => import('./components/ReminderService'));
+const WeeklyPetDigest = lazy(() => import('./components/WeeklyPetDigest'));
+const DailyCareTips = lazy(() => import('./components/DailyCareTips'));
+const PetHealthJournal = lazy(() => import('./components/PetHealthJournal'));
+
+/**
+ * Placeholder shown while a lazily-loaded chunk is in flight.
+ * Keeps layout height stable so the page does not jump when it resolves,
+ * and is announced politely rather than being a silent blank.
+ */
+const ViewFallback: React.FC<{ label: string }> = ({ label }) => (
+  <div
+    role="status"
+    aria-live="polite"
+    className="rounded-card border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 animate-pulse"
+  >
+    <div className="h-3 w-24 rounded bg-stone-200 dark:bg-stone-700 mb-3" />
+    <div className="h-3 w-full rounded bg-stone-100 dark:bg-stone-800 mb-2" />
+    <div className="h-3 w-2/3 rounded bg-stone-100 dark:bg-stone-800" />
+    <span className="sr-only">{label}</span>
+  </div>
+);
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
@@ -99,10 +130,12 @@ export default function App() {
         {/* Dynamic Sidebar */}
         <aside className="w-full md:w-64 flex-shrink-0 space-y-6">
           {isAdoption && <AdoptionFilterSidebar />}
-          <DailyCareTips />
-          <ReminderService />
-          <WeeklyPetDigest />
-          <PetHealthJournal />
+          <Suspense fallback={<ViewFallback label={t('Loading care tools', '正在加载护理工具')} />}>
+            <DailyCareTips />
+            <ReminderService />
+            <WeeklyPetDigest />
+            <PetHealthJournal />
+          </Suspense>
         </aside>
 
         {/* Primary Screen Area */}
@@ -118,12 +151,16 @@ export default function App() {
                 <p className="text-body text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Browse adorable pets looking for loving homes, and get smart recommendations.', '浏览正在寻找有爱家庭的萌宠宝贝，并获取专属您的 AI 智能推荐。')}</p>
               </div>
               <DailyPetWisdom />
-              <MyAdoptionJourney />
-              <AdoptionStatsDashboard />
-              <SuccessStories />
-              <PetMemoriesGallery />
+              <Suspense fallback={<ViewFallback label={t('Loading your adoption journey', '正在加载领养旅程')} />}>
+                <MyAdoptionJourney />
+                <AdoptionStatsDashboard />
+                <SuccessStories />
+                <PetMemoriesGallery />
+              </Suspense>
               <PetGrid />
-              <RecommendationWidget />
+              <Suspense fallback={<ViewFallback label={t('Loading recommendations', '正在加载推荐')} />}>
+                <RecommendationWidget />
+              </Suspense>
             </div>
           )}
 
@@ -170,14 +207,18 @@ export default function App() {
 
               {/* View Render */}
               <div className="mt-4">
-                {communityTab === 'feed' ? <PostFeed /> : <PetQAFeed />}
+                <Suspense fallback={<ViewFallback label={t('Loading community posts', '正在加载社区内容')} />}>
+                  {communityTab === 'feed' ? <PostFeed /> : <PetQAFeed />}
+                </Suspense>
               </div>
             </div>
           )}
 
           {/* AI HELPER VIEW */}
           {isAiHelper && (
-            <AIHelperView />
+            <Suspense fallback={<ViewFallback label={t('Loading AI assistant', '正在加载 AI 助理')} />}>
+              <AIHelperView />
+            </Suspense>
           )}
 
           {/* MAP & TRACKER VIEW */}
@@ -189,11 +230,13 @@ export default function App() {
                 </h1>
                 <p className="text-body text-stone-500 dark:text-stone-400 mt-1 font-medium">{t('Locate emergency care, vet hospitals, or shelter events on the real-time map, and track pets.', '在实时地图上快速查找急诊中心、宠物医院或救助站，并追踪您的爱宠位置。')}</p>
               </div>
-              <NearbyServicesMap />
-              <div className="border-t dark:border-stone-800 pt-8">
-                <h2 className="text-2xl font-black text-stone-900 dark:text-white mb-4">{t('Real-Time Pet GPS Tracker', '实时宠物智能 GPS 追踪')}</h2>
-                <PetTracker />
-              </div>
+              <Suspense fallback={<ViewFallback label={t('Loading map', '正在加载地图')} />}>
+                <NearbyServicesMap />
+                <div className="border-t dark:border-stone-800 pt-8">
+                  <h2 className="text-2xl font-black text-stone-900 dark:text-white mb-4">{t('Real-Time Pet GPS Tracker', '实时宠物智能 GPS 追踪')}</h2>
+                  <PetTracker />
+                </div>
+              </Suspense>
             </div>
           )}
 
@@ -201,7 +244,11 @@ export default function App() {
       </main>
 
       {/* Floating backup assistant for adoption screen only */}
-      {isAdoption && <AIChatWidget />}
+      {isAdoption && (
+        <Suspense fallback={null}>
+          <AIChatWidget />
+        </Suspense>
+      )}
 
       {/* Back to Top floating action button at bottom-left */}
       {showScrollTop && (

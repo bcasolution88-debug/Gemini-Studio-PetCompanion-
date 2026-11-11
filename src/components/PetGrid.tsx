@@ -261,22 +261,23 @@ export default function PetGrid() {
             value={filters.search || ''}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={t('Search by pet breed, name, or shelter location...', '搜索宠物特定品种 (如金毛、布偶猫)、姓名或救助站位置...')}
-            className="w-full bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-700 rounded-2xl pl-12 pr-10 py-3.5 text-caption focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-stone-500 font-bold shadow-inner"
+            className="w-full bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-700 rounded-2xl pl-12 pr-10 py-3.5 text-caption focus:outline-none focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white placeholder-stone-500 dark:placeholder-stone-500 font-bold shadow-inner"
           />
           <Search className="absolute left-4.5 top-4 h-4.5 w-4.5 text-rose-500" />
           {filters.search && (
             <button
+              aria-label={t('Clear search', '清空搜索')}
               onClick={() => handleSearchChange('')}
               className="absolute right-4 top-4 p-0.5 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors cursor-pointer"
             >
-              <X className="w-4 h-4 text-stone-400 hover:text-stone-600" />
+              <X className="w-4 h-4 text-stone-500 dark:text-stone-400 hover:text-stone-600" />
             </button>
           )}
         </div>
         
         {/* Hot Quick Search Recommendations */}
         <div className="flex flex-wrap items-center gap-2 text-caption">
-          <span className="text-stone-400 dark:text-stone-500 font-bold">{t('Popular searches:', '热门搜索品种/地点：')}</span>
+          <span className="text-stone-500 dark:text-stone-400 font-bold">{t('Popular searches:', '热门搜索品种/地点：')}</span>
           {[
             { label: t('Golden Retriever', '金毛犬 🦮'), value: 'Golden Retriever' },
             { label: t('Ragdoll', '布偶猫 🐈'), value: 'Ragdoll' },
@@ -350,7 +351,7 @@ export default function PetGrid() {
           >
             <ArrowUpDown className="w-3.5 h-3.5 text-rose-500" />
             <span>{t('Sort by:', '排序方式：')} <strong className="text-stone-900 dark:text-white">{sortLabels[sortBy]}</strong></span>
-            <ChevronDown className="w-3.5 h-3.5 ml-1 text-stone-400" />
+            <ChevronDown className="w-3.5 h-3.5 ml-1 text-stone-500 dark:text-stone-400" />
           </button>
           
           {isSortDropdownOpen && (
@@ -366,11 +367,7 @@ export default function PetGrid() {
                       setSortBy(opt);
                       setIsSortDropdownOpen(false);
                     }}
-                    className={`flex items-center justify-between w-full px-3 py-2 text-left text-caption rounded-xl transition-colors cursor-pointer ${
-                      sortBy === opt 
-                        ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400 font-semibold' 
-                        : 'text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/60'
-                    }`}
+                    className={`flex items-center justify-between w-full px-3 py-2 text-left text-caption rounded-xl transition-colors cursor-pointer ${ sortBy === opt ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400 font-semibold' : 'text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/60' }`}
                   >
                     <span>{sortLabels[opt]}</span>
                     {sortBy === opt && <Check className="w-3.5 h-3.5" />}

@@ -141,14 +141,14 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Companion Photo', '上传或拍摄宠物照片')}</label>
+            <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Companion Photo', '上传或拍摄宠物照片')}</label>
             <CameraCapture onCapture={setPhotoBlob} />
-            <p className="text-caption text-stone-400 italic mt-0.5">{t('Note: If no camera photo is captured, a cute fallback placeholder will be set.', '提示：若未通过相机拍照上传，系统将自动分配一张可爱的插图作为头像。')}</p>
+            <p className="text-caption text-stone-500 dark:text-stone-400 italic mt-0.5">{t('Note: If no camera photo is captured, a cute fallback placeholder will be set.', '提示：若未通过相机拍照上传，系统将自动分配一张可爱的插图作为头像。')}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Pet Name', '宠物姓名')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Pet Name', '宠物姓名')}</label>
               <input 
                 type="text" 
                 required
@@ -159,7 +159,7 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
               />
             </div>
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Location', '所在城市')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Location', '所在城市')}</label>
               <input 
                 type="text" 
                 placeholder={t('New York', '纽约 / 北京')} 
@@ -172,7 +172,7 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Species', '宠物类别')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Species', '宠物类别')}</label>
               <select
                 value={species}
                 onChange={(e) => setSpecies(e.target.value as any)}
@@ -185,7 +185,7 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Age Group', '年龄阶段')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Age Group', '年龄阶段')}</label>
               <select
                 value={age}
                 onChange={(e) => setAge(e.target.value as any)}
@@ -199,7 +199,7 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
           </div>
 
           <div className="space-y-1">
-            <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Description', '宠物情况及特点描述')}</label>
+            <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Description', '宠物情况及特点描述')}</label>
             <textarea 
               rows={2}
               placeholder={t('Friendly, loves kids and other cats...', '例：性格亲切温顺，黏人，已驱虫接种疫苗...')} 

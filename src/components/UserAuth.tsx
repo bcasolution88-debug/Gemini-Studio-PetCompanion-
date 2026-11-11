@@ -24,7 +24,7 @@ export default function UserAuth() {
         <div className="flex items-center space-x-2">
           <img src={user.photoURL || ''} alt="User" className="w-8 h-8 rounded-full" />
           <span className="text-body font-medium text-stone-900">{user.displayName}</span>
-          <button onClick={handleSignOut} className="p-2 bg-stone-100 rounded-full hover:bg-stone-200">
+          <button aria-label="Sign out" onClick={handleSignOut} className="p-2 bg-stone-100 rounded-full hover:bg-stone-200">
             <LogOut className="w-5 h-5 text-stone-600" />
           </button>
         </div>

@@ -219,7 +219,7 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                   </div>
                   <div>
                     <h4 className="font-extrabold text-body text-stone-900 dark:text-white">{t('AI Compatibility Matching', 'AI 契合度匹配分值')}</h4>
-                    <p className="text-caption text-stone-400 font-bold uppercase tracking-wider">{t('Cognitive Lifestyle Matcher', '生活作息与环境比对顾问')}</p>
+                    <p className="text-caption text-stone-500 dark:text-stone-400 font-bold uppercase tracking-wider">{t('Cognitive Lifestyle Matcher', '生活作息与环境比对顾问')}</p>
                   </div>
                 </div>
                 {hasAnswers && matchResult && (
@@ -233,7 +233,7 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
               {matchLoading ? (
                 <div className="flex items-center justify-center py-4 gap-2">
                   <div className="w-4 h-4 border-2 border-rose-500 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-caption text-stone-400 font-semibold">{t('Calculating compatibility...', '正在为您精密比对生活作息与环境...')}</span>
+                  <span className="text-caption text-stone-500 dark:text-stone-400 font-semibold">{t('Calculating compatibility...', '正在为您精密比对生活作息与环境...')}</span>
                 </div>
               ) : hasAnswers && matchResult ? (
                 <div className="space-y-2">
@@ -242,7 +242,7 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                       {matchResult.explanation}
                     </p>
                   </div>
-                  <p className="text-caption text-stone-400 text-center font-bold">
+                  <p className="text-caption text-stone-500 dark:text-stone-400 text-center font-bold">
                     💡 {t('Compatibility score calculated from your saved lifestyle preferences.', '以上匹配度由 AI 基于您填写的住房环境、独处时长及精力水平多维评估计算得出。')}
                   </p>
                 </div>
@@ -358,14 +358,14 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                     <button
                       type="button"
                       onClick={() => setShowInquiryForm(false)}
-                      className="text-caption text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 font-bold cursor-pointer"
+                      className="text-caption text-stone-500 dark:text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 font-bold cursor-pointer"
                     >
                       {t('Cancel', '返回/取消')}
                     </button>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Full Name', '您的姓名 (全名)')}</label>
+                      <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider block">{t('Full Name', '您的姓名 (全名)')}</label>
                       <div className="relative">
                         <input
                           type="text"
@@ -375,11 +375,11 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                           placeholder={t('Your Name', '请输入您的姓名')}
                           className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                         />
-                        <User className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                        <User className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Email Address', '电子邮箱')}</label>
+                      <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider block">{t('Email Address', '电子邮箱')}</label>
                       <div className="relative">
                         <input
                           type="email"
@@ -389,13 +389,13 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                           placeholder="email@example.com"
                           className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                         />
-                        <Mail className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                        <Mail className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                       </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Phone Number', '联系电话')}</label>
+                      <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider block">{t('Phone Number', '联系电话')}</label>
                       <div className="relative">
                         <input
                           type="tel"
@@ -404,11 +404,11 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                           placeholder={t('555-0199', '电话号码')}
                           className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                         />
-                        <Phone className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                        <Phone className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-caption font-bold text-stone-400 uppercase tracking-wider block">{t('Inquiry Message', '领养申请理由/寄语')}</label>
+                      <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider block">{t('Inquiry Message', '领养申请理由/寄语')}</label>
                       <div className="relative">
                         <input
                           type="text"
@@ -418,7 +418,7 @@ export default function PetDetailModal({ pet, onClose }: PetDetailModalProps) {
                           placeholder={t('Why do you want to adopt?', '简单说说您想领养它的初衷...')}
                           className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                         />
-                        <MessageSquare className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                        <MessageSquare className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                       </div>
                     </div>
                   </div>

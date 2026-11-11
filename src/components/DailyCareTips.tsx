@@ -624,7 +624,7 @@ export default function DailyCareTips() {
           </div>
           
           {/* Playful mini indicator */}
-          <span className="text-caption font-bold text-stone-400 dark:text-stone-500 bg-stone-50 dark:bg-stone-950/40 px-2 py-0.5 rounded-md">
+          <span className="text-caption font-bold text-stone-500 dark:text-stone-400 bg-stone-50 dark:bg-stone-950/40 px-2 py-0.5 rounded-md">
             {currentIndex + 1} / {TIPS.length}
           </span>
         </div>
@@ -667,11 +667,7 @@ export default function DailyCareTips() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={handleCopy}
-              className={`p-1.5 rounded-lg border transition-colors cursor-pointer flex items-center justify-center ${
-                copied
-                  ? 'bg-emerald-50 border-emerald-200 text-emerald-500 dark:bg-emerald-950/20 dark:border-emerald-900/30'
-                  : 'bg-stone-50 hover:bg-stone-100 border-stone-200/60 dark:bg-stone-800 dark:hover:bg-stone-700 dark:border-stone-700 text-stone-500 dark:text-stone-400'
-              }`}
+              className={`p-1.5 rounded-lg border transition-colors cursor-pointer flex items-center justify-center ${ copied ? 'bg-emerald-50 border-emerald-200 text-emerald-500 dark:bg-emerald-950/20 dark:border-emerald-900/30' : 'bg-stone-50 hover:bg-stone-100 border-stone-200/60 dark:bg-stone-800 dark:hover:bg-stone-700 dark:border-stone-700 text-stone-500 dark:text-stone-400' }`}
               title={t('Copy tip to clipboard', '复制此条指南')}
             >
               {copied ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5" />}
@@ -744,19 +740,20 @@ export default function DailyCareTips() {
                     <h3 className="font-extrabold text-body text-stone-900 dark:text-stone-100 leading-tight">
                       {t('AI Daily Care Infographic Creator', 'AI 爱宠专属科学照料卡片生成器')}
                     </h3>
-                    <span className="text-caption text-stone-400 dark:text-stone-500 font-bold">
+                    <span className="text-caption text-stone-500 dark:text-stone-400 font-bold">
                       {t('Generate and download beautiful poster summaries', '智能一键生成精美、可打印的养宠日程安排卡')}
                     </span>
                   </div>
                 </div>
 
                 <button
+                  aria-label={t('Close', '关闭')}
                   onClick={() => {
                     setIsInfographicModalOpen(false);
                     setGeneratedImage(null);
                     setGenerationError('');
                   }}
-                  className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -796,7 +793,7 @@ export default function DailyCareTips() {
                                 <span className="block text-caption font-black text-stone-900 dark:text-stone-100 truncate">
                                   {pet.name}
                                 </span>
-                                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold truncate">
+                                <span className="block text-caption text-stone-500 dark:text-stone-400 font-bold truncate">
                                   {pet.breed || pet.species}
                                 </span>
                               </div>
@@ -832,7 +829,7 @@ export default function DailyCareTips() {
                               <span className="block text-caption font-extrabold text-stone-800 dark:text-stone-200">
                                 {theme.title}
                               </span>
-                              <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold mt-1">
+                              <span className="block text-caption text-stone-500 dark:text-stone-400 font-bold mt-1">
                                 {theme.desc}
                               </span>
                             </button>
@@ -947,19 +944,20 @@ export default function DailyCareTips() {
                     <h3 className="font-extrabold text-body text-stone-900 dark:text-stone-100 leading-tight">
                       {t('AI Weekly Care Routine Planner', 'AI 萌宠专属一周作息规划生成器')}
                     </h3>
-                    <span className="text-caption text-stone-400 dark:text-stone-500 font-bold">
+                    <span className="text-caption text-stone-500 dark:text-stone-400 font-bold">
                       {t('Generate interactive routine schedule for calendar export', '智能规划专属排班日程，并一键导入到个人系统日历')}
                     </span>
                   </div>
                 </div>
 
                 <button
+                  aria-label={t('Close', '关闭')}
                   onClick={() => {
                     setIsRoutineModalOpen(false);
                     setGeneratedRoutine(null);
                     setRoutineError('');
                   }}
-                  className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -999,7 +997,7 @@ export default function DailyCareTips() {
                                 <span className="block text-caption font-black text-stone-900 dark:text-stone-100 truncate">
                                   {pet.name}
                                 </span>
-                                <span className="block text-caption text-stone-400 dark:text-stone-500 font-bold truncate">
+                                <span className="block text-caption text-stone-500 dark:text-stone-400 font-bold truncate">
                                   {pet.breed || pet.species}
                                 </span>
                               </div>
@@ -1015,7 +1013,7 @@ export default function DailyCareTips() {
                         {t('2. Your Workday Schedule', '2. 主人的日常作息安排')}
                       </label>
                       <select
-                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold focus:outline-none"
+                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold"
                         value={workday}
                         onChange={(e) => setWorkday(e.target.value)}
                       >
@@ -1033,7 +1031,7 @@ export default function DailyCareTips() {
                       </label>
                       <input
                         type="text"
-                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold placeholder-stone-400 focus:outline-none"
+                        className="w-full p-3 bg-stone-50 dark:bg-stone-950/40 border border-stone-200 dark:border-stone-800 rounded-2xl text-caption text-stone-800 dark:text-stone-200 font-bold placeholder-stone-500"
                         placeholder={t('e.g., puppy potty training, recovering itchy skin, sensitive tummy...', '例：幼年随地排便训练、皮肤轻微过敏瘙痒、容易软便拉稀...')}
                         value={customConcerns}
                         onChange={(e) => setCustomConcerns(e.target.value)}

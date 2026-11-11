@@ -157,17 +157,17 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
       <div className="flex items-center justify-between gap-2 px-1">
         <div className="flex items-center gap-1.5">
           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-caption font-black transition-colors ${step >= 1 ? 'bg-rose-500 text-white' : 'bg-stone-200 dark:bg-stone-800 text-stone-500'}`}>1</div>
-          <span className={`text-caption font-bold ${step === 1 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-400'}`}>{t('Contact', '联络信息')}</span>
+          <span className={`text-caption font-bold ${step === 1 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'}`}>{t('Contact', '联络信息')}</span>
         </div>
         <div className="flex-1 h-[2px] bg-stone-200 dark:bg-stone-800 mx-2" />
         <div className="flex items-center gap-1.5">
           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-caption font-black transition-colors ${step >= 2 ? 'bg-rose-500 text-white' : 'bg-stone-200 dark:bg-stone-800 text-stone-500'}`}>2</div>
-          <span className={`text-caption font-bold ${step === 2 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-400'}`}>{t('Environment', '居住与家庭状况')}</span>
+          <span className={`text-caption font-bold ${step === 2 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'}`}>{t('Environment', '居住与家庭状况')}</span>
         </div>
         <div className="flex-1 h-[2px] bg-stone-200 dark:bg-stone-800 mx-2" />
         <div className="flex items-center gap-1.5">
           <div className={`w-5 h-5 rounded-full flex items-center justify-center text-caption font-black transition-colors ${step >= 3 ? 'bg-rose-500 text-white' : 'bg-stone-200 dark:bg-stone-800 text-stone-500'}`}>3</div>
-          <span className={`text-caption font-bold ${step === 3 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-400'}`}>{t('Vetting', '经验与承诺')}</span>
+          <span className={`text-caption font-bold ${step === 3 ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-stone-500 dark:text-stone-400'}`}>{t('Vetting', '经验与承诺')}</span>
         </div>
       </div>
 
@@ -192,7 +192,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Full Name */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Applicant Name', '申请人姓名 *')}
                   </label>
                   <div className="relative">
@@ -204,13 +204,13 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
                       placeholder={t('Enter your full name', '请输入您的真实姓名')}
                       className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-semibold"
                     />
-                    <User className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                    <User className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                   </div>
                 </div>
 
                 {/* Email Address */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Email Address', '电子邮箱 *')}
                   </label>
                   <div className="relative">
@@ -222,14 +222,14 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
                       placeholder="name@example.com"
                       className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-semibold"
                     />
-                    <Mail className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                    <Mail className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                   </div>
                 </div>
               </div>
 
               {/* Phone Number */}
               <div className="space-y-1">
-                <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                   {t('Phone Number', '联系电话 *')}
                 </label>
                 <div className="relative">
@@ -241,7 +241,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
                     placeholder={t('Enter phone number', '请输入手机号码或座机电话')}
                     className="w-full pl-8 pr-3 py-2 text-caption bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none font-semibold"
                   />
-                  <Phone className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                  <Phone className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute left-2.5 top-2.5" />
                 </div>
               </div>
             </motion.div>
@@ -258,7 +258,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Home Type */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Living Environment', '住房类型')}
                   </label>
                   <select
@@ -275,7 +275,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
                 {/* Own or Rent */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Home Ownership', '住房性质')}
                   </label>
                   <div className="flex gap-4 pt-1">
@@ -305,7 +305,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
               {ownOrRent === 'Rent' && (
                 <div className="p-3 bg-rose-500/5 dark:bg-rose-500/10 rounded-xl border border-rose-500/10 space-y-1 animate-fade-in">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Landlord/Family Permission?', '房东及家庭成员是否同意养宠？')}
                   </label>
                   <div className="flex gap-4 pt-0.5">
@@ -334,7 +334,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Household Children */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Are there children in the home?', '家里是否有儿童/幼儿？')}
                   </label>
                   <select
@@ -350,7 +350,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
                 {/* Has Other Pets */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Any other pets at home?', '目前家里是否养了其他宠物？')}
                   </label>
                   <select
@@ -366,7 +366,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
               {hasOtherPets === 'Yes' && (
                 <div className="space-y-1 animate-fade-in">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Details of current pets', '简述现有宠物情况 (品种、年龄、相处状况)')}
                   </label>
                   <input
@@ -392,7 +392,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Experience Level */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Pet Care Experience', '养宠经验水平')}
                   </label>
                   <select
@@ -408,7 +408,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
                 {/* Hours Left Alone */}
                 <div className="space-y-1">
-                  <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                  <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                     {t('Pet alone time per day', '宠物每天独处时长')}
                   </label>
                   <select
@@ -426,7 +426,7 @@ export default function ApplyToAdoptForm({ pet, onCancel, onSuccess }: ApplyToAd
 
               {/* Motivation */}
               <div className="space-y-1">
-                <label className="text-caption font-black text-stone-400 uppercase tracking-wider block">
+                <label className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                   {t('Adoption Motivation & Background', '为什么您是最适合它的领养家庭？')}
                 </label>
                 <textarea

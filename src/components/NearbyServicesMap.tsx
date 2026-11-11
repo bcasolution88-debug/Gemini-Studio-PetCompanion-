@@ -362,7 +362,7 @@ export default function NearbyServicesMap() {
           <p class="text-caption text-stone-600 mb-1">${place.address}</p>
           <div class="flex items-center justify-between text-caption font-semibold pt-1 border-t border-stone-100">
             <span class="text-amber-500 flex items-center">⭐ ${place.rating}</span>
-            <span class="${place.openNow ? 'text-emerald-600' : 'text-stone-400'}">
+            <span class="${place.openNow ? 'text-emerald-600' : 'text-stone-500 dark:text-stone-400'}">
               ${place.openNow ? t('Open Now', '营业中') : t('Closed', '已打烊')}
             </span>
           </div>
@@ -410,7 +410,7 @@ export default function NearbyServicesMap() {
         {/* Left Side: Filter, Search & List */}
         <div className="w-full lg:w-96 flex flex-col space-y-4">
           <div className="relative">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-500 dark:text-stone-400" />
             <input
               type="text"
               placeholder={t('Search by name or address...', '搜索服务名称或地址...')}
@@ -423,7 +423,7 @@ export default function NearbyServicesMap() {
           {/* Location Status & Manual Geocode Form */}
           <div className="bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-3.5 rounded-2xl space-y-2.5 shadow-inner">
             <div className="flex items-center justify-between">
-              <span className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Map Focus Center', '当前地图中心焦点')}</span>
+              <span className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Map Focus Center', '当前地图中心焦点')}</span>
               {locationState === 'success' && (
                 <span className="flex items-center gap-1 text-caption text-emerald-600 dark:text-emerald-400 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -486,7 +486,7 @@ export default function NearbyServicesMap() {
 
           <div className="space-y-2 max-h-[350px] overflow-y-auto pr-1 flex-1 scrollbar-thin">
             {filteredPlaces.length === 0 ? (
-              <div className="text-center py-8 text-stone-400">
+              <div className="text-center py-8 text-stone-500 dark:text-stone-400">
                 <p className="text-body">{t('No services match your search.', '未找到匹配您搜索条件的服务机构。')}</p>
               </div>
             ) : (
@@ -523,11 +523,7 @@ export default function NearbyServicesMap() {
                       </div>
                       <button 
                         onClick={(e) => handleToggleFavorite(place.id, e)}
-                        className={`p-1.5 rounded-full transition-colors cursor-pointer ${
-                          isFavorite 
-                            ? 'text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950' 
-                            : 'text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
-                        }`}
+                        className={`p-1.5 rounded-full transition-colors cursor-pointer ${ isFavorite ? 'text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950' : 'text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800' }`}
                       >
                         <Heart className="w-4 h-4" fill={isFavorite ? 'currentColor' : 'none'} />
                       </button>
@@ -539,10 +535,10 @@ export default function NearbyServicesMap() {
                           <Star className="w-3.5 h-3.5 fill-amber-500 stroke-amber-500 mr-0.5" />
                           {place.rating}
                         </span>
-                        <span className="text-stone-400">|</span>
+                        <span className="text-stone-500 dark:text-stone-400">|</span>
                         <span className="text-stone-500 font-medium">{place.distance} {t('km away', '公里外')}</span>
                       </div>
-                      <span className={`font-semibold ${place.openNow ? 'text-emerald-600' : 'text-stone-400'}`}>
+                      <span className={`font-semibold ${place.openNow ? 'text-emerald-600' : 'text-stone-500 dark:text-stone-400'}`}>
                         {place.openNow ? t('Open Now', '营业中') : t('Closed', '已打烊')}
                       </span>
                     </div>

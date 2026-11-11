@@ -56,7 +56,7 @@ export default function ReminderService() {
         <h2 className="text-xl font-bold text-stone-900 dark:text-white flex items-center">
           <Bell className="w-5 h-5 mr-2 text-rose-500" /> {t('Upcoming Reminders', '重要日程提醒')}
         </h2>
-        <button onClick={() => setIsOpen(true)} className="p-2 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-full hover:bg-rose-200">
+        <button aria-label={t('New reminder', '新建提醒')} onClick={() => setIsOpen(true)} className="p-2 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-full hover:bg-rose-200">
           <Plus className="w-5 h-5" />
         </button>
       </div>

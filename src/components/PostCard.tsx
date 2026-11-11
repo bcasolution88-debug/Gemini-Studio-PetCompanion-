@@ -113,7 +113,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
           </div>
           <div>
             <h4 className="font-bold text-stone-900 dark:text-stone-50">{post.author}</h4>
-            <p className="text-caption text-stone-400 font-semibold">{post.timestamp}</p>
+            <p className="text-caption text-stone-500 dark:text-stone-400 font-semibold">{post.timestamp}</p>
           </div>
         </div>
         <p className="text-stone-700 dark:text-stone-300 mb-6 leading-relaxed text-base whitespace-pre-line">
@@ -128,22 +128,14 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
           <div className="flex items-center space-x-6">
             <button 
               onClick={handleLike}
-              className={`flex items-center transition-colors font-bold text-caption ${
-                post.likedByUser 
-                  ? 'text-rose-500 hover:text-rose-600' 
-                  : 'text-stone-500 hover:text-rose-500 dark:text-stone-400'
-              }`}
+              className={`flex items-center transition-colors font-bold text-caption ${ post.likedByUser ? 'text-rose-500 hover:text-rose-600' : 'text-stone-500 hover:text-rose-500 dark:text-stone-400' }`}
             >
               <Heart className={`w-5 h-5 mr-1.5 transition-transform active:scale-125 ${post.likedByUser ? 'fill-current' : ''}`} />
               <span className="text-body">{post.likes}</span>
             </button>
             <button 
               onClick={() => setShowComments(!showComments)}
-              className={`flex items-center transition-colors font-bold text-caption ${
-                showComments 
-                  ? 'text-orange-500 hover:text-orange-600' 
-                  : 'text-stone-500 hover:text-orange-500 dark:text-stone-400'
-              }`}
+              className={`flex items-center transition-colors font-bold text-caption ${ showComments ? 'text-orange-500 hover:text-orange-600' : 'text-stone-500 hover:text-orange-500 dark:text-stone-400' }`}
             >
               <MessageCircle className="w-5 h-5 mr-1.5" />
               <span className="text-body">{post.comments}</span>
@@ -161,7 +153,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setIsShareMenuOpen(false)} />
                   <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-48 bg-white dark:bg-stone-900 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-800 p-2 z-20 space-y-1 animate-in fade-in slide-in-from-bottom-2 duration-150">
-                    <p className="text-caption font-bold text-stone-400 dark:text-stone-500 px-2.5 py-1.5 uppercase tracking-wider">{t('Share story', '分享故事')}</p>
+                    <p className="text-caption font-bold text-stone-500 dark:text-stone-400 px-2.5 py-1.5 uppercase tracking-wider">{t('Share story', '分享故事')}</p>
                     
                     <button
                       onClick={() => handleSharePlatform('copy')}
@@ -207,11 +199,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
           </div>
           <button 
             onClick={handleSave}
-            className={`flex items-center transition-colors font-bold text-caption ${
-              post.savedByUser 
-                ? 'text-amber-500 hover:text-amber-600' 
-                : 'text-stone-500 hover:text-amber-500 dark:text-stone-400'
-            }`}
+            className={`flex items-center transition-colors font-bold text-caption ${ post.savedByUser ? 'text-amber-500 hover:text-amber-600' : 'text-stone-500 hover:text-amber-500 dark:text-stone-400' }`}
           >
             <Bookmark className={`w-5 h-5 transition-transform active:scale-125 ${post.savedByUser ? 'fill-current' : ''}`} />
             <span className="text-body">{post.saves}</span>
@@ -221,13 +209,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
         {/* Comments section */}
         {showComments && (
           <div className="mt-5 pt-5 border-t border-stone-100 dark:border-stone-700/40 space-y-4">
-            <h5 className="text-caption font-black text-stone-400 uppercase tracking-wider mb-2">
+            <h5 className="text-caption font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">
               {t('Discussion', '深度讨论')} ({comments.length})
             </h5>
             
             {/* Comment List */}
             {comments.length === 0 ? (
-              <p className="text-caption text-stone-400 italic py-2">{t('No comments yet. Start the conversation!', '暂无评论。快来发表您的看法吧！')}</p>
+              <p className="text-caption text-stone-500 dark:text-stone-400 italic py-2">{t('No comments yet. Start the conversation!', '暂无评论。快来发表您的看法吧！')}</p>
             ) : (
               <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                 {comments.map((comment) => (
@@ -238,7 +226,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
                     <div className="min-w-0 flex-1">
                       <div className="flex justify-between items-center">
                         <span className="font-bold text-stone-900 dark:text-stone-100 text-caption">{comment.author}</span>
-                        <span className="text-caption text-stone-400">
+                        <span className="text-caption text-stone-500 dark:text-stone-400">
                           {comment.timestamp === 'Just now' ? t('Just now', '刚刚') : comment.timestamp === '1 hour ago' ? t('1 hour ago', '1 小时前') : comment.timestamp === '45 mins ago' ? t('45 mins ago', '45 分钟前') : comment.timestamp}
                         </span>
                       </div>
@@ -273,6 +261,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onUpdate }) => {
                   className="flex-1 px-3 py-1.5 text-caption bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
                 />
                 <button 
+                  aria-label={t('Post comment', '发表评论')}
                   type="submit" 
                   className="p-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl transition-all active:scale-95 flex items-center justify-center"
                 >

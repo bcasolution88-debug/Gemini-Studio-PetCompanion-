@@ -119,7 +119,7 @@ export default function PetMemoriesGallery() {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 dark:text-stone-400" />
         <input
           type="text"
           placeholder={t('Search memories by date or tag...', '按日期或标签搜索记忆...')}
@@ -138,7 +138,7 @@ export default function PetMemoriesGallery() {
               : t('No results found', '未找到匹配结果')}
           </p>
           {memories.length === 0 && (
-            <p className="text-body text-stone-400">{t('Capture a moment or generate an AI portrait!', '捕捉一个瞬间或生成一张 AI 肖像吧！')}</p>
+            <p className="text-body text-stone-500 dark:text-stone-400">{t('Capture a moment or generate an AI portrait!', '捕捉一个瞬间或生成一张 AI 肖像吧！')}</p>
           )}
         </div>
       ) : (
@@ -157,12 +157,14 @@ export default function PetMemoriesGallery() {
                       <p className="text-white text-caption font-bold truncate">{memory.caption}</p>
                     </div>
                     <button 
+                      aria-label={t('Delete this memory', '删除该回忆')}
                       onClick={() => deleteMemory(memory.id)}
                       className="absolute top-2 right-2 p-1.5 bg-white/20 hover:bg-white/40 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                     <button 
+                      aria-label={t('View full size', '查看大图')}
                       onClick={() => openSlideshow(memory.id)}
                       className="absolute top-2 left-2 p-1.5 bg-black/50 hover:bg-black/70 rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity"
                     >

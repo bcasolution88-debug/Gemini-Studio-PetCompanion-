@@ -52,7 +52,7 @@ export default function AIChatWidget() {
             <h3 className="font-semibold flex items-center">
               <Bot className="w-5 h-5 mr-2" /> Pet Assistant
             </h3>
-            <button onClick={() => setIsOpen(false)}><X className="w-5 h-5" /></button>
+            <button aria-label="Close chat" onClick={() => setIsOpen(false)}><X className="w-5 h-5" /></button>
           </div>
           <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-3">
             {messages.map((m, i) => (
@@ -67,13 +67,13 @@ export default function AIChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask a question..."
-              className="flex-1 p-2 rounded-xl border dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-body focus:outline-none"
+              className="flex-1 p-2 rounded-xl border dark:border-stone-700 bg-stone-50 dark:bg-stone-900 text-body"
             />
-            <button type="submit" className="ml-2 p-2 bg-rose-500 text-white rounded-xl"><Send className="w-4 h-4" /></button>
+            <button aria-label="Send message" type="submit" className="ml-2 p-2 bg-rose-500 text-white rounded-xl"><Send className="w-4 h-4" /></button>
           </form>
         </div>
       ) : (
-        <button onClick={() => setIsOpen(true)} className="p-4 bg-rose-500 text-white rounded-full shadow-lg hover:bg-rose-600 transition-transform hover:scale-105">
+        <button aria-label="Open chat assistant" onClick={() => setIsOpen(true)} className="p-4 bg-rose-500 text-white rounded-full shadow-lg hover:bg-rose-600 transition-transform hover:scale-105">
           <MessageSquare className="w-6 h-6" />
         </button>
       )}

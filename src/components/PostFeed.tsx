@@ -140,7 +140,7 @@ export default function PostFeed() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-2.5 pl-10 text-body bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl focus:ring-2 focus:ring-rose-500/20 text-stone-900 dark:text-white outline-none"
           />
-          <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-400" />
+          <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-500 dark:text-stone-400" />
         </div>
 
         {/* Filter tags buttons */}
@@ -187,7 +187,7 @@ export default function PostFeed() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Author name */}
               <div className="space-y-1.5">
-                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
+                <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Your Name', '您的姓名')}</label>
                 <input
                   type="text"
                   placeholder={t("e.g. Jessica Thompson", "例如：张伟")}
@@ -199,7 +199,7 @@ export default function PostFeed() {
 
               {/* Tag choice */}
               <div className="space-y-1.5">
-                <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Topic Tag', '话题标签')}</label>
+                <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Topic Tag', '话题标签')}</label>
                 <select
                   value={customTag}
                   onChange={(e) => setCustomTag(e.target.value)}
@@ -215,7 +215,7 @@ export default function PostFeed() {
 
             {/* Post content */}
             <div className="space-y-1.5">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider">{t('Story / Thoughts', '故事 / 想法')}</label>
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">{t('Story / Thoughts', '故事 / 想法')}</label>
               <textarea
                 required
                 rows={3}
@@ -228,7 +228,7 @@ export default function PostFeed() {
 
             {/* Photo preset picker */}
             <div className="space-y-1.5">
-              <label className="text-caption font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+              <label className="text-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1">
                 <Image className="w-3.5 h-3.5" /> {t('Select Preset Image (Optional)', '选择预设配图 (可选)')}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -277,7 +277,7 @@ export default function PostFeed() {
         <div className="bg-white dark:bg-stone-800 p-12 text-center rounded-3xl border border-orange-100 dark:border-stone-700/60 shadow-sm">
           <MessageSquare className="w-12 h-12 mx-auto text-stone-300 dark:text-stone-600 mb-2 animate-pulse" />
           <p className="font-extrabold text-stone-800 dark:text-stone-100">{t('No posts found', '暂无相关动态')}</p>
-          <p className="text-caption text-stone-400 max-w-sm mx-auto mt-1">
+          <p className="text-caption text-stone-500 dark:text-stone-400 max-w-sm mx-auto mt-1">
             {t("We couldn't find any posts matching your filters. Create the first one yourself by clicking 'Tell a Story'!", '未找到匹配您筛选条件的动态。点击“发布动态”分享您的第一个精彩瞬间吧！')}
           </p>
         </div>

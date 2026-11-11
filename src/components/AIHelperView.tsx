@@ -414,7 +414,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
             {/* Pet Context Selector */}
             <div className="bg-white dark:bg-stone-800 p-5 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-4">
               <div className="space-y-1">
-                <h4 className="text-caption font-bold uppercase text-stone-400 dark:text-stone-500 tracking-wider">{t('Conversation Context', '对话背景关联')}</h4>
+                <h4 className="text-caption font-bold uppercase text-stone-500 dark:text-stone-400 tracking-wider">{t('Conversation Context', '对话背景关联')}</h4>
                 <p className="text-caption text-stone-500 dark:text-stone-400">{t('Tailor Gemini replies for a specific companion profile.', '通过关联特定宠物档案，让 AI 回答更加精准贴切。')}</p>
               </div>
 
@@ -451,7 +451,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
 
             {/* Quick Presets */}
             <div className="bg-white dark:bg-stone-800 p-5 rounded-3xl border border-stone-100 dark:border-stone-800/80 shadow-sm space-y-3">
-              <h4 className="text-caption font-bold uppercase text-stone-400 dark:text-stone-500 tracking-wider flex items-center gap-1.5">
+              <h4 className="text-caption font-bold uppercase text-stone-500 dark:text-stone-400 tracking-wider flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-rose-500" /> {t('Suggested Topics', '推荐对话主题')}
               </h4>
               <div className="flex flex-col gap-2">
@@ -551,16 +551,14 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                         <div className="absolute right-3 bottom-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-white/90 dark:bg-stone-800/95 py-1 px-1.5 rounded-lg border dark:border-stone-700 shadow-sm">
                           <button
                             onClick={() => handleCopyText(msg.content, i)}
-                            className="p-1 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
+                            className="p-1 text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
                             title="Copy message"
                           >
                             <Copy className="w-3 h-3" />
                           </button>
                           <button
                             onClick={() => handleSpeakText(msg.content, i)}
-                            className={`p-1 transition-colors cursor-pointer ${
-                              speakingIndex === i ? 'text-rose-500 animate-pulse' : 'text-stone-400 hover:text-stone-700 dark:hover:text-stone-200'
-                            }`}
+                            className={`p-1 transition-colors cursor-pointer ${ speakingIndex === i ? 'text-rose-500 animate-pulse' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200' }`}
                             title="Speak message"
                           >
                             <Volume2 className="w-3 h-3" />
@@ -575,7 +573,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                       )}
                     </div>
                     
-                    <span className={`text-caption text-stone-400 block px-2 ${msg.role === 'user' ? 'text-right' : ''}`}>
+                    <span className={`text-caption text-stone-500 dark:text-stone-400 block px-2 ${msg.role === 'user' ? 'text-right' : ''}`}>
                       {msg.timestamp === 'Just now' ? t('Just now', '刚刚') : msg.timestamp}
                     </span>
                   </div>
@@ -612,6 +610,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 className="flex-1 px-4 py-3 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-2xl text-caption sm:text-body focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-stone-900 dark:text-white"
               />
               <button 
+                aria-label={t('Attach a photo for analysis', '上传照片进行分析')}
                 type="button"
                 onClick={() => setShowCamera(true)}
                 className="p-3 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-2xl transition-all cursor-pointer"
@@ -619,6 +618,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 <Camera className="w-4 h-4" />
               </button>
               <button 
+                aria-label={t('Send message', '发送消息')}
                 type="submit"
                 disabled={chatLoading || !chatInput.trim()}
                 className="p-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition-all shadow-sm flex items-center justify-center disabled:opacity-40 cursor-pointer active:scale-95"
@@ -684,7 +684,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 <select
                   value={matchPrefs.age}
                   onChange={(e) => setMatchPrefs(prev => ({ ...prev, age: e.target.value }))}
-                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
                 >
                   <option value="Puppy/Kitten">{t('Puppy/Kitten', '幼年 (幼犬/幼猫)')}</option>
                   <option value="Adult">{t('Adult', '成年')}</option>
@@ -698,7 +698,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 <select
                   value={matchPrefs.energy}
                   onChange={(e) => setMatchPrefs(prev => ({ ...prev, energy: e.target.value }))}
-                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
                 >
                   <option value="Low">{t('Low (Prefers naps & relaxation)', '低 (偏好打盹与安静)')}</option>
                   <option value="Medium">{t('Medium (Requires basic daily strolls)', '中等 (需要每日基础散步)')}</option>
@@ -712,7 +712,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 <select
                   value={matchPrefs.space}
                   onChange={(e) => setMatchPrefs(prev => ({ ...prev, space: e.target.value }))}
-                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
                 >
                   <option value="Apartment">{t('Apartment (Limited size)', '公寓 / 套房 (空间有限)')}</option>
                   <option value="House with Yard">{t('House with fenced yard', '带有围栏小院的独立住宅')}</option>
@@ -726,7 +726,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 <select
                   value={matchPrefs.lifestyle}
                   onChange={(e) => setMatchPrefs(prev => ({ ...prev, lifestyle: e.target.value }))}
-                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                  className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
                 >
                   <option value="Calm">{t('Calm & Quiet (Home relaxation)', '安静闲适 (居家修身养性)')}</option>
                   <option value="Normal">{t('Moderate (Occasional hikes)', '中等强度 (偶尔户外徒步)')}</option>
@@ -867,7 +867,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 required
                 value={nutritionForm.weight}
                 onChange={(e) => setNutritionForm(prev => ({ ...prev, weight: e.target.value }))}
-                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
               />
             </div>
 
@@ -877,7 +877,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
               <select
                 value={nutritionForm.ageGroup}
                 onChange={(e) => setNutritionForm(prev => ({ ...prev, ageGroup: e.target.value }))}
-                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
               >
                 <option value="Puppy/Kitten">{t('Puppy / Kitten (Growth Phase)', '幼年期 (生长发育阶段)')}</option>
                 <option value="Adult">{t('Adult (Maintenance Phase)', '成年期 (基础维持阶段)')}</option>
@@ -891,7 +891,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
               <select
                 value={nutritionForm.activityLevel}
                 onChange={(e) => setNutritionForm(prev => ({ ...prev, activityLevel: e.target.value }))}
-                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
               >
                 <option value="Low">{t('Low / Sedentary', '极低 / 室内不爱运动')}</option>
                 <option value="Normal">{t('Moderate / Companion Strolls', '中等 / 伴随散步')}</option>
@@ -906,7 +906,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
               <select
                 value={nutritionForm.healthFocus}
                 onChange={(e) => setNutritionForm(prev => ({ ...prev, healthFocus: e.target.value }))}
-                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200 focus:outline-none"
+                className="w-full px-3 py-2 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-caption font-semibold text-stone-800 dark:text-stone-200"
               >
                 <option value="Standard wellness">{t('Standard Companion Wellness', '基础全期日常健康调理')}</option>
                 <option value="Weight loss">{t('Weight Management / Calorie Deficit', '体重管理 (科学减脂减重)')}</option>
@@ -964,7 +964,7 @@ Keep the advice highly detailed, bulleted, and structured with clear spacing.`;
                 </div>
               ) : (
                 <div className="text-center py-16 space-y-4 max-w-xs mx-auto">
-                  <div className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-900/60 text-stone-400 flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-900/60 text-stone-500 dark:text-stone-400 flex items-center justify-center mx-auto">
                     <Utensils className="w-5 h-5" />
                   </div>
                   <div>

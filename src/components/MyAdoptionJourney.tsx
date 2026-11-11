@@ -163,7 +163,9 @@ export default function MyAdoptionJourney() {
         localStorage.setItem('adoption_inquiries', JSON.stringify(filteredReal));
         window.dispatchEvent(new CustomEvent('inquiry-submitted'));
       }
-    } catch {}
+    } catch (error) {
+      console.warn('Unable to sync the removed journey with real inquiries:', error);
+    }
 
     if (activeAppId === id) {
       setActiveAppId(updated.length > 0 ? updated[0].id : null);
@@ -213,7 +215,9 @@ export default function MyAdoptionJourney() {
             localStorage.setItem('adoption_inquiries', JSON.stringify(syncedReal));
             window.dispatchEvent(new CustomEvent('inquiry-submitted'));
           }
-        } catch {}
+        } catch (error) {
+          console.warn('Unable to sync the advanced step with real inquiries:', error);
+        }
 
         return updatedApp;
       }
@@ -243,7 +247,9 @@ export default function MyAdoptionJourney() {
         localStorage.setItem('adoption_inquiries', JSON.stringify(syncedReal));
         window.dispatchEvent(new CustomEvent('inquiry-submitted'));
       }
-    } catch {}
+    } catch (error) {
+      console.warn('Unable to reset the simulated journeys in real inquiries:', error);
+    }
   };
 
   const activeApp = journeys.find(j => j.id === activeAppId);

@@ -195,7 +195,9 @@ export default function AdoptionStatsDashboard() {
         const updated = { ...prev, quizCompleted: true };
         try {
           localStorage.setItem('adoption_readiness', JSON.stringify(updated));
-        } catch {}
+        } catch (error) {
+          console.warn('Unable to persist quiz-completed readiness:', error);
+        }
         return updated;
       });
     };
@@ -205,7 +207,9 @@ export default function AdoptionStatsDashboard() {
         const updated = { ...prev, careTipsRead: true };
         try {
           localStorage.setItem('adoption_readiness', JSON.stringify(updated));
-        } catch {}
+        } catch (error) {
+          console.warn('Unable to persist care-tips-read readiness:', error);
+        }
         return updated;
       });
     };

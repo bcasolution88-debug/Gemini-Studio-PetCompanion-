@@ -1,12 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'motion/react';
-import { MOCK_PETS } from '../data/pets';
 import { Pet } from '../types';
 import { PetCard } from './PetCard';
 import PetDetailModal from './PetDetailModal';
 import AddPetModal from './AddPetModal';
-import { ArrowUpDown, Plus, SlidersHorizontal, Check, ChevronDown, Search, X } from 'lucide-react';
+import { ArrowUpDown, Plus, SlidersHorizontal, Check, ChevronDown, Search, X, Cloud, HardDrive, Database } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
+import { usePets, type DataSource } from '../lib/firestoreData';
 
 const CITY_COORDINATES: { [key: string]: { lat: number; lng: number } } = {
   'new york': { lat: 40.7128, lng: -74.0060 },
@@ -51,16 +51,9 @@ export default function PetGrid() {
   const [sortBy, setSortBy] = useState<'newest' | 'youngest' | 'oldest'>('newest');
   const { t } = useLanguage();
 
-
-  // Load pets from local storage with MOCK_PETS fallback
-  const [pets, setPets] = useState<Pet[]>(() => {
-    try {
-      const saved = localStorage.getItem('pet_community_pets');
-      return saved ? JSON.parse(saved) : MOCK_PETS;
-    } catch {
-      return MOCK_PETS;
-    }
-  });
+  // Live Firestore subscription (onSnapshot) with localStorage cache and
+  // bundled seed data as fallbacks, so the grid is never empty.
+  const { items: pets, loading: petsLoading, source: petsSource } = usePets();
 
   // Track filter state dynamically
   const [filters, setFilters] = useState(() => {
@@ -103,12 +96,15 @@ export default function PetGrid() {
     }
   };
 
-  const handlePetAdded = (newPet: Pet) => {
-    setPets((prev) => [newPet, ...prev]);
+  const handlePetAdded = useCallback(() => {
+    // The live `onSnapshot` subscription picks the new document up
+    // automatically - no local list surgery required.
     try {
       window.dispatchEvent(new CustomEvent('pet-list-changed'));
-    } catch (_) {}
-  };
+    } catch (error) {
+      console.warn('Unable to broadcast pet-list-changed:', error);
+    }
+  }, []);
 
   // Label map for the sort selections
   const sortLabels = {
@@ -315,6 +311,35 @@ export default function PetGrid() {
             <Plus className="w-4 h-4" />
             {t('Add New Pet', '登记发布待领养')}
           </button>
+
+          {/* Live data-source indicator: cloud = Firestore, disk = cache, db = seed */}
+          <span
+            title={t(
+              'Data source: Firestore live / local cache / bundled seed',
+              '数据来源：Firestore 实时 / 本地缓存 / 内置示例',
+            )}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border shrink-0 ${
+              petsSource === 'firestore'
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900'
+                : petsSource === 'cache'
+                  ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900'
+                  : 'bg-stone-100 text-stone-600 border-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:border-stone-700'
+            }`}
+          >
+            {petsSource === 'firestore' ? (
+              <Cloud className="w-3.5 h-3.5" />
+            ) : petsSource === 'cache' ? (
+              <HardDrive className="w-3.5 h-3.5" />
+            ) : (
+              <Database className="w-3.5 h-3.5" />
+            )}
+            {petsSource === 'firestore'
+              ? t('Live', '实时')
+              : petsSource === 'cache'
+                ? t('Cached', '缓存')
+                : t('Sample', '示例')}
+            {petsLoading && <span className="animate-pulse">…</span>}
+          </span>
         </div>
 
         {/* Custom Sort Dropdown */}

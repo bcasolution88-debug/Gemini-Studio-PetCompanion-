@@ -3,6 +3,8 @@ import QuestionCard from './QuestionCard';
 import { Question, Answer } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
 import { Toast } from './Toast';
+import { auth } from '../lib/firebase';
+import { usePets, createUrgentRequest } from '../lib/firestoreData';
 import { 
   HelpCircle, Plus, Search, SlidersHorizontal, CheckCircle2, 
   MessageSquare, Users, AlertCircle, RefreshCw, Sparkles 
@@ -35,6 +37,13 @@ const INITIAL_QUESTIONS: Question[] = [
 
 export default function PetQAFeed() {
   const { t } = useLanguage();
+  // The signed-in user's own pets, used to attribute urgent help requests.
+  const { items: allPets } = usePets();
+  const myPets = useMemo(() => {
+    const uid = auth.currentUser?.uid;
+    return uid ? allPets.filter((pet) => pet.ownerId === uid) : [];
+  }, [allPets]);
+
   const [questions, setQuestions] = useState<Question[]>(() => {
     try {
       const saved = localStorage.getItem('pet_community_questions');
@@ -98,28 +107,38 @@ export default function PetQAFeed() {
     }
   };
 
-  // Add the firebase imports and logic
+  // Send an urgent help request. The signed-in user's uid and the selected
+  // pet now come from real application state (previously hardcoded to
+  // 'unknown'), so the request can be attributed and scoped by security rules.
   const handlePingExperts = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!urgentSymptoms.trim()) return;
-    
-    // Add to Firestore
-    try {
-        const { collection, addDoc, serverTimestamp } = await import('firebase/firestore');
-        const { db } = await import('../lib/firebase'); // Need to create this
-        await addDoc(collection(db, 'urgentRequests'), {
-            petId: 'unknown',
-            symptoms: urgentSymptoms,
-            urgency: 'high',
-            userId: 'unknown',
-            timestamp: new Date().toISOString() // serverTimestamp()
-        });
-        addToast(t('Ping sent to nearby experts!', '已向附近专家发出求助！'));
-        setIsUrgentFormOpen(false);
-        setUrgentSymptoms('');
-    } catch (e) {
-        console.error(e);
-        addToast(t('Failed to send ping', '发送求助失败'));
+
+    const user = auth.currentUser;
+    if (!user) {
+      addToast(t('Please sign in to alert nearby experts.', '请先登录后再向附近专家求助。'));
+      return;
+    }
+
+    const pet = myPets[0];
+    if (!pet) {
+      addToast(t('Please register a pet before sending an urgent ping.', '请先登记一只宠物再发送紧急求助。'));
+      return;
+    }
+
+    const createdId = await createUrgentRequest({
+      petId: pet.id,
+      petName: pet.name,
+      symptoms: urgentSymptoms.trim(),
+      urgency: 'high',
+    });
+
+    if (createdId) {
+      addToast(t('Ping sent to nearby experts!', '已向附近专家发出求助！'));
+      setIsUrgentFormOpen(false);
+      setUrgentSymptoms('');
+    } else {
+      addToast(t('Failed to send ping', '发送求助失败'));
     }
   };
 

@@ -2,6 +2,12 @@ import React, { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { LanguageProvider } from './lib/LanguageContext';
+import { installApiAuthInterceptor } from './lib/apiAuth';
+
+// Attach the caller's Firebase ID token to every same-origin /api/* request so
+// the server's AUTH_MODE=required policy can be enabled without touching the
+// 27 individual fetch() call sites.
+installApiAuthInterceptor();
 
 const App = React.lazy(() => import('./App.tsx'));
 

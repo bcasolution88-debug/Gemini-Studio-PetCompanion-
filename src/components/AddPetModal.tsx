@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { db, storage } from '../lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { storage } from '../lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import CameraCapture from './CameraCapture';
 import { Pet } from '../types';
-import { MOCK_PETS } from '../data/pets';
 import { useLanguage } from '../lib/LanguageContext';
 import { isSoundEnabled } from '../lib/utils';
+import { createPet } from '../lib/firestoreData';
 
 interface AddPetModalProps {
   isOpen: boolean;
@@ -31,29 +30,17 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
     let imageUrl = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=400';
     const newPetId = `pet-${Date.now()}`;
 
-    try {
-      if (photoBlob && storage && db) {
-        const storageRef = ref(storage, `pets/${Date.now()}.jpg`);
+    // Upload the photo first (owner-scoped storage path), then create the
+    // Firestore document with an `ownerId` stamp so firestore.rules can
+    // enforce owner-only mutation.
+    if (photoBlob && storage) {
+      try {
+        const storageRef = ref(storage, `pets/${newPetId}.jpg`);
         await uploadBytes(storageRef, photoBlob);
         imageUrl = await getDownloadURL(storageRef);
-
-        await addDoc(collection(db, 'pets'), {
-          id: newPetId,
-          name,
-          species,
-          age,
-          location,
-          imageUrl,
-          description,
-          medicalStatus: 'Fully vaccinated, microchipped.',
-          history: 'Foster care',
-          shelterName: 'Happy Paws Rescue',
-          shelterPhone: '555-0101',
-          createdAt: Date.now()
-        });
+      } catch (err) {
+        console.warn('Photo upload failed, using the placeholder image instead:', err);
       }
-    } catch (err) {
-      console.warn('Firebase save failed or database not fully provisioned. Falling back to local storage:', err);
     }
 
     const newPet: Pet = {
@@ -68,16 +55,37 @@ export default function AddPetModal({ isOpen, onClose, onPetAdded }: AddPetModal
       history: 'Rescued locally, friendly and ready for adoption.',
       shelterName: 'Happy Paws Rescue',
       shelterPhone: '555-0101',
-      createdAt: Date.now()
-    } as any;
+    };
 
-    // Save locally
+    const createdId = await createPet({
+      name: newPet.name,
+      species: newPet.species,
+      age: newPet.age,
+      location: newPet.location,
+      imageUrl,
+      description: newPet.description,
+      medicalStatus: newPet.medicalStatus,
+      history: newPet.history,
+      shelterName: newPet.shelterName,
+      shelterPhone: newPet.shelterPhone,
+    });
+
+    // Mirror into the offline cache so the grid still shows the pet when the
+    // network is unavailable. The live onSnapshot subscription overwrites this
+    // with the authoritative server list as soon as it connects.
     try {
-      const saved = localStorage.getItem('pet_community_pets');
-      const currentPets = saved ? JSON.parse(saved) : MOCK_PETS;
-      localStorage.setItem('pet_community_pets', JSON.stringify([newPet, ...currentPets]));
-    } catch (e) {
-      console.error('LocalStorage save failed:', e);
+      const raw = localStorage.getItem('pet_community_pets');
+      const currentPets: Pet[] = raw ? JSON.parse(raw) : [];
+      localStorage.setItem(
+        'pet_community_pets',
+        JSON.stringify([newPet, ...currentPets.filter((pet) => pet.id !== newPetId)]),
+      );
+    } catch (error) {
+      console.warn('Unable to update the local pet cache:', error);
+    }
+
+    if (!createdId) {
+      console.warn('[AddPetModal] Pet saved locally only - sign in to publish it.');
     }
 
     // Trigger local audio effect for success

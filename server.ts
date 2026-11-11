@@ -4,6 +4,8 @@ import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, GenerateVideosOperation } from "@google/genai";
 import { MOCK_PETS } from "./src/data/pets.js";
+import { apiAuth, createRateLimiter, type AuthMode } from "./server/auth.js";
+import { dailyWisdomStore, todayKey } from "./server/persistence.js";
 
 const __dirname = typeof import.meta !== 'undefined' && import.meta.url
   ? path.dirname(fileURLToPath(import.meta.url))
@@ -120,13 +122,86 @@ function fallbackRecommendations(preferences: any, interactedPets: any) {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
-  
-  app.use(express.json());
+
+  // Port: honour the platform-injected PORT so the app can bind on PaaS hosts
+  // (Railway / Render / Fly / Cloud Run). Falls back to 3000 for local dev.
+  const PORT = Number(process.env.PORT) || 3000;
+
+  app.disable("x-powered-by");
+  app.set("trust proxy", true);
+
+  // Cap the JSON body: the AI routes accept base64 images but nothing larger.
+  app.use(express.json({ limit: "25mb" }));
+
+  // ---------------------------------------------------------------------
+  // API authentication + rate limiting
+  // ---------------------------------------------------------------------
+  // AUTH_MODE=optional (default) identifies callers but lets anonymous
+  // traffic through; AUTH_MODE=required rejects unauthenticated calls to
+  // every /api route except the health probe.
+  const authMode = (process.env.AUTH_MODE as AuthMode) || "optional";
+  const firebaseProjectId =
+    process.env.FIREBASE_PROJECT_ID ||
+    process.env.GOOGLE_CLOUD_PROJECT ||
+    "clean-xyston-v18qq";
+
+  app.use(
+    "/api",
+    apiAuth({
+      projectId: firebaseProjectId,
+      mode: authMode,
+      publicPrefixes: ["/health"],
+    }),
+  );
+
+  // Per-user (signed in) or per-IP (anonymous) sliding window limits.
+  // AI routes are the expensive ones, so they get a tighter budget.
+  const generalLimit = createRateLimiter({ name: "general", windowMs: 60_000, max: 120 });
+  const aiLimit = createRateLimiter({ name: "ai", windowMs: 60_000, max: 30 });
+  app.use("/api", generalLimit);
+
+  const AI_ROUTE_PREFIXES = [
+    "/chat",
+    "/generate-",
+    "/analyze-",
+    "/check-symptoms",
+    "/identify-pet",
+    "/match-",
+    "/calculate-match",
+    "/personalized-recommendations",
+    "/pet-matching-quiz",
+    "/recommendations",
+    "/behavior-tip",
+    "/daily-wisdom",
+    "/expert-search",
+    "/virtual-tour-",
+  ];
+  app.use("/api", (req, res, next) => {
+    if (AI_ROUTE_PREFIXES.some((prefix) => req.path.startsWith(prefix))) {
+      return aiLimit(req, res, next);
+    }
+    next();
+  });
 
   // API routes
   app.get("/api/health", (req, res) => {
-    res.json({ status: "ok" });
+    res.json({
+      status: "ok",
+      authMode,
+      uptimeSeconds: Math.round(process.uptime()),
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  // Reports who the server thinks the caller is - handy for verifying that
+  // the browser is actually sending a Firebase ID token.
+  app.get("/api/whoami", (req, res) => {
+    res.json({
+      authenticated: req.auth?.provider === "firebase",
+      uid: req.auth?.uid ?? null,
+      email: req.auth?.email ?? null,
+      provider: req.auth?.provider ?? "anonymous",
+    });
   });
 
   app.get("/api/geoip", async (req, res) => {
@@ -286,22 +361,58 @@ async function startServer() {
   });
 
   app.get("/api/daily-wisdom", async (req, res) => {
-    // Note: Since I cannot easily use Firebase Admin SDK without adding it,
-    // and the project only has the Web SDK installed (for react),
-    // and the server is running in Node.js,
-    // I will generate the wisdom and *just return it*, without server-side persistence 
-    // for now, until I can properly set up server-side DB access.
-    // Or I can use gemini-api to generate it on the fly.
+    // Server-side persisted daily wisdom: one entry per calendar day, stored on
+    // disk so repeat visits do not re-bill Gemini and every user sees the same
+    // tip of the day. `?refresh=1` forces regeneration.
+    const dateKey = todayKey();
+    const forceRefresh = req.query.refresh === "1";
+
     try {
+      const record = await dailyWisdomStore.read();
+      const cached = record.entries[dateKey];
+
+      if (cached && !forceRefresh) {
+        return res.json({ tip: cached.tip, date: cached.date, source: cached.source, cached: true });
+      }
+
       const response = await generateContentWithFallback({
         contents: [{ role: "user", parts: [{ text: "Generate a unique, encouraging, short tip about pet care for today." }] }],
         config: {
           systemInstruction: "You are a pet expert. Generate a short, encouraging pet care tip.",
         }
       });
-      res.json({ tip: response.text });
+
+      const tip = (response.text || "").trim() || "Remember to give your pet plenty of love and attention today!";
+      const entry = {
+        date: dateKey,
+        tip,
+        source: process.env.GEMINI_MODEL_LABEL || "gemini",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Prune entries older than 60 days so the file stays small.
+      const cutoff = new Date(Date.now() - 60 * 86_400_000).toISOString().slice(0, 10);
+      const entries = Object.fromEntries(
+        Object.entries(record.entries).filter(([key]) => key >= cutoff),
+      );
+      await dailyWisdomStore.write({ entries: { ...entries, [dateKey]: entry } });
+
+      res.json({ tip, date: dateKey, source: entry.source, cached: false });
     } catch (error) {
-      res.json({ tip: "Remember to give your pet plenty of love and attention today!" });
+      console.error("[daily-wisdom] generation or persistence failed:", error);
+      // Fall back to yesterday's stored tip before using the static string.
+      try {
+        const record = await dailyWisdomStore.read();
+        const recent = Object.values(record.entries)
+          .filter((entry) => entry.date <= dateKey)
+          .sort((a, b) => (a.date < b.date ? 1 : -1))[0];
+        if (recent) {
+          return res.json({ tip: recent.tip, date: recent.date, source: recent.source, cached: true });
+        }
+      } catch (readError) {
+        console.error("[daily-wisdom] fallback read failed:", readError);
+      }
+      res.json({ tip: "Remember to give your pet plenty of love and attention today!", cached: false });
     }
   });
 

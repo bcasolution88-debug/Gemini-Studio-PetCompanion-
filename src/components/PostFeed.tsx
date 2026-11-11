@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { MOCK_POSTS } from '../data/posts';
 import { PostCard } from './PostCard';
 import { Post } from '../types';
 import { useLanguage } from '../lib/LanguageContext';
+import { usePosts, createPost } from '../lib/firestoreData';
 import { 
   Plus, Search, SlidersHorizontal, Image, Tag, 
   Sparkles, CheckCircle2, MessageSquare, Heart, Bookmark 
@@ -17,14 +17,19 @@ const PRESET_IMAGES = [
 
 export default function PostFeed() {
   const { t } = useLanguage();
-  const [posts, setPosts] = useState<Post[]>(() => {
-    try {
-      const saved = localStorage.getItem('pet_community_posts');
-      return saved ? JSON.parse(saved) : MOCK_POSTS;
-    } catch {
-      return MOCK_POSTS;
-    }
-  });
+
+  // Live Firestore subscription with cache/seed fallback (replaces the
+  // write-only pattern the audit flagged: posts are now read back).
+  const { items: serverPosts, source: postsSource } = usePosts();
+
+  // Locally-owned interaction state (likes / saves by this visitor). Kept in a
+  // separate map so live server data is never overwritten by optimistic UI.
+  const [localOverrides, setLocalOverrides] = useState<Record<string, Post>>({});
+
+  const posts = useMemo(
+    () => serverPosts.map((post) => localOverrides[post.id] ?? post),
+    [serverPosts, localOverrides],
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('All');
@@ -37,9 +42,15 @@ export default function PostFeed() {
   const [customTag, setCustomTag] = useState('#Tips');
   const [successMsg, setSuccessMsg] = useState(false);
 
+  // Cache the latest snapshot for offline rendering.
   useEffect(() => {
-    localStorage.setItem('pet_community_posts', JSON.stringify(posts));
-  }, [posts]);
+    if (postsSource !== 'firestore') return;
+    try {
+      localStorage.setItem('pet_community_posts', JSON.stringify(serverPosts));
+    } catch (error) {
+      console.warn('Unable to cache posts locally:', error);
+    }
+  }, [serverPosts, postsSource]);
 
   // Available tags in the community feed
   const tags = ['All', '#AdoptionSuccess', '#Tips', '#DailyPet', '#Saved'];
@@ -61,11 +72,13 @@ export default function PostFeed() {
     });
   }, [posts, searchQuery, selectedTag]);
 
+  // Likes/saves live only in this browser - overlay them on the server data
+  // instead of writing back, so a live snapshot can never erase them.
   const handleUpdatePost = (updatedPost: Post) => {
-    setPosts(prev => prev.map(p => p.id === updatedPost.id ? updatedPost : p));
+    setLocalOverrides((prev) => ({ ...prev, [updatedPost.id]: updatedPost }));
   };
 
-  const handleCreatePost = (e: React.FormEvent) => {
+  const handleCreatePost = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!postContent.trim()) return;
 
@@ -77,21 +90,17 @@ export default function PostFeed() {
       finalContent = `${postContent}\n\n${customTag}`;
     }
 
-    const newPost: Post = {
-      id: `post-${Date.now()}`,
+    // Persist to Firestore (owner-stamped) so the post survives reloads and is
+    // visible to everyone via the live onSnapshot subscription.
+    const createdId = await createPost({
       author,
       content: finalContent,
       imageUrl: selectedImageUrl || undefined,
-      likes: 0,
-      comments: 0,
-      shares: 0,
-      saves: 0,
-      timestamp: 'Just now',
-      commentsList: []
-    };
+    });
+    if (!createdId) {
+      console.warn('[PostFeed] Post saved locally only - sign in to publish it.');
+    }
 
-    setPosts([newPost, ...posts]);
-    
     // Play sound feedback
     try {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;

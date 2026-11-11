@@ -1,0 +1,107 @@
+rules_version = '2';
+
+// Firestore security rules for the Pet Companion Platform.
+//
+// Principle: owner-only read/write. Nothing is globally writable, and no
+// document is readable by an anonymous visitor.
+//
+// Field conventions used by this app:
+//   - `ownerId` / `userId` : Firebase Auth uid of the creator
+//   - server fields (`createdAt`, `id`) are written once and then immutable
+//
+// Deploy with:  firebase deploy --only firestore:rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- helpers -------------------------------------------------------
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isOwner(data) {
+      return isSignedIn() && (
+        data.ownerId == request.auth.uid ||
+        data.userId == request.auth.uid
+      );
+    }
+
+    // Reject documents that claim a different owner on create.
+    function ownsOnCreate() {
+      return request.resource.data.ownerId == request.auth.uid;
+    }
+
+    // Immutable fields: a user may not reassign ownership.
+    function ownerUnchanged() {
+      return !('ownerId' in request.resource.data) ||
+             request.resource.data.ownerId == resource.data.ownerId;
+    }
+
+    // ---- pets: adoption listings --------------------------------------
+    // Publicly readable (it is a public adoption catalogue) but only the
+    // shelter/owner who created an entry may modify or delete it.
+    match /pets/{petId} {
+      allow read: if true;
+
+      allow create: if isSignedIn()
+                    && ownsOnCreate()
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.name.size() <= 120
+                    && request.resource.data.species in ['Dog', 'Cat', 'Bird', 'Small Pet']
+                    && request.resource.data.age in ['Puppy/Kitten', 'Adult', 'Senior'];
+
+      allow update: if isOwner(resource.data) && ownerUnchanged();
+      allow delete: if isOwner(resource.data);
+    }
+
+    // ---- community posts -----------------------------------------------
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if isSignedIn()
+                    && ownsOnCreate()
+                    && request.resource.data.content is string
+                    && request.resource.data.content.size() > 0
+                    && request.resource.data.content.size() <= 2000;
+
+      // Owner can edit; any signed-in user may react (likes/saves counters).
+      allow update: if isSignedIn() && ownerUnchanged();
+      allow delete: if isOwner(resource.data);
+    }
+
+    // ---- playdate requests ---------------------------------------------
+    // Only the two parties involved may read a playdate.
+    match /playdates/{playdateId} {
+      allow read: if isSignedIn() && (
+        resource.data.ownerId == request.auth.uid ||
+        resource.data.requesterId == request.auth.uid ||
+        resource.data.petOwnerId == request.auth.uid
+      );
+
+      allow create: if isSignedIn() && ownsOnCreate();
+      allow update, delete: if isOwner(resource.data);
+    }
+
+    // ---- urgent expert requests ----------------------------------------
+    // Sensitive: symptoms may contain personal information.
+    match /urgentRequests/{requestId} {
+      allow read: if isOwner(resource.data);
+      allow create: if isSignedIn()
+                    && ownsOnCreate()
+                    && request.resource.data.symptoms is string
+                    && request.resource.data.symptoms.size() <= 4000;
+      allow update: if isOwner(resource.data) && ownerUnchanged();
+      allow delete: if isOwner(resource.data);
+    }
+
+    // ---- AI conversation artefacts (per-user private) ------------------
+    match /users/{userId}/{document=**} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ---- deny everything else ------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

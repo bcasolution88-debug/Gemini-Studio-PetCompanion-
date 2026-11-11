@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Pet } from '../types';
-import { db } from '../lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { createPlaydate } from '../lib/firestoreData';
 import { Calendar, MapPin, Clock } from 'lucide-react';
 
 interface PlaydatePlannerProps {
@@ -14,22 +13,25 @@ export default function PlaydatePlanner({ pet, onClose }: PlaydatePlannerProps) 
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSchedule = async () => {
     if (!date || !location) return;
     setLoading(true);
+    setError(null);
     try {
-      await addDoc(collection(db, 'playdates'), {
+      const createdId = await createPlaydate({
         petId: pet.id,
+        petName: pet.name,
         date,
         location,
-        notes,
-        status: 'pending',
-        createdAt: new Date().toISOString(),
+        notes: notes.trim() || undefined,
       });
+      if (!createdId) {
+        setError('Please sign in to request a playdate.');
+        return;
+      }
       onClose();
-    } catch (error) {
-      console.error('Error scheduling playdate:', error);
     } finally {
       setLoading(false);
     }
@@ -55,6 +57,9 @@ export default function PlaydatePlanner({ pet, onClose }: PlaydatePlannerProps) 
         </button>
         <button onClick={onClose} className="flex-1 bg-stone-100 p-2 rounded">Cancel</button>
       </div>
+      {error && (
+        <p className="text-xs font-semibold text-rose-600 dark:text-rose-400">{error}</p>
+      )}
     </div>
   );
 }

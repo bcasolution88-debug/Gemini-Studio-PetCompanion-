@@ -19,6 +19,10 @@ export interface Pet {
     intelligence: number;
     energyLevels: number;
   };
+  /** Firebase Auth uid of the shelter/owner that created the listing. */
+  ownerId?: string;
+  /** Epoch milliseconds or a Firestore Timestamp, depending on the source. */
+  createdAt?: number | { seconds: number; nanoseconds: number };
 }
 
 export interface Post {

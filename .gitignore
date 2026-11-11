@@ -9,3 +9,6 @@ coverage/
 
 # UI design spec showcase artifacts
 ui-showcase/**/*.png
+
+# Server-side JSON persistence (runtime data)
+.data/

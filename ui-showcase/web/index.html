@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pet Companion Platform — 全套前后端 UI 设计图</title>
+<meta name="description" content="Pet Companion Platform 全套 UI 设计规格：设计语言、色彩系统、路由地图、43 个组件与全部页面截图。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="brand-dot">🐾</span> PetCompanion <span style="font-weight:500;color:var(--ink-3)">/ UI Spec</span></div>
+    <nav class="topnav">
+      <a href="#overview">概览</a>
+      <a href="#architecture">架构</a>
+      <a href="#tokens">设计语言</a>
+      <a href="#routes">路由地图</a>
+      <a href="#screens">页面设计图</a>
+      <a href="#components">组件库</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">● Design Specification · v1.0</div>
+    <h1>Pet Companion Platform<br /><span class="grad">全套前后端 UI 设计图</span></h1>
+    <p class="lede">
+      基于现有已完成的源代码，完整还原并展示整套界面设计：4 条主路由、14 个功能区、43 个 React 组件、
+      26 个 Gemini AI 接口，覆盖浅色/深色主题、桌面/移动双端与全部关键弹窗流程。
+      所有画面均为真实运行截图，非手绘稿。
+    </p>
+    <div class="metarow">
+      <span class="metapill"><span class="swatch"></span> 主路由 <b>4</b></span>
+      <span class="metapill">React 组件 <b>43</b></span>
+      <span class="metapill">API 端点 <b>26</b></span>
+      <span class="metapill">设计截图 <b>23</b></span>
+      <span class="metapill">代码行数 <b>16,320</b></span>
+      <span class="metapill">主题 <b>浅色 / 深色</b></span>
+      <span class="metapill">语言 <b>中文 / EN</b></span>
+    </div>
+    <div class="metarow" style="margin-top:18px">
+      <span class="metapill" style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">React 19 · TypeScript · Vite 6 · Tailwind CSS 4 · Express 4 · Gemini 2.5/3.x</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 00 OVERVIEW ============ -->
+<section class="block" id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">00</span>
+      <h2>产品概览</h2>
+      <p class="desc">一个以「领养 + 陪伴」为核心的宠物综合平台，将 AI 能力贯穿于匹配、健康、行为与社区问答全链路。</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:16px">
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">💗</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">智能领养</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          宠物卡片网格、多维筛选、AI 适配度评分、领养旅程追踪、准备清单、成果传单生成与成长时间轴。
+        </p>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">💬</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">社区与专家</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          动态信息流（点赞/评论/收藏/分享）、带真实文献引用的专家问答、话题标签与发布器。
+        </p>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">🤖</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">AI 助手</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          对话式问诊、症状自检、品种智能匹配、科学膳食规划三合一，支持语音播报与上下文关联。
+        </p>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">🗺️</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">地图与追踪</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          周边诊所/用品店地图检索、实时 GPS 追踪、地理安全围栏、紧急求助与追踪器指令面板。
+        </p>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">📓</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">健康日志</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          体重趋势、情绪标签、活动记录、AI 健康洞察、照护routine与成就徽章等级系统。
+        </p>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="font-size:22px;margin-bottom:10px">🌏</div>
+        <b style="font-size:14.5px;font-weight:850;letter-spacing:-.01em">国际化 / 主题</b>
+        <p style="font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:7px 0 0">
+          中文 / English 实时切换（Context + 事件广播）、浅色/深色主题持久化、微交互动效音效开关。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 ARCHITECTURE ============ -->
+<section class="block" id="architecture">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>前后端架构</h2>
+      <p class="desc">单仓全栈：Vite 中间件挂载在 Express 上，同一端口同时提供 SPA 与 API；AI 调用带多模型降级与离线兜底。</p>
+    </div>
+
+    <div class="arch">
+      <div class="card arch-card">
+        <h3><span class="ic">🧱</span> 技术栈分层</h3>
+        <div class="stacklist">
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> React 19 + TypeScript <span class="tag">UI 层</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--orange)"></span> Tailwind CSS 4 + Motion <span class="tag">样式 / 动效</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--violet)"></span> Recharts · D3 · Leaflet <span class="tag">可视化</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--indigo)"></span> Express 4 + Vite Middleware <span class="tag">服务层</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--teal)"></span> @google/genai (Gemini) <span class="tag">AI 层</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--amber)"></span> Firebase Auth · jsPDF <span class="tag">认证 / 导出</span></div>
+          <div class="stackitem"><span class="dot" style="background:#a8a29e"></span> localStorage（离线持久化） <span class="tag">数据</span></div>
+        </div>
+      </div>
+
+      <div class="card arch-card">
+        <h3><span class="ic">⚙️</span> AI 请求链路</h3>
+        <div style="font-size:12.5px;line-height:1.75;color:var(--ink-2)">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="stackitem" style="background:rgba(99,102,241,.07)"><span class="dot" style="background:var(--indigo)"></span> 1 · 前端 fetch <span class="tag">POST</span></div>
+            <div class="stackitem" style="background:rgba(99,102,241,.07)"><span class="dot" style="background:var(--indigo)"></span> 2 · Express 路由校验入参 <span class="tag">JSON</span></div>
+            <div class="stackitem" style="background:rgba(99,102,241,.07)"><span class="dot" style="background:var(--indigo)"></span> 3 · generateContentWithFallback <span class="tag">4 模型降级</span></div>
+            <div class="stackitem" style="background:rgba(16,185,129,.07)"><span class="dot" style="background:var(--emerald)"></span> 4 · 规则引擎兜底响应 <span class="tag">离线可用</span></div>
+          </div>
+          <p style="margin:12px 0 0;font-size:11.5px;color:var(--ink-3);line-height:1.6">
+            模型顺序：<code style="font-family:var(--mono);font-size:10.5px">gemini-3.5-flash → gemini-3.1-flash-lite → gemini-flash-latest → gemini-3.1-pro-preview</code>，
+            任一失败自动切换；全部失败时返回本地规则化文案，保证 UI 永不空白。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card arch-card" style="margin-top:16px">
+      <h3><span class="ic">🔌</span> API 端点清单（26）</h3>
+      <div class="apilist">
+        <div class="apipill"><span class="m post">POST</span> /api/chat</div>
+        <div class="apipill"><span class="m get">GET</span> /api/health</div>
+        <div class="apipill"><span class="m get">GET</span> /api/geoip</div>
+        <div class="apipill"><span class="m post">POST</span> /api/expert-search</div>
+        <div class="apipill"><span class="m post">POST</span> /api/recommendations</div>
+        <div class="apipill"><span class="m get">GET</span> /api/daily-wisdom</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-caption</div>
+        <div class="apipill"><span class="m post">POST</span> /api/match-breed</div>
+        <div class="apipill"><span class="m post">POST</span> /api/pet-matching-quiz</div>
+        <div class="apipill"><span class="m post">POST</span> /api/analyze-behavior</div>
+        <div class="apipill"><span class="m post">POST</span> /api/check-symptoms</div>
+        <div class="apipill"><span class="m post">POST</span> /api/identify-pet</div>
+        <div class="apipill"><span class="m post">POST</span> /api/behavior-tip</div>
+        <div class="apipill"><span class="m post">POST</span> /api/match-score</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-insights</div>
+        <div class="apipill"><span class="m post">POST</span> /api/personalized-recommendations</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-avatar</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-care-infographic</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-virtual-tour</div>
+        <div class="apipill"><span class="m post">POST</span> /api/virtual-tour-status</div>
+        <div class="apipill"><span class="m get">GET</span> /api/virtual-tour-download</div>
+        <div class="apipill"><span class="m post">POST</span> /api/analyze-vision</div>
+        <div class="apipill"><span class="m post">POST</span> /api/calculate-match</div>
+        <div class="apipill"><span class="m post">POST</span> /api/generate-routine</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 DESIGN TOKENS ============ -->
+<section class="block" id="tokens">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>设计语言与 Token</h2>
+      <p class="desc">从源码中的 Tailwind 类名反向统计得出：暖石色（stone）为基底，玫瑰红（rose）为主强调色，五色体系承担语义分区。</p>
+    </div>
+
+    <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);font-weight:800;margin:0 0 14px">色彩系统 · 语义分区</h3>
+    <div class="palette" style="margin-bottom:30px">
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#f43f5e,#e11d48)"><span>ROSE 500</span></div>
+        <div class="sw-meta"><b>主强调 · 领养</b><small>613 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#f97316,#ea580c)"><span>ORANGE 500</span></div>
+        <div class="sw-meta"><b>渐变辅助</b><small>88 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><span>INDIGO 500</span></div>
+        <div class="sw-meta"><b>AI / 智能</b><small>242 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#10b981,#059669)"><span>EMERALD 500</span></div>
+        <div class="sw-meta"><b>健康 / 成功</b><small>184 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><span>AMBER 500</span></div>
+        <div class="sw-meta"><b>提醒 / 警示</b><small>133 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><span>VIOLET 500</span></div>
+        <div class="sw-meta"><b>专家 / 问答</b><small>130 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#14b8a6,#0d9488)"><span>TEAL 500</span></div>
+        <div class="sw-meta"><b>地图 / 追踪</b><small>39 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#78716c,#57534e)"><span>STONE 500</span></div>
+        <div class="sw-meta"><b>中性文字</b><small>2,731 次引用</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#fafaf9,#e7e5e4)"><span style="color:#78716c">STONE 50</span></div>
+        <div class="sw-meta"><b>浅色背景</b><small>bg-stone-50</small></div>
+      </div>
+      <div class="sw-card">
+        <div class="sw-color" style="background:linear-gradient(135deg,#1c1917,#0c0a09)"><span>STONE 950</span></div>
+        <div class="sw-meta"><b>深色背景</b><small>dark:bg-stone-950</small></div>
+      </div>
+    </div>
+
+    <div class="token-grid" style="margin-bottom:16px">
+      <div class="card token-card">
+        <h4>字体层级 · Type Scale</h4>
+        <div class="type-row">
+          <span class="sample" style="font-size:30px;font-weight:900">寻找您的新伴侣</span>
+          <span class="spec">30px / 900 · h1</span>
+        </div>
+        <div class="type-row">
+          <span class="sample" style="font-size:21px;font-weight:850">社区互助分享中心</span>
+          <span class="spec">21px / 850 · h2</span>
+        </div>
+        <div class="type-row">
+          <span class="sample" style="font-size:15px;font-weight:800">我的领养成就旅程</span>
+          <span class="spec">15px / 800 · h3</span>
+        </div>
+        <div class="type-row">
+          <span class="sample" style="font-size:13px;font-weight:600">正文：浏览正在寻找有爱家庭的萌宠宝贝</span>
+          <span class="spec">13px / 600 · body</span>
+        </div>
+        <div class="type-row">
+          <span class="sample" style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">SECTION LABEL</span>
+          <span class="spec">11px / 800 · label</span>
+        </div>
+        <div class="type-row">
+          <span class="sample" style="font-family:var(--mono);font-size:11px;font-weight:700">/api/generate-routine</span>
+          <span class="spec">11px · mono</span>
+        </div>
+      </div>
+
+      <div class="card token-card">
+        <h4>圆角 · Radius（4 级）</h4>
+        <div class="radius-demo" style="margin-bottom:16px">
+          <div style="border-radius:6px">6px</div>
+          <div style="border-radius:12px">12px</div>
+          <div style="border-radius:18px">18px</div>
+          <div style="border-radius:24px">24px</div>
+        </div>
+        <h4 style="margin-top:18px">阴影 · Elevation</h4>
+        <div class="shadow-demo">
+          <div style="box-shadow:var(--sh-sm)">sm</div>
+          <div style="box-shadow:var(--sh-md)">md</div>
+          <div style="box-shadow:var(--sh-lg)">lg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="token-grid">
+      <div class="card token-card">
+        <h4>动效 · Motion</h4>
+        <div class="motion-list">
+          <div class="motion-item"><span class="bar" style="width:88px"></span> transition-all <span class="n">175×</span></div>
+          <div class="motion-item"><span class="bar" style="width:58px"></span> transition-colors <span class="n">77×</span></div>
+          <div class="motion-item"><span class="bar" style="width:30px"></span> animate-pulse <span class="n">67×</span></div>
+          <div class="motion-item"><span class="bar" style="width:20px"></span> animate-fade-in <span class="n">34×</span></div>
+          <div class="motion-item"><span class="bar" style="width:14px"></span> animate-spin <span class="n">22×</span></div>
+          <div class="motion-item"><span class="bar" style="width:10px"></span> animate-bounce <span class="n">13×</span></div>
+        </div>
+        <p style="font-size:11.5px;color:var(--ink-3);line-height:1.6;margin:14px 0 0">
+          入场统一 200–300ms fade-in；卡片 hover 上浮 2–3px 并加深阴影；交互动效配合 WebAudio 微音效（可静音）。
+        </p>
+      </div>
+
+      <div class="card token-card">
+        <h4>响应式断点 · Breakpoints</h4>
+        <div class="stacklist">
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> sm: ≥ 640px <span class="tag">70 处</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--indigo)"></span> md: ≥ 768px <span class="tag">39 处</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--emerald)"></span> lg: ≥ 1024px <span class="tag">42 处</span></div>
+        </div>
+        <p style="font-size:11.5px;color:var(--ink-3);line-height:1.6;margin:14px 0 0">
+          布局策略：桌面为「侧栏 264px + 主内容 flex-1」两栏；移动端侧栏下移堆叠，导航折叠为汉堡菜单。
+        </p>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <div style="flex:1;height:34px;border-radius:8px;background:var(--paper-3);border:1px dashed var(--line);display:grid;place-items:center;font-size:10px;font-family:var(--mono);color:var(--ink-3);font-weight:700">mobile 390</div>
+          <div style="flex:2;height:34px;border-radius:8px;background:var(--paper-3);border:1px dashed var(--line);display:grid;place-items:center;font-size:10px;font-family:var(--mono);color:var(--ink-3);font-weight:700">tablet 768</div>
+          <div style="flex:3;height:34px;border-radius:8px;background:var(--paper-3);border:1px dashed var(--line);display:grid;place-items:center;font-size:10px;font-family:var(--mono);color:var(--ink-3);font-weight:700">desktop 1440</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 ROUTE MAP ============ -->
+<section class="block" id="routes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>路由与信息架构</h2>
+      <p class="desc">基于 History API 的轻量路由（无 react-router），四个主视图共享同一 Navbar 与动态侧栏。</p>
+    </div>
+    <div class="routemap">
+      <a class="route-card" href="#s-adoption">
+        <span class="stripe" style="background:var(--rose)"></span>
+        <div class="path">/adoption</div>
+        <b>宠物领养</b>
+        <small>默认路由 · 卡片网格 / 筛选 / 匹配 / 旅程 / 统计</small>
+      </a>
+      <a class="route-card" href="#s-community">
+        <span class="stripe" style="background:var(--orange)"></span>
+        <div class="path">/community</div>
+        <b>社区互动</b>
+        <small>双子标签 · 动态信息流 / 专家问答</small>
+      </a>
+      <a class="route-card" href="#s-ai">
+        <span class="stripe" style="background:var(--indigo)"></span>
+        <div class="path">/ai-helper</div>
+        <b>AI 助手</b>
+        <small>三段式 · 问诊 / 匹配 / 膳食规划</small>
+      </a>
+      <a class="route-card" href="#s-map">
+        <span class="stripe" style="background:var(--teal)"></span>
+        <div class="path">/map</div>
+        <b>地图与追踪</b>
+        <small>诊所检索地图 + 实时 GPS 追踪</small>
+      </a>
+    </div>
+
+    <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);font-weight:800;margin:32px 0 14px">页面内功能区（14）</h3>
+    <div class="grid-4">
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">领养旅程</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">五步进度 + 模拟时间线</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">数据看板</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">Recharts 折线 + 准备度</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">成功故事</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">横向卡片 + 物种筛选</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">回忆画廊</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">时间线照片墙</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">美景轮播</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">宠物卡片网格</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">智能推荐</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">AI 匹配理由卡片</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">每日智慧</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">Gemini 行为小贴士</small></div>
+      <div class="card" style="padding:14px 16px"><b style="font-size:12.5px;display:block">照护 Mini 卡</b><small style="font-size:11px;color:var(--ink-3);line-height:1.5">侧栏三段式卡组</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 SCREEN GALLERY ============ -->
+<section class="block" id="screens">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>全部页面设计图</h2>
+      <p class="desc">共 23 张真实运行截图：4 条主路由 × 浅色/深色 + 移动端，以及 8 个关键弹窗与交互状态。点击任意截图可放大查看。</p>
+    </div>
+
+    <!-- ---------- 4.1 ADOPTION ---------- -->
+    <div class="screen-block" id="s-adoption">
+      <div class="sb-head">
+        <div class="sb-badge">01</div>
+        <div>
+          <h3>宠物领养 <span style="font-weight:500;color:var(--ink-3);font-size:14px">/ Adoption</span></h3>
+          <div class="sub" style="font-family:var(--mono);font-size:11px">GET /adoption · 默认路由</div>
+        </div>
+        <div class="feats">
+          <span class="feat-tag">筛选侧栏</span>
+          <span class="feat-tag">卡片网格</span>
+          <span class="feat-tag">领养旅程</span>
+          <span class="feat-tag">数据看板</span>
+          <span class="feat-tag">AI 推荐</span>
+        </div>
+      </div>
+
+      <div class="shots two">
+        <div class="shot" data-src="img/01-adoption-light-desktop.jpg" data-cap="领养主页 · 浅色 · 桌面 1440px">
+          <div class="zoom">⤢</div>
+          <img src="img/01-adoption-light-desktop.jpg" alt="宠物领养主页 浅色桌面" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 领养主页 · 浅色 <span class="mode">1440 × 5735</span></div>
+        </div>
+        <div class="shot" data-src="img/01-adoption-dark-desktop.jpg" data-cap="领养主页 · 深色 · 桌面 1440px">
+          <div class="zoom">⤢</div>
+          <img src="img/01-adoption-dark-desktop.jpg" alt="宠物领养主页 深色桌面" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> 领养主页 · 深色 <span class="mode">1440 × 5735</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <div class="shots mob">
+          <div class="phone" data-src="img/01-adoption-light-mobile.jpg" data-cap="领养主页 · 移动端 390px">
+            <div class="zoom">⤢</div>
+            <img src="img/01-adoption-light-mobile.jpg" alt="宠物领养 移动端" loading="lazy" />
+            <div class="cap">移动端 · 浅色 <span class="long">长图</span></div>
+          </div>
+          <div class="phone" data-src="img/01-adoption-dark-mobile.jpg" data-cap="领养主页 · 移动端 深色">
+            <div class="zoom">⤢</div>
+            <img src="img/01-adoption-dark-mobile.jpg" alt="宠物领养 移动端 深色" loading="lazy" />
+            <div class="cap">移动端 · 深色 <span class="long">长图</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:18px">
+        <div class="card" style="padding:16px 18px">
+          <b style="font-size:12.5px;display:block;margin-bottom:6px">① 动态侧栏 264px</b>
+          <small style="font-size:11.5px;color:var(--ink-3);line-height:1.6">筛选器 → 每日照护 → 日程提醒 → 每周摘要 → 健康日志，按路由条件渲染。</small>
+        </div>
+        <div class="card" style="padding:16px 18px">
+          <b style="font-size:12.5px;display:block;margin-bottom:6px">② 主内容瀑布流</b>
+          <small style="font-size:11.5px;color:var(--ink-3);line-height:1.6">每日智慧 → 旅程 → 看板 → 故事 → 画廊 → 网格 → 推荐，8 个功能区块纵向堆叠。</small>
+        </div>
+        <div class="card" style="padding:16px 18px">
+          <b style="font-size:12.5px;display:block;margin-bottom:6px">③ 双悬浮按钮</b>
+          <small style="font-size:11.5px;color:var(--ink-3);line-height:1.6">右下 AI 聊天挂件（仅领养页）+ 左下返回顶部（滚动 &gt; 300px 出现）。</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 4.2 COMMUNITY ---------- -->
+    <div class="screen-block" id="s-community">
+      <div class="sb-head">
+        <div class="sb-badge" style="background:linear-gradient(135deg,#f97316,#f43f5e)">02</div>
+        <div>
+          <h3>社区互动 <span style="font-weight:500;color:var(--ink-3);font-size:14px">/ Community</span></h3>
+          <div class="sub" style="font-family:var(--mono);font-size:11px">GET /community · 双子标签切换</div>
+        </div>
+        <div class="feats">
+          <span class="feat-tag">动态信息流</span>
+          <span class="feat-tag">专家问答</span>
+          <span class="feat-tag">话题筛选</span>
+          <span class="feat-tag">文献引用</span>
+        </div>
+      </div>
+
+      <div class="shots two">
+        <div class="shot" data-src="img/02-community-feed-light-desktop.jpg" data-cap="社区热点动态 · 浅色">
+          <div class="zoom">⤢</div>
+          <img src="img/02-community-feed-light-desktop.jpg" alt="社区动态 浅色" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 热点动态 · 浅色 <span class="mode">Tab 1</span></div>
+        </div>
+        <div class="shot" data-src="img/02-community-feed-dark-desktop.jpg" data-cap="社区热点动态 · 深色">
+          <div class="zoom">⤢</div>
+          <img src="img/02-community-feed-dark-desktop.jpg" alt="社区动态 深色" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> 热点动态 · 深色 <span class="mode">Tab 1</span></div>
+        </div>
+      </div>
+
+      <div class="shots two" style="margin-top:16px">
+        <div class="shot" data-src="img/03-community-qa-light-desktop.jpg" data-cap="专家在线问答 · 浅色（带 AI 语义检索）">
+          <div class="zoom">⤢</div>
+          <img src="img/03-community-qa-light-desktop.jpg" alt="专家问答 浅色" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 专家问答 · 浅色 <span class="mode">Tab 2</span></div>
+        </div>
+        <div class="shot" data-src="img/03-community-qa-dark-desktop.jpg" data-cap="专家在线问答 · 深色（带 AI 语义检索）">
+          <div class="zoom">⤢</div>
+          <img src="img/03-community-qa-dark-desktop.jpg" alt="专家问答 深色" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> 专家问答 · 深色 <span class="mode">Tab 2</span></div>
+        </div>
+      </div>
+
+      <div class="shots mob" style="margin-top:16px">
+        <div class="phone" data-src="img/02-community-feed-light-mobile.jpg" data-cap="社区动态 · 移动端 390px">
+            <div class="zoom">⤢</div>
+          <img src="img/02-community-feed-light-mobile.jpg" alt="社区 移动端" loading="lazy" />
+          <div class="cap">移动端 · 浅色 <span class="long">长图</span></div>
+        </div>
+        <div class="phone" data-src="img/02-community-feed-dark-mobile.jpg" data-cap="社区动态 · 移动端 深色">
+            <div class="zoom">⤢</div>
+          <img src="img/02-community-feed-dark-mobile.jpg" alt="社区 移动端 深色" loading="lazy" />
+          <div class="cap">移动端 · 深色 <span class="long">长图</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 4.3 AI HELPER ---------- -->
+    <div class="screen-block" id="s-ai">
+      <div class="sb-head">
+        <div class="sb-badge" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">03</div>
+        <div>
+          <h3>AI 宠物助手 <span style="font-weight:500;color:var(--ink-3);font-size:14px">/ AI Helper</span></h3>
+          <div class="sub" style="font-family:var(--mono);font-size:11px">GET /ai-helper · 三标签工作台</div>
+        </div>
+        <div class="feats">
+          <span class="feat-tag">对话问诊</span>
+          <span class="feat-tag">症状自检</span>
+          <span class="feat-tag">品种匹配</span>
+          <span class="feat-tag">膳食规划</span>
+        </div>
+      </div>
+
+      <div class="shots two">
+        <div class="shot" data-src="img/04-ai-helper-light-desktop.jpg" data-cap="AI 助手工作台 · 浅色">
+          <div class="zoom">⤢</div>
+          <img src="img/04-ai-helper-light-desktop.jpg" alt="AI助手 浅色" loading="lazy" />
+          <div class="cap"><span class="led light"></span> AI 助手 · 浅色 <span class="mode">1440 × 1322</span></div>
+        </div>
+        <div class="shot" data-src="img/04-ai-helper-dark-desktop.jpg" data-cap="AI 助手工作台 · 深色">
+          <div class="zoom">⤢</div>
+          <img src="img/04-ai-helper-dark-desktop.jpg" alt="AI助手 深色" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> AI 助手 · 深色 <span class="mode">1440 × 1322</span></div>
+        </div>
+      </div>
+
+      <div class="shots one" style="margin-top:16px">
+        <div class="shot" data-src="img/11-ai-helper-chat-conversation.jpg" data-cap="AI 对话进行中 · 用户提问与流式回答气泡">
+          <div class="zoom">⤢</div>
+          <img src="img/11-ai-helper-chat-conversation.jpg" alt="AI 对话进行中" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 对话进行中 · 上下文关联状态 <span class="mode">交互态</span></div>
+        </div>
+      </div>
+
+      <div class="shots mob" style="margin-top:16px">
+        <div class="phone" data-src="img/04-ai-helper-light-mobile.jpg" data-cap="AI 助手 · 移动端">
+            <div class="zoom">⤢</div>
+          <img src="img/04-ai-helper-light-mobile.jpg" alt="AI助手 移动端" loading="lazy" />
+          <div class="cap">移动端 · 浅色 <span class="long">长图</span></div>
+        </div>
+        <div class="phone" data-src="img/04-ai-helper-dark-mobile.jpg" data-cap="AI 助手 · 移动端 深色">
+            <div class="zoom">⤢</div>
+          <img src="img/04-ai-helper-dark-mobile.jpg" alt="AI助手 移动端 深色" loading="lazy" />
+          <div class="cap">移动端 · 深色 <span class="long">长图</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 4.4 MAP ---------- -->
+    <div class="screen-block" id="s-map">
+      <div class="sb-head">
+        <div class="sb-badge" style="background:linear-gradient(135deg,#14b8a6,#10b981)">04</div>
+        <div>
+          <h3>地图查找与追踪 <span style="font-weight:500;color:var(--ink-3);font-size:14px">/ Map</span></h3>
+          <div class="sub" style="font-family:var(--mono);font-size:11px">GET /map · Leaflet + 实时追踪</div>
+        </div>
+        <div class="feats">
+          <span class="feat-tag">诊所地图</span>
+          <span class="feat-tag">GPS 追踪</span>
+          <span class="feat-tag">安全围栏</span>
+          <span class="feat-tag">紧急求助</span>
+        </div>
+      </div>
+
+      <div class="shots two">
+        <div class="shot" data-src="img/05-map-tracking-light-desktop.jpg" data-cap="诊所检索 + GPS 追踪 · 浅色">
+          <div class="zoom">⤢</div>
+          <img src="img/05-map-tracking-light-desktop.jpg" alt="地图追踪 浅色" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 地图与追踪 · 浅色 <span class="mode">1440 × 1984</span></div>
+        </div>
+        <div class="shot" data-src="img/05-map-tracking-dark-desktop.jpg" data-cap="诊所检索 + GPS 追踪 · 深色">
+          <div class="zoom">⤢</div>
+          <img src="img/05-map-tracking-dark-desktop.jpg" alt="地图追踪 深色" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> 地图与追踪 · 深色 <span class="mode">1440 × 1984</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 4.5 MODALS ---------- -->
+    <div class="screen-block" id="s-modals">
+      <div class="sb-head">
+        <div class="sb-badge" style="background:linear-gradient(135deg,#57534e,#1c1917)">05</div>
+        <div>
+          <h3>弹窗与关键流程 <span style="font-weight:500;color:var(--ink-3);font-size:14px">/ Modals</span></h3>
+          <div class="sub" style="font-family:var(--mono);font-size:11px">7 个核心弹窗 · 双主题覆盖</div>
+        </div>
+        <div class="feats">
+          <span class="feat-tag">宠物详情</span>
+          <span class="feat-tag">领养申请</span>
+          <span class="feat-tag">发布宠物</span>
+          <span class="feat-tag">登录</span>
+          <span class="feat-tag">匹配测评</span>
+        </div>
+      </div>
+
+      <div class="shots two">
+        <div class="shot crop" data-src="img/06-modal-pet-detail-light.jpg" data-cap="宠物详情弹窗 · 浅色：雷达图 + AI 匹配度">
+          <div class="zoom">⤢</div>
+          <img src="img/06-modal-pet-detail-light.jpg" alt="宠物详情弹窗" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 宠物详情 · 浅色 <span class="mode">Modal</span></div>
+        </div>
+        <div class="shot crop" data-src="img/08-modal-pet-detail-dark.jpg" data-cap="宠物详情弹窗 · 深色">
+          <div class="zoom">⤢</div>
+          <img src="img/08-modal-pet-detail-dark.jpg" alt="宠物详情弹窗 深色" loading="lazy" />
+          <div class="cap"><span class="led dark"></span> 宠物详情 · 深色 <span class="mode">Modal</span></div>
+        </div>
+      </div>
+
+      <div class="shots two" style="margin-top:16px">
+        <div class="shot crop" data-src="img/07-modal-apply-adopt.jpg" data-cap="正式领养申请表 · 多字段表单">
+          <div class="zoom">⤢</div>
+          <img src="img/07-modal-apply-adopt.jpg" alt="领养申请表" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 领养申请表 <span class="mode">Form</span></div>
+        </div>
+        <div class="shot" data-src="img/13-modal-match-quiz.jpg" data-cap="智能适配度测评 · 6 题问卷">
+          <div class="zoom">⤢</div>
+          <img src="img/13-modal-match-quiz.jpg" alt="适配度测评" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 匹配测评问卷 <span class="mode">Quiz</span></div>
+        </div>
+      </div>
+
+      <div class="shots two" style="margin-top:16px">
+        <div class="shot" data-src="img/09-modal-add-pet.jpg" data-cap="发布宠物弹窗 · 新增待领养宠物">
+          <div class="zoom">⤢</div>
+          <img src="img/09-modal-add-pet.jpg" alt="发布宠物弹窗" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 发布宠物 <span class="mode">Create</span></div>
+        </div>
+        <div class="shot" data-src="img/10-modal-signin.jpg" data-cap="登录弹窗 · Firebase 认证">
+          <div class="zoom">⤢</div>
+          <img src="img/10-modal-signin.jpg" alt="登录弹窗" loading="lazy" />
+          <div class="cap"><span class="led light"></span> 登录 / 认证 <span class="mode">Auth</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <div class="shots mob" style="max-width:300px">
+          <div class="phone" data-src="img/12-modal-pet-detail-mobile.jpg" data-cap="宠物详情 · 移动端 390px">
+            <div class="zoom">⤢</div>
+            <img src="img/12-modal-pet-detail-mobile.jpg" alt="宠物详情 移动端" loading="lazy" />
+            <div class="cap">详情弹窗 · 移动端 <span class="long">长图</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 COMPONENT LIBRARY ============ -->
+<section class="block" id="components">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>组件库清单</h2>
+      <p class="desc">源码 <code style="font-family:var(--mono);font-size:12px;background:var(--paper-3);padding:2px 6px;border-radius:5px">src/components/</code> 下共 43 个 React 组件，按职责分为 7 组。</p>
+    </div>
+
+    <div class="card" style="padding:8px 10px 14px;overflow-x:auto">
+      <table class="comp-table">
+        <thead>
+          <tr><th style="width:210px">组件</th><th style="width:88px">类型</th><th>职责说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="cgroup" colspan="3">① 布局与导航</td></tr>
+          <tr><td class="cname">Navbar.tsx</td><td><span class="pill-sm">LAYOUT</span></td><td class="cdesc">吸顶导航：4 个主路由、搜索框、中/EN 切换、主题切换、音效开关、登录入口、移动端汉堡菜单</td></tr>
+          <tr><td class="cname">ThemeToggle.tsx</td><td><span class="pill-sm">LAYOUT</span></td><td class="cdesc">浅色/深色切换，读写 localStorage 并切换 document 根节点 dark 类</td></tr>
+          <tr><td class="cname">UserAuth.tsx</td><td><span class="pill-sm">AUTH</span></td><td class="cdesc">Firebase 登录态订阅，已登录显示头像与登出，未登录唤起登录弹窗</td></tr>
+          <tr><td class="cname">UserAuthModal.tsx</td><td><span class="pill-sm">AUTH</span></td><td class="cdesc">登录方式选择弹窗容器</td></tr>
+          <tr><td class="cname">Toast.tsx</td><td><span class="pill-sm">FEEDBACK</span></td><td class="cdesc">全局轻提示，成功/失败状态自动消失</td></tr>
+          <tr><td class="cname">ProgressBar.tsx</td><td><span class="pill-sm">ATOM</span></td><td class="cdesc">通用进度条，用于准备度与等级经验</td></tr>
+
+          <tr><td class="cgroup" colspan="3">② 领养核心</td></tr>
+          <tr><td class="cname">PetGrid.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">宠物网格：搜索、快捷分类、标签筛选、距离排序、发布入口、空状态</td></tr>
+          <tr><td class="cname">PetCard.tsx</td><td><span class="pill-sm">CARD</span></td><td class="cdesc">宠物卡片：图片骨架屏、AI 匹配度徽章与悬浮解析、分享弹窗、虚拟导览、音效反馈</td></tr>
+          <tr><td class="cname">PetDetailModal.tsx</td><td><span class="pill-sm">MODAL</span></td><td class="cdesc">详情弹窗：性格雷达图、成长时间线、AI 个性化建议、匹配评分、申请/咨询/见面/传单/电话 5 个动作</td></tr>
+          <tr><td class="cname">AddPetModal.tsx</td><td><span class="pill-sm">MODAL</span></td><td class="cdesc">发布宠物表单，写入 pet_community_pets 本地库</td></tr>
+          <tr><td class="cname">ApplyToAdoptForm.tsx</td><td><span class="pill-sm">FORM</span></td><td class="cdesc">正式领养申请：申请人信息、居住情况、养宠经验校验</td></tr>
+          <tr><td class="cname">AdoptionFilterSidebar.tsx</td><td><span class="pill-sm">SIDEBAR</span></td><td class="cdesc">侧栏筛选：物种/年龄/地点/体型，最近搜索记录，条件持久化</td></tr>
+          <tr><td class="cname">MyAdoptionJourney.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">领养旅程：五步进度（提交→审核→面谈→家访→通过）、时间线日志、模拟推进</td></tr>
+          <tr><td class="cname">AdoptionStatsDashboard.tsx</td><td><span class="pill-sm">CHART</span></td><td class="cdesc">数据看板：Recharts 折线趋势、准备度检查项、申请状态筛选、照护 routine 入口</td></tr>
+          <tr><td class="cname">PreparationChecklistModal.tsx</td><td><span class="pill-sm">MODAL</span></td><td class="cdesc">领养前准备清单，逐项勾选并计算完成度</td></tr>
+          <tr><td class="cname">CareRoutinePlanner.tsx</td><td><span class="pill-sm">PLANNER</span></td><td class="cdesc">照护日程规划器，AI 生成 routine 与打卡</td></tr>
+          <tr><td class="cname">PetMatchingQuiz.tsx</td><td><span class="pill-sm">QUIZ</span></td><td class="cdesc">6 题智能适配度测评，产出匹配分与环境建议</td></tr>
+          <tr><td class="cname">CompatibilityQuiz.tsx</td><td><span class="pill-sm">QUIZ</span></td><td class="cdesc">基础领养兼容性问答，结果写入 compatibility_quiz_completed</td></tr>
+          <tr><td class="cname">PetFlyerGenerator.tsx</td><td><span class="pill-sm">EXPORT</span></td><td class="cdesc">社区传单/海报生成，可导出为图片或 PDF</td></tr>
+          <tr><td class="cname">PlaydatePlanner.tsx</td><td><span class="pill-sm">FORM</span></td><td class="cdesc">见面/玩耍预约表单，日期、地点、备注</td></tr>
+          <tr><td class="cname">SuccessStories.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">成功领养故事横向卡片，按物种筛选</td></tr>
+          <tr><td class="cname">PetMemoriesGallery.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">回忆画廊：照片时间线，支持新增回忆</td></tr>
+          <tr><td class="cname">GrowthTimeline.tsx</td><td><span class="pill-sm">CHART</span></td><td class="cdesc">成长时间轴 + 体重曲线（需 ≥2 条记录）</td></tr>
+          <tr><td class="cname">PersonalityRadar.tsx</td><td><span class="pill-sm">CHART</span></td><td class="cdesc">五维性格雷达图（活泼/冷静/亲密/智力/精力）</td></tr>
+
+          <tr><td class="cgroup" colspan="3">③ 社区与问答</td></tr>
+          <tr><td class="cname">PostFeed.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">动态流：搜索、话题 chip 筛选、发布器入口</td></tr>
+          <tr><td class="cname">PostCard.tsx</td><td><span class="pill-sm">CARD</span></td><td class="cdesc">动态卡片：图片、点赞/评论/分享/收藏、评论区展开</td></tr>
+          <tr><td class="cname">PetQAFeed.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">专家问答：AI 语义检索框、状态筛选（全部/待解决/已解决）、提问与回答</td></tr>
+          <tr><td class="cname">QuestionCard.tsx</td><td><span class="pill-sm">CARD</span></td><td class="cdesc">问题卡片：状态徽章、专家回答、标记解决、发表回答</td></tr>
+
+          <tr><td class="cgroup" colspan="3">④ AI 与智能</td></tr>
+          <tr><td class="cname">AIHelperView.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">AI 工作台：问诊/匹配/膳食三标签，聊天区、话题推荐、语音播报、宠物上下文关联</td></tr>
+          <tr><td class="cname">AIChatWidget.tsx</td><td><span class="pill-sm">FLOATING</span></td><td class="cdesc">右下角悬浮聊天挂件（仅领养页挂载）</td></tr>
+          <tr><td class="cname">AIBreedMatcher.tsx</td><td><span class="pill-sm">TOOL</span></td><td class="cdesc">品种智能匹配：生活方式+居住空间 → 3 个推荐品种与理由</td></tr>
+          <tr><td class="cname">RecommendationWidget.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">「为您定制」推荐卡片组，AI 生成匹配理由</td></tr>
+          <tr><td class="cname">PersonalizedRecommendations.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">单宠个性化建议列表（含加载与空态）</td></tr>
+          <tr><td class="cname">DailyPetWisdom.tsx</td><td><span class="pill-sm">WIDGET</span></td><td class="cdesc">每日宠物智慧（Gemini 生成，含加载骨架）</td></tr>
+          <tr><td class="cname">DailyCareTips.tsx</td><td><span class="pill-sm">WIDGET</span></td><td class="cdesc">新手养宠宝典轮播卡：安全防范、上一页/下一页、生成卡片与定制一览</td></tr>
+
+          <tr><td class="cgroup" colspan="3">⑤ 健康与提醒</td></tr>
+          <tr><td class="cname">PetHealthJournal.tsx</td><td><span class="pill-sm">VIEW</span></td><td class="cdesc">健康日志：体重/情绪/活动记录、AI 健康洞察、症状自检、照片识别、等级与成就徽章</td></tr>
+          <tr><td class="cname">ReminderService.tsx</td><td><span class="pill-sm">WIDGET</span></td><td class="cdesc">重要日程提醒：疫苗/驱虫/洗澡等，勾选完成</td></tr>
+          <tr><td class="cname">WeeklyPetDigest.tsx</td><td><span class="pill-sm">WIDGET</span></td><td class="cdesc">每周摘要：平台亮点与近期活动列表</td></tr>
+
+          <tr><td class="cgroup" colspan="3">⑥ 地图与追踪</td></tr>
+          <tr><td class="cname">NearbyServicesMap.tsx</td><td><span class="pill-sm">MAP</span></td><td class="cdesc">Leaflet 地图：诊所/用品店分类、评分与营业状态、地址搜索、定位与刷新</td></tr>
+          <tr><td class="cname">PetTracker.tsx</td><td><span class="pill-sm">MAP</span></td><td class="cdesc">实时 GPS 追踪：已绑定设备列表、轨迹地图、地理围栏半径滑块、追踪器指令（声光/震动）、紧急求助</td></tr>
+
+          <tr><td class="cgroup" colspan="3">⑦ 采集与生成</td></tr>
+          <tr><td class="cname">AvatarGenerator.tsx</td><td><span class="pill-sm">AI</span></td><td class="cdesc">AI 生成宠物头像</td></tr>
+          <tr><td class="cname">CameraCapture.tsx</td><td><span class="pill-sm">MEDIA</span></td><td class="cdesc">调用摄像头拍摄，用于识别与日志配图</td></tr>
+          <tr><td class="cname">QRScannerComponent.tsx</td><td><span class="pill-sm">MEDIA</span></td><td class="cdesc">二维码/宠物牌扫描，读取定位与档案</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:18px">
+      <div class="card" style="padding:18px 20px">
+        <h4 style="margin:0 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);font-weight:800">状态管理</h4>
+        <div class="stacklist">
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> React Context（语言）<span class="tag">LanguageContext</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--indigo)"></span> localStorage 持久化 <span class="tag">12+ key</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--emerald)"></span> 自定义事件广播 <span class="tag">window.dispatchEvent</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--amber)"></span> History API 路由 <span class="tag">popstate</span></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px 20px">
+        <h4 style="margin:0 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);font-weight:800">数据可视化</h4>
+        <div class="stacklist">
+          <div class="stackitem"><span class="dot" style="background:#8b5cf6"></span> Recharts 折线图 <span class="tag">看板趋势</span></div>
+          <div class="stackitem"><span class="dot" style="background:#8b5cf6"></span> D3 雷达图 <span class="tag">性格特征</span></div>
+          <div class="stackitem"><span class="dot" style="background:#14b8a6"></span> React-Leaflet <span class="tag">双地图</span></div>
+          <div class="stackitem"><span class="dot" style="background:#f59e0b"></span> jsPDF + autotable <span class="tag">导出</span></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px 20px">
+        <h4 style="margin:0 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3);font-weight:800">无障碍与体验</h4>
+        <div class="stacklist">
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> aria-label / title <span class="tag">全按钮</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> 骨架屏加载态 <span class="tag">Suspense</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> 空状态插画 <span class="tag">Empty</span></div>
+          <div class="stackitem"><span class="dot" style="background:var(--rose)"></span> 键盘焦点环 <span class="tag">focus:ring</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink-2)">
+      <span class="brand-dot" style="width:24px;height:24px;font-size:12px">🐾</span> Pet Companion Platform · UI Design Specification
+    </div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">
+      23 screens · 43 components · 26 endpoints · light &amp; dark · zh &amp; en
+    </div>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lb" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="关闭">✕</button>
+  <img id="lbImg" src="" alt="" />
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+(() => {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  const closeBtn = document.getElementById('lbClose');
+
+  function open(src, cap) {
+    lbImg.src = src;
+    lbImg.alt = cap || '';
+    lbCap.textContent = cap || '';
+    lb.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    lb.scrollTop = 0;
+  }
+  function close() {
+    lb.classList.remove('on');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  document.querySelectorAll('[data-src]').forEach(el => {
+    el.addEventListener('click', () => open(el.dataset.src, el.dataset.cap));
+  });
+
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  // scroll-spy for top nav
+  const links = [...document.querySelectorAll('.topnav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const spy = () => {
+    let active = null;
+    for (const s of secs) {
+      if (s.getBoundingClientRect().top <= 140) active = s;
+    }
+    links.forEach(a => a.classList.toggle('on', active && a.getAttribute('href') === '#' + active.id));
+  };
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+})();
+</script>
+
+</body>
+</html>

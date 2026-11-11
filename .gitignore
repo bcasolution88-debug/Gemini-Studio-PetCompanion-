@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# UI design spec showcase artifacts
+ui-showcase/**/*.png
